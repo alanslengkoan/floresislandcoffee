@@ -1,290 +1,290 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import { useEffect, useState, useRef } from 'react';
+import Highcharts from 'highcharts/highmaps';
+import HighchartsReact from 'highcharts-react-official';
 import coffeeMarkerIcon from '../assets/coffe-circle.png';
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
-
-// Fix for default markers in React Leaflet
-delete L.Icon.Default.prototype._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: markerIcon2x,
-  iconUrl: markerIcon,
-  shadowUrl: markerShadow,
-});
-
-// Custom coffee marker icon
-const createCoffeeIcon = (size = [32, 32]) => {
-  return L.icon({
-    iconUrl: coffeeMarkerIcon,
-    iconSize: size,
-    iconAnchor: [size[0] / 2, size[1] / 2],
-    popupAnchor: [0, -size[1] / 2],
-    shadowUrl: markerShadow,
-    shadowSize: [41, 41],
-    shadowAnchor: [13, 41]
-  });
-};
-
-// Component to set map bounds
-function MapBounds({ bounds }) {
-  const map = useMap();
-  
-  useEffect(() => {
-    if (bounds) {
-      map.fitBounds(bounds, { padding: [20, 20] });
-    }
-  }, [map, bounds]);
-  
-  return null;
-}
-
-// Component to handle GeoJSON layer
-function NTTGeoJSONLayer({ onRegionClick }) {
-  const map = useMap();
-  const [geoJsonLayer, setGeoJsonLayer] = useState(null);
-
-  useEffect(() => {
-    const fetchGeoJSON = async () => {
-      try {
-        // Fetch data from the provided URL
-        const response = await fetch('https://sigi.pu.go.id/portalpupr/rest/services/Rakowbangwil_2023_v1_MIL1/FeatureServer/113/query?where=1%3D1&outFields=*&outSR=4326&f=geojson');
-        const geoJsonData = await response.json();
-        
-        // Create GeoJSON layer
-        const layer = L.geoJSON(geoJsonData, {
-          style: {
-            fillColor: '#9AD7E5',
-            weight: 1,
-            opacity: 1,
-            color: '#7BC3D1',
-            fillOpacity: 0.7
-          },
-          onEachFeature: (feature, layer) => {
-            // Add click event to each region
-            layer.on('click', (e) => {
-              if (onRegionClick) {
-                onRegionClick(feature, e);
-              }
-            });
-            
-            // Add hover effects
-            layer.on('mouseover', (e) => {
-              const layer = e.target;
-              layer.setStyle({
-                weight: 2,
-                fillOpacity: 0.9,
-                fillColor: '#E2F4F7'
-              });
-            });
-            
-            layer.on('mouseout', (e) => {
-              const layer = e.target;
-              layer.setStyle({
-                weight: 1,
-                fillOpacity: 0.7,
-                fillColor: '#9AD7E5'
-              });
-            });
-          }
-        });
-        
-        // Add layer to map
-        layer.addTo(map);
-        setGeoJsonLayer(layer);
-        
-        // Don't auto-fit to GeoJSON bounds to keep focus on coffee markers area
-        
-      } catch (error) {
-        console.error('Error fetching GeoJSON:', error);
-      }
-    };
-
-    fetchGeoJSON();
-
-    // Cleanup
-    return () => {
-      if (geoJsonLayer) {
-        map.removeLayer(geoJsonLayer);
-      }
-    };
-  }, [map, onRegionClick]);
-
-  return null;
-}
 
 const NTTMap = ({ className = "" }) => {
-  const mapRef = useRef();
-  const [selectedRegion, setSelectedRegion] = useState(null);
-  
-  // NTT region coordinates focused on coffee marker areas
-  const nttCenter = [-8.65, 121.5]; // Centered around Maumere and coffee locations
-  // Handle region click
-  const handleRegionClick = (feature) => {
-    setSelectedRegion(feature);
-    console.log('Region clicked:', feature.properties);
-    
-    // You can add custom logic here for when a region is clicked
-    // For example, showing more information about the region
-  };
-
-  // Coffee locations in NTT
+  const [mapOptions, setMapOptions] = useState(null);
+  const [activeLocation, setActiveLocation] = useState(null);
+  const [cardPosition, setCardPosition] = useState({ x: 0, y: 0 });
+  const chartRef = useRef(null);
+  const isMobile = window.innerWidth < 768;
   const locations = [
     {
       id: 'maumere',
-      name: 'Maumere',
+      name: 'MAUMERE',
       subtitle: 'Our Factory',
-      coordinates: [-8.618, 122.213], // Maumere, Flores
-      description: 'The heart of our production, where quality control and craft roasting begin.',
-      image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=400&fit=crop'
+      lat: -8.618,
+      lon: 122.213,
+      description:
+        'The heart of our production, where quality control and craft roasting begin.',
+      image:
+        'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=400&fit=crop',
     },
     {
       id: 'bajawa',
       name: 'Bajawa Ngada',
       subtitle: 'Coffee Farm',
-      coordinates: [-8.798, 120.897], // Bajawa, Ngada
-      description: 'High altitude coffee cultivation with traditional farming methods.',
-      image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=400&fit=crop'
+      lat: -8.798,
+      lon: 120.897,
+      description:
+        'High altitude coffee cultivation with traditional farming methods.',
+      image:
+        'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=400&fit=crop',
     },
     {
       id: 'manggarai',
       name: 'Manggarai',
       subtitle: 'Coffee Farm',
-      coordinates: [-8.528, 120.458], // Ruteng, Manggarai
-      description: 'Premium arabica beans grown in the volcanic highlands.',
-      image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=400&fit=crop'
-    }
+      lat: -8.528,
+      lon: 120.458,
+      description:
+        'Premium arabica beans grown in the volcanic highlands.',
+      image:
+        'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=400&fit=crop',
+    },
   ];
 
-  const coffeeIcon = createCoffeeIcon([40, 40]);
+  useEffect(() => {
+    const initializeMap = async () => {
+      try {
+        const response = await fetch('/assets/geojson/ntt.geojson');
+        const geoJsonData = await response.json();
+
+        const mapData = geoJsonData.features.map((feature, index) => ({
+          ...feature,
+          id:
+            feature.properties.NAMOBJ ||
+            feature.properties.NAME ||
+            `region-${index}`,
+          name:
+            feature.properties.NAMOBJ ||
+            feature.properties.NAME ||
+            `Region ${index}`,
+          properties: feature.properties,
+        }));
+
+        const options = {
+          chart: {
+            map: {
+              type: 'FeatureCollection',
+              features: mapData,
+            },
+            backgroundColor: 'transparent',
+            plotBackgroundColor: 'transparent',
+            height: 420,
+            style: { fontFamily: 'inherit' },
+            plotBorderWidth: 0,
+            spacing: [0, 0, 0, 0],
+            events: {
+              click: function () {
+                setActiveLocation(null);
+              }
+            }
+          },
+          title: { text: '' },
+          credits: { enabled: false },
+          mapNavigation: { enabled: false },
+          legend: { enabled: false },
+          tooltip: { enabled: false }, // Disable default tooltips
+
+          defs: {
+            gradient0: {
+              tagName: 'linearGradient',
+              id: 'transparentGradient',
+              children: [
+                { tagName: 'stop', offset: 0, style: { stopColor: 'transparent' } },
+                { tagName: 'stop', offset: 1, style: { stopColor: 'transparent' } },
+              ],
+            },
+          },
+          series: [
+            {
+              type: 'map',
+              mapData: mapData,
+              nullColor: '#73B9CC', // base map color
+              borderColor: 'transparent',
+              allAreas: true,
+              enableMouseTracking: false,
+              color: '#73B9CC',
+              states: {
+                hover: {
+                  enabled: false,
+                  color: '#73B9CC'
+                },
+                inactive: {
+                  opacity: 1
+                }
+              },
+            },
+            {
+              type: 'mappoint',
+              name: 'Coffee Locations',
+              data: locations.map((loc) => ({
+                id: loc.id,
+                lat: loc.lat,
+                lon: loc.lon,
+                name: loc.name,
+                subtitle: loc.subtitle,
+                description: loc.description,
+                image: loc.image,
+                marker: {
+                  symbol: `url(${coffeeMarkerIcon})`,
+                  width: 38,
+                  height: 38,
+                },
+              })),
+              cursor: 'pointer',
+              dataLabels: {
+                enabled: false
+              },
+              point: {
+                events: {
+                  click: function (e) {
+                    // Stop event propagation to prevent closing the card
+                    if (e && e.browserEvent) {
+                      e.browserEvent.stopPropagation();
+                    }
+                    setActiveLocation(this);
+                    // Get the marker's pixel position on the chart
+                    const chart = this.series.chart;
+                    const point = this;
+                    const plotX = point.plotX + chart.plotLeft;
+                    const plotY = point.plotY + chart.plotTop;
+                    setCardPosition({ x: plotX, y: plotY });
+                  },
+                },
+              },
+            },
+          ],
+          mapView: {
+            center: [121.0, -8.6],
+            zoom: isMobile ? 7.5 : 9, // 👈 smaller zoom for mobile
+          },
+        };
+
+        setMapOptions(options);
+      } catch (error) {
+        console.error('Error loading map:', error);
+      }
+    };
+
+    initializeMap();
+  }, []);
+
+  if (!mapOptions) {
+    return (
+      <div
+        className={`relative ${className} flex items-center justify-center`}
+        style={{ height: '400px' }}
+      >
+        <p>Loading map...</p>
+      </div>
+    );
+  }
 
   return (
-    <div className={`relative ${className}`}>
-      <style jsx>{`
-        .leaflet-map {
-          background: #f8f9fa;
-        }
-        .leaflet-control-zoom {
-          border: none !important;
-          box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
-        }
-        .leaflet-control-zoom a {
-          background-color: white !important;
-          color: #666 !important;
-          border: none !important;
-        }
-        .leaflet-control-attribution {
-          background: rgba(255,255,255,0.8) !important;
-          font-size: 10px !important;
-        }
-      `}</style>
-      <MapContainer
-        ref={mapRef}
-        center={nttCenter}
-        zoom={8}
-        style={{ 
-          height: '400px', 
-          width: '100%', 
-          borderRadius: '12px',
-          border: '1px solid #e5e7eb'
-        }}
-        zoomControl={true}
-        scrollWheelZoom={true}
-        dragging={true}
-        doubleClickZoom={true}
-        className="leaflet-map"
-      >
-        {/* Custom styled map tiles for cleaner look */}
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+    <>
+      <div className={`relative ${className}`}>
+        <style>{`
+          .highcharts-container,
+          .highcharts-root,
+          .highcharts-background {
+            background-color: transparent !important;
+          }
+        `}</style>
+        <HighchartsReact
+          ref={chartRef}
+          highcharts={Highcharts}
+          constructorType={'mapChart'}
+          options={mapOptions}
+          containerProps={{ style: { backgroundColor: 'transparent' } }}
         />
-        
-        {/* NTT GeoJSON Layer */}
-        <NTTGeoJSONLayer onRegionClick={handleRegionClick} />
 
-        {/* Coffee location markers */}
-        {locations.map((location) => (
-          <Marker 
-            key={location.id}
-            position={location.coordinates} 
-            icon={coffeeIcon}
+        {/* Floating Info Card - Desktop Only */}
+        {activeLocation && (
+          <div
+            className="hidden md:block absolute z-10 pointer-events-none"
+            style={{
+              left: `${cardPosition.x}px`,
+              top: `${cardPosition.y}px`,
+              transform: 'translate(-50%, calc(-100% - 20px))'
+            }}
           >
-            <Popup 
-              maxWidth={300}
-              className="coffee-popup"
+            <div
+              className="bg-white shadow-xl rounded-2xl flex overflow-hidden w-[340px] pointer-events-auto"
+              onClick={(e) => e.stopPropagation()}
             >
-              <div className="p-2">
-                <div className="flex items-center gap-3 mb-3">
-                  <img
-                    src={location.image}
-                    alt={`${location.name} location`}
-                    className="w-16 h-16 rounded-lg object-cover"
-                  />
-                  <div>
-                    <h4 className="text-xs uppercase text-flores-primary/70 font-body tracking-wide">
-                      {location.subtitle}
-                    </h4>
-                    <h3 className="text-lg font-bold text-flores-primary font-heading">
-                      {location.name}
-                    </h3>
-                  </div>
+              <div className="w-1/2 p-4 flex flex-col justify-center">
+                <div className="text-sm text-flores-primary font-semibold mb-1">
+                  {activeLocation.subtitle}
                 </div>
-                <p className="text-flores-primary/80 text-sm font-body leading-relaxed mb-3">
-                  {location.description}
+                <h3 className="text-xl font-bold text-flores-primary mb-2">
+                  {activeLocation.name}
+                </h3>
+                <p className="text-gray-600 text-sm leading-snug mb-3">
+                  {activeLocation.description}
                 </p>
-                <button className="w-full px-4 py-2 bg-flores-primary text-white rounded-lg text-sm hover:bg-flores-primary/90 transition-colors duration-300 font-body font-medium">
-                  Learn More
+                <button className="text-white bg-flores-primary text-sm py-2 rounded-md">
+                  READ MORE
                 </button>
               </div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-      
-      {/* Selected Region Info Panel */}
-      {selectedRegion && (
-        <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg max-w-xs">
-          <div className="flex items-center justify-between mb-2">
-            <h3 className="text-lg font-semibold text-flores-primary">
-              {selectedRegion.properties.NAMOBJ || selectedRegion.properties.NAME || 'NTT Region'}
-            </h3>
-            <button 
-              onClick={() => setSelectedRegion(null)}
-              className="text-gray-500 hover:text-gray-700 text-xl"
-            >
-              ×
-            </button>
+              <div className="w-1/2">
+                <img
+                  src={activeLocation.image}
+                  alt={activeLocation.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            {/* Arrow pointing down to marker */}
+            <div
+              className="absolute left-1/2 -translate-x-1/2 w-0 h-0"
+              style={{
+                borderLeft: '8px solid transparent',
+                borderRight: '8px solid transparent',
+                borderTop: '8px solid white',
+                bottom: '-8px'
+              }}
+            />
           </div>
-          <div className="text-sm text-gray-600 space-y-1">
-            {selectedRegion.properties.REMARK && (
-              <p><span className="font-medium">Type:</span> {selectedRegion.properties.REMARK}</p>
-            )}
-            {selectedRegion.properties.KETERANGAN && (
-              <p><span className="font-medium">Info:</span> {selectedRegion.properties.KETERANGAN}</p>
-            )}
-            <p className="text-xs text-gray-500 mt-2">Click on other regions to explore</p>
+        )}
+
+        {/* Legend bottom-right */}
+        <div className="absolute bottom-3 right-3 flex items-center gap-2 bg-white/90 px-3 py-2 rounded-lg shadow">
+          <img src={coffeeMarkerIcon} alt="Coffee" className="w-4 h-4" />
+          <span className="text-gray-700 text-sm">Coffee Mil</span>
+        </div>
+      </div>
+
+      {/* Mobile Info Card - Below Map */}
+      {activeLocation && (
+        <div className="md:hidden mt-6">
+          <div className="bg-white shadow-lg rounded-2xl overflow-hidden">
+            <img
+              src={activeLocation.image}
+              alt={activeLocation.name}
+              className="w-full h-48 object-cover"
+            />
+            <div className="p-6">
+              <div className="text-sm text-flores-primary font-semibold mb-2">
+                {activeLocation.subtitle}
+              </div>
+              <h3 className="text-2xl font-bold text-flores-primary mb-3">
+                {activeLocation.name}
+              </h3>
+              <p className="text-gray-600 text-base leading-relaxed mb-4">
+                {activeLocation.description}
+              </p>
+              <button className="w-full text-white bg-flores-primary py-3 rounded-lg font-medium hover:bg-flores-primary/90 transition-colors">
+                READ MORE
+              </button>
+            </div>
           </div>
         </div>
       )}
-      
-      {/* Map legend */}
-      <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg">
-        <div className="space-y-2 text-sm">
-          <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded border" style={{backgroundColor: '#9AD7E5', borderColor: '#7BC3D1'}}></div>
-            <span className="text-flores-primary font-medium">NTT Regions</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <img src={coffeeMarkerIcon} alt="Coffee location" className="w-4 h-4" />
-            <span className="text-flores-primary font-medium">Coffee Locations</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

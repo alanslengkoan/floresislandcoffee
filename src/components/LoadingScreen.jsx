@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import logoAlt from '../assets/loadingLogo.png';
-import heroImage from '../assets/hero.png';
+import heroImage from '../assets/hero.webp';
 import coffeeHarvest from '../assets/coffee-farm.png';
 import banner from '../assets/banner.jpg';
 import pourCoffee from '../assets/pour-coffee.png';

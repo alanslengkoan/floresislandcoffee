@@ -6,7 +6,7 @@ const ValueCard = ({ type, icon, title, image, backgroundImg, alt }) => {
 
     return (
       <div
-        className="bg-[#9AD7E5] h-36 md:h-48 lg:h-64 rounded-lg md:rounded-2xl flex flex-col items-center justify-center text-center p-2 md:p-6 relative overflow-hidden"
+        className="bg-[#9AD7E5] h-48 md:h-64 lg:h-80 rounded-lg md:rounded-2xl flex flex-col items-center justify-center text-center p-2 md:p-6 relative overflow-hidden"
         style={cardStyle}
       >
         {backgroundImg && (
@@ -31,7 +31,7 @@ const ValueCard = ({ type, icon, title, image, backgroundImg, alt }) => {
 
   if (type === "image") {
     return (
-      <div className="h-36 md:h-48 lg:h-64 rounded-lg md:rounded-2xl overflow-hidden">
+      <div className="h-48 md:h-64 lg:h-80 rounded-lg md:rounded-2xl overflow-hidden">
         <img
           src={image}
           alt={alt}
