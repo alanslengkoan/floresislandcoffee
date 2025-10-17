@@ -5,7 +5,7 @@ import sunIcon from '../assets/sunWhite.png';
 import bg1 from '../assets/value1.png';
 import bg2 from '../assets/value2.png';
 import bg3 from '../assets/value3.png';
-import bg4 from '../assets/value4.png';
+import bg4 from '../assets/value4New.webp';
 // import farming3 from '../assets/farming3.jpg';
 // import farming4 from '../assets/farming4.jpg';
 

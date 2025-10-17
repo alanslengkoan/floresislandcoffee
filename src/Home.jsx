@@ -97,19 +97,19 @@ function Home() {
 
         {/* Our Values Section */}
         <section className="py-20 bg-white mb-16">
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="text-center my-16">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center my-16 px-[114px]">
               <h2 className="text-sm lg:text-xl font-medium tracking-wide text-flores-primary uppercase mb-8 flores-heading">
                 Our Values
               </h2>
-              <p className="leading-[33px] md:text-4xl font-extrabold flores-heading ">
+              <p className="leading-[33px] md:text-4xl font-extrabold flores-heading">
                 An innovation in coffee, <br />
                 rooted in the soul of Flores soil.
               </p>
             </div>
 
             {/* Value Cards */}
-            <div ref={valuesRef} className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+            <div ref={valuesRef} className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 px-[60px]">
               {valuesData.map((value) => (
                 <ValueCard
                   key={value.id}
@@ -161,7 +161,7 @@ function Home() {
         <section className="py-12 md:py-20">
           <div className="max-w-7xl mx-auto px-4 md:px-6 text-center">
             {/* Title */}
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-semibold text-flores-primary mb-8 md:mb-16 leading-snug font-heading">
+            <h2 className="leading-[33px] md:text-4xl font-extrabold flores-heading ">
               From Flores highlands, each bean carries <br className="hidden sm:block" />
               a story of tradition and dedication.
             </h2>
@@ -177,11 +177,11 @@ function Home() {
             </div>
 
             {/* Map Description */}
-            <div className="text-center mt-8">
+            {/* <div className="text-center mt-8">
               <p className="text-flores-primary/80 font-body max-w-2xl mx-auto">
                 Explore our coffee locations across Nusa Tenggara Timur. Click on the markers to learn more about each location and our coffee cultivation process.
               </p>
-            </div>
+            </div> */}
           </div>
         </section>
 
@@ -205,11 +205,11 @@ function Home() {
 
         {/* Product Showcase */}
         <section className="py-20 bg-gray-50 mb-16">
-          <div className="max-w-5xl mx-auto px-10">
-            <h2 className="text-2xl md:text-3xl text-center lg:text-4xl font-semibold text-flores-primary mb-8 md:mb-16 leading-snug font-heading">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-center mb-8 md:mb-16 leading-[33px] md:text-4xl font-extrabold flores-heading">
               Our Signature Coffee Product
             </h2>
-            <div ref={productsRef} className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
+            <div ref={productsRef} className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 px-[60px]">
               {productsData.map((product) => (
                 <ProductCard
                   key={product.id}
@@ -227,22 +227,22 @@ function Home() {
         </section>
 
 
-        {/* Botanical Recipes Section */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-6 text-center mb-16">
+        {/* Specialty Coffee Section */}
+        <section className="py-12 md:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 md:px-6 text-center mb-2 md:mb-4">
             {/* Title */}
-            <h2 className="text-4xl font-bold text-flores-primary mb-4 font-heading">
-              Signature Flores Roasted Beans
+            <h2 className="text-2xl md:text-4xl font-bold text-flores-primary mb-1 md:mb-2 font-heading">
+              Our Signature Beans
             </h2>
 
             {/* Subtitle */}
-            <p className="text-lg font-extrabold flores-heading">
+            <p className="text-sm md:text-lg font-extrabold flores-heading">
               Available for B2B inquiries and custom Houseblend requests.
             </p>
           </div>
 
           {/* Signature Beans Cards */}
-          <div className="grid grid-cols-2">
+          <div className="grid grid-cols-1 md:grid-cols-2">
             {specialtyData.map((specialty) => (
               <SpecialtyCard
                 key={specialty.id}
@@ -259,10 +259,10 @@ function Home() {
 
         {/* Coffee News Section */}
         <section className="py-20 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-6">
-            <h2 className="text-5xl font-bold text-flores-primary mb-16 text-center font-heading">Coffee News</h2>
+          <div className="max-w-7xl mx-auto">
+            <h2 className="mb-16 text-center leading-[33px] md:text-4xl font-extrabold flores-heading">Coffee News</h2>
 
-            <div ref={newsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div ref={newsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8 px-[60px]">
               {newsData
                 .sort((a, b) => new Date(b.publishDate) - new Date(a.publishDate))
                 .slice(0, 3)
@@ -280,7 +280,7 @@ function Home() {
             </div>
 
             {/* See More Button */}
-            <div className="text-center mt-12">
+            <div className="text-center mt-12 px-[114px]">
               <Link
                 to="/news"
                 className="inline-flex items-center bg-flores-primary text-white px-8 py-4 rounded-full font-semibold hover:bg-flores-primary/90 transition-colors duration-300 font-body"

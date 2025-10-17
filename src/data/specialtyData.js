@@ -1,6 +1,6 @@
-import specialty1 from '../assets/raw-coffe-bw.png';
+import specialty1 from '../assets/raw-coffe-bw.webp';
 import mainSpecialty1 from '../assets/mainSpecialty1.webp';
-import specialty2 from '../assets/raw-coffe.png';
+import specialty2 from '../assets/raw-coffe.webp';
 import mainSpecialty2 from '../assets/mainSpecialty2.webp';
 
 

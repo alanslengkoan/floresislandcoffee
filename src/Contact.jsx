@@ -8,7 +8,7 @@ import {
   GlobeAltIcon,
   BuildingOfficeIcon
 } from '@heroicons/react/24/outline';
-import coffeeHarvest from './assets/coffee-farm.png';
+import coffeeHarvest from './assets/coffeeFarms.webp';
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -47,6 +47,8 @@ function Contact() {
         inquiryType: 'general'
       });
     } catch (error) {
+      console.log("Error", error);
+      
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
