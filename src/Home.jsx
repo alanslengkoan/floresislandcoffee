@@ -84,7 +84,7 @@ function Home() {
             <div ref={heroContentRef} className="max-w-4xl px-6">
               {/* Coffee Bean Icon */}
               <div className="mb-8">
-                <div className="w-20 h-20 mx-auto mb-6 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
+                <div className="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
                   <img src={logoCoffee} alt="Flores Island Coffee Logo - Premium Indonesian Coffee" />
                 </div>
               </div>
