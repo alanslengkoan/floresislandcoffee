@@ -98,7 +98,7 @@ function Home() {
         {/* Our Values Section */}
         <section className="py-20 bg-white mb-16">
           <div className="max-w-7xl mx-auto">
-            <div className="text-center my-16 px-[114px]">
+            <div className="text-center my-8 md:my-16 px-6 md:px-[114px]">
               <h2 className="text-sm lg:text-xl font-medium tracking-wide text-flores-primary uppercase mb-8 flores-heading">
                 Our Values
               </h2>
@@ -132,7 +132,7 @@ function Home() {
             <h3 className="text-[#1f4254] text-lg font-semibold mb-6 tracking-wide">
               COFFEE ORIGIN
             </h3>
-            <h2 className="text-[#1f4254] text-5xl lg:text-5xl font-bold leading-snug mb-8">
+            <h2 className="text-[#1f4254] text-3xl md:text-4xl lg:text-5xl font-bold leading-relaxed md:leading-snug mb-8">
               Born in Flores,<br />Shared with the World
             </h2>
             <p className="text-[#476472] text-lg leading-relaxed mb-10 max-w-lg">
@@ -161,7 +161,7 @@ function Home() {
         <section className="py-12 md:py-20">
           <div className="max-w-7xl mx-auto px-4 md:px-6 text-center">
             {/* Title */}
-            <h2 className="leading-[33px] md:text-4xl font-extrabold flores-heading ">
+            <h2 className="leading-relaxed md:leading-[33px] md:text-4xl font-extrabold flores-heading mb-8 md:mb-12">
               From Flores highlands, each bean carries <br className="hidden sm:block" />
               a story of tradition and dedication.
             </h2>
@@ -206,7 +206,7 @@ function Home() {
         {/* Product Showcase */}
         <section className="py-20 bg-gray-50 mb-16">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-center mb-8 md:mb-16 leading-[33px] md:text-4xl font-extrabold flores-heading">
+            <h2 className="text-center mb-8 md:mb-16 leading-relaxed md:leading-[33px] md:text-4xl font-extrabold flores-heading">
               Our Signature Coffee Product
             </h2>
             <div ref={productsRef} className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 px-[60px]">
@@ -260,7 +260,7 @@ function Home() {
         {/* Coffee News Section */}
         <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto">
-            <h2 className="mb-16 text-center leading-[33px] md:text-4xl font-extrabold flores-heading">Coffee News</h2>
+            <h2 className="mb-16 text-center leading-relaxed md:leading-[33px] md:text-4xl font-extrabold flores-heading">Coffee News</h2>
 
             <div ref={newsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8 px-[60px]">
               {newsData
