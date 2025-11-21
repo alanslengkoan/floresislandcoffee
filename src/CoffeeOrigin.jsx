@@ -6,7 +6,7 @@ const CoffeeOrigin = () => {
             {/* Hero Section */}
             <section className="relative h-[400px] md:h-[500px] flex items-center justify-start">
                 <img
-                    src="/src/assets/origin/Header Our Coffee Origin@4x.webp"
+                    src="/src/assets/origin/header-our-coffee-origin@4x.webp"
                     alt="Coffee Origin Header"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -31,7 +31,7 @@ const CoffeeOrigin = () => {
                     </h2>
                     <div className="relative">
                         <img
-                            src="/src/assets/origin/Harvesting@4x.webp"
+                            src="/src/assets/origin/harvesting@4x.webp"
                             alt="Indonesia Map - Harvesting Locations"
                             className="w-full max-w-7xl mx-auto"
                         />
@@ -72,7 +72,7 @@ const CoffeeOrigin = () => {
                         </div>
                         <div>
                             <img
-                                src="/src/assets/origin/Common Arabica Varieties@4x.webp"
+                                src="/src/assets/origin/common-arabica-varieties@4x.webp"
                                 alt="Coffee Varieties"
                                 className="w-full rounded-lg shadow-lg"
                             />
@@ -83,7 +83,7 @@ const CoffeeOrigin = () => {
                     <div className="grid md:grid-cols-2 gap-8 items-center">
                         <div>
                             <img
-                                src="/src/assets/origin/FLores Island@4x.webp"
+                                src="/src/assets/origin/flores-island@4x.webp"
                                 alt="Flores Island"
                                 className="w-full rounded-lg shadow-lg"
                             />
@@ -133,7 +133,7 @@ const CoffeeOrigin = () => {
                         </div>
                         <div>
                             <img
-                                src="/src/assets/origin/Coffee Snapshot@4x.webp"
+                                src="/src/assets/origin/coffee-snapshot@4x.webp"
                                 alt="Coffee Snapshot"
                                 className="w-full rounded-lg shadow-lg"
                             />
@@ -150,7 +150,7 @@ const CoffeeOrigin = () => {
                         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                             <div
                                 className="relative h-48 bg-cover bg-center text-center flex items-center justify-center"
-                                style={{ backgroundImage: "url('/src/assets/origin/Region - Maumere@4x.webp')" }}
+                                style={{ backgroundImage: "url('/src/assets/origin/region-maumere@4x.webp')" }}
                             >
                                 <h3 className="text-2xl md:text-3xl font-bold text-white font-heading">Maumere</h3>
                             </div>
@@ -165,7 +165,7 @@ const CoffeeOrigin = () => {
                         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                             <div
                                 className="relative h-48 bg-cover bg-center text-center flex items-center justify-center"
-                                style={{ backgroundImage: "url('/src/assets/origin/Region - Manggarai@4x.webp')" }}
+                                style={{ backgroundImage: "url('/src/assets/origin/region-manggarai@4x.webp')" }}
                             >
                                 <h3 className="text-2xl md:text-3xl font-bold text-white font-heading">Manggarai</h3>
                             </div>
@@ -180,7 +180,7 @@ const CoffeeOrigin = () => {
                         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                             <div
                                 className="relative h-48 bg-cover bg-center text-center flex items-center justify-center"
-                                style={{ backgroundImage: "url('/src/assets/origin/Region - Bajawa@4x.webp')" }}
+                                style={{ backgroundImage: "url('/src/assets/origin/region-bajawa@4x.webp')" }}
                             >
                                 <h3 className="text-2xl md:text-3xl font-bold text-white font-heading">Bajawa</h3>
                             </div>
@@ -195,7 +195,7 @@ const CoffeeOrigin = () => {
                         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                             <div
                                 className="relative h-48 bg-cover bg-center text-center flex items-center justify-center"
-                                style={{ backgroundImage: "url('/src/assets/origin/Region - Kelimutu@4x.webp')" }}
+                                style={{ backgroundImage: "url('/src/assets/origin/region-kelimutu@4x.webp')" }}
                             >
                                 <h3 className="text-2xl md:text-3xl font-bold text-white font-heading">Kelimutu</h3>
                             </div>
@@ -217,7 +217,7 @@ const CoffeeOrigin = () => {
                     </h2>
                     <div className="mb-8">
                         <img
-                            src="/src/assets/origin/Tourism Snapshot@4x.webp"
+                            src="/src/assets/origin/tourism-snapshot@4x.webp"
                             alt="Tourism Snapshot"
                             className="w-full rounded-lg shadow-lg"
                         />
