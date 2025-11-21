@@ -6,7 +6,7 @@ const CoffeeOrigin = () => {
             {/* Hero Section */}
             <section className="relative h-[400px] md:h-[500px] flex items-center justify-start">
                 <img
-                    src="/src/assets/origin/header-our-coffee-origin@4x.webp"
+                    src="/src/assets/origin/header-our-coffee-origin.webp"
                     alt="Coffee Origin Header"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
