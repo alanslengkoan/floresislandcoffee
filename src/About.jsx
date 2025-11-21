@@ -1,12 +1,18 @@
 import SEOHead from './components/SEOHead';
 import TeamMember from './components/TeamMember';
-import mapAbout from './assets/about-us-island.png';
+import mapAbout from './assets/Timeline.webp';
 import coffeeIcon from './assets/coffe.png';
 import LeafIcon from './assets/leaf.png';
 import cupIcon from './assets/cup.png';
 import sunIcon from './assets/sun.png';
-import logoAlt from './assets/logo/logoAlt.png';
+import ourBrand1 from './assets/OurBrand1.webp';
+import ourBrand2 from './assets/OurBrand2.webp';
+import strategic1 from './assets/StrategicPartnership1.webp';
+import strategic2 from './assets/StrategicPartnership2.webp';
 import { teamData } from './data/teamData';
+import heroImage from './assets/AboutUs.webp';
+import MethodologyCard from './components/MethodologyCard';
+import { methodologyData } from './data/methodology';
 
 function About() {
   return (
@@ -18,28 +24,27 @@ function About() {
       />
       <div className="bg-white">
         {/* Hero Section */}
-        <section className="py-18 px-4 sm:px-6 lg:px-8">
+        <section className="py-10 px-4 sm:px-6 lg:px-8">
           <div className="max-w-6xl mx-auto">
             {/* Small Header */}
-            <div className="text-center mb-8">
-              <p className="text-teal-600 text-xl font-semibold tracking-wide uppercase mb-6">
-                OUR STORY
-              </p>
-              <h1 className="text-2xl md:text-5xl lg:text-4xl font-serif text-teal-800 leading-tight max-w-4xl mx-auto">
+            <div className="text-center my-8 md:my-16 px-6 md:px-[114px]">
+              <h2 className="text-sm lg:text-xl font-medium tracking-wide text-flores-primary uppercase mb-8 flores-heading">
+                Our Story
+              </h2>
+              <h1 className="text-xl md:text-4xl lg:text-4xl font-bold mb-6 tracking-tight font-heading leading-tight">
                 The richness of Flores coffee echoes the depth of its emerald hills and ocean skies.
               </h1>
             </div>
 
-            {/* Team Photo */}
-            <div className="mt-12">
-              <img
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80"
-                alt="Flores Island Coffee team standing in front of facility with lush green trees"
-                className="w-full h-96 md:h-[500px] object-cover rounded-lg shadow-lg"
-              />
-            </div>
           </div>
         </section>
+        <div className='min-h-screen'>
+          {/* Team Photo */}
+          <section className="relative h-screen bg-cover bg-center bg-no-repeat"
+            style={{ backgroundImage: `url(${heroImage})` }}
+          >
+          </section>
+        </div>
 
         {/* Flores Island Section */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
@@ -81,7 +86,7 @@ function About() {
         </section>
 
         {/* Coffee Farming Photos */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+        {/* <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="aspect-square">
@@ -107,11 +112,30 @@ function About() {
               </div>
             </div>
           </div>
+        </section> */}
+
+        <section className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-white">
+          <div className="max-w-6xl mx-auto">
+            <div className='text-center'>
+              <h2 className="text-xl lg:text-4xl xl:text-5xl font-serif text-slate-700 mb-4 lg:mb-12 font-light">Methodology</h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-fr">
+              {methodologyData.map((method) => (
+                <MethodologyCard
+                  key={method.id}
+                  alt={method.alt}
+                  image={method.image}
+                  text={method.text}
+                />
+              )
+              )}
+            </div>
+          </div>
         </section>
 
         {/* Mission Statement */}
-        <section className="py-12 lg:py-20 px-4 sm:px-6 lg:px-8 bg-white">
-          <div className="max-w-4xl lg:max-w-5xl mx-auto p-4 lg:p-12 bg-gradient-to-br from-blue-100/70 to-blue-200/50 rounded-lg shadow-xl">
+        <section className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-white">
+          <div className="max-w-4xl lg:max-w-5xl mx-auto p-4 lg:p-12 bg-linear-to-br from-blue-100/70 to-blue-200/50 rounded-lg shadow-xl">
             <div className="text-center mb-8 lg:mb-16">
               <h2 className="text-xl lg:text-4xl xl:text-5xl font-serif text-slate-700 mb-4 lg:mb-12 font-light">Mission Statement</h2>
               <div className="space-y-3 lg:space-y-6 text-sm lg:text-xl xl:text-2xl text-slate-700 leading-relaxed max-w-3xl lg:max-w-4xl mx-auto">
@@ -161,165 +185,12 @@ function About() {
           </div>
         </section>
 
-        {/* Our Story - 4-Step Methodology */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
-          <div className="max-w-6xl mx-auto">
-            {/* Header */}
-            <div className="text-center mb-12">
-              <p className="text-teal-600 text-sm font-semibold tracking-wide uppercase mb-4">
-                OUR STORY
-              </p>
-              <h2 className="text-3xl md:text-4xl font-serif text-teal-800 leading-tight max-w-4xl mx-auto">
-                Our 4-step methodology ensures quality, sustainability, and global competitiveness
-              </h2>
-            </div>
-
-            {/* 4-Step Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Step 1 */}
-              <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-lg p-6">
-                <div className="mb-4">
-                  <p className="text-teal-700 text-sm leading-relaxed">
-                    Implement a sustainability KPI system (FESS) to improve farming practices, boost productivity, and strengthen farmer livelihoods.
-                  </p>
-                </div>
-                <div className="aspect-video">
-                  <img
-                    src="https://images.unsplash.com/photo-1464207687429-7505649dae38?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                    alt="Sustainable coffee farm with greenhouse structures"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-
-              {/* Step 2 */}
-              <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-lg p-6">
-                <div className="mb-4">
-                  <p className="text-teal-700 text-sm leading-relaxed">
-                    Establish a near-source, high-tech processing facility to add value, ensure traceability, and reduce supply chain emissions.
-                  </p>
-                </div>
-                <div className="aspect-video">
-                  <img
-                    src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                    alt="Modern coffee processing facility building"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-
-              {/* Step 3 */}
-              <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-lg p-6">
-                <div className="mb-4">
-                  <p className="text-teal-700 text-sm leading-relaxed">
-                    Develop bulk high-quality cold brew concentrate for global B2B supply using coffee as the core ingredient.
-                  </p>
-                </div>
-                <div className="aspect-video">
-                  <img
-                    src="https://www.kbvresearch.com/images/blog/coffee-machine.jpg"
-                    alt="Industrial coffee brewing equipment"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-
-              {/* Step 4 */}
-              <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-lg p-6">
-                <div className="mb-4">
-                  <p className="text-teal-700 text-sm leading-relaxed">
-                    Partner with local and international organizations to enhance farm-level yield and quality across Flores Island.
-                  </p>
-                </div>
-                <div className="aspect-video">
-                  <img
-                    src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
-                    alt="Partnership meeting between coffee farmers and experts"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Large Landscape Photo */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-          <div className="max-w-6xl mx-auto">
-            <div className="mb-8">
-              <img
-                src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                alt="Flores Island Coffee team with company truck in rural landscape"
-                className="w-full h-80 md:h-96 object-cover rounded-lg"
-              />
-            </div>
-
-            {/* Cold Brew Text */}
-            <div className="max-w-4xl mx-auto">
-              <h3 className="text-2xl md:text-3xl font-serif text-teal-800 mb-6 leading-tight">
-                With modern cold brew production located near origin,
-                FIC solves the <em>"green bean problem"</em> of traditional
-                commodity exports and unlocks both margin expansion
-                and economic development.
-              </h3>
-
-              <p className="text-gray-600 leading-relaxed text-lg">
-                The company projects scaling production from 0.9 million litres in 2025 to 8.5 million litres by
-                2028, with export value growing to over USD 50 million. Supported by an experienced
-                international management team and a well-developed supply chain, FIC is positioned to become
-                a globally recognised cold coffee leader powered by Indonesian smallholder resilience and
-                fourth-wave coffee innovation.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Strategic Leadership */}
-        <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white"> {/* Light background */}
-          <div className="max-w-5xl mx-auto">
-
-            <div className="bg-[#2D415A] rounded-lg p-8 md:p-12 shadow-lg text-white"> {/* Dark blue card background */}
-              <h2 className="text-3xl md:text-4xl font-serif text-center mb-12">Strategic Leadership</h2>
-              <div className="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
-
-                {/* Left Column: Logo */}
-                <div className="flex-shrink-0 w-40 h-40">
-                  <img src={logoAlt} alt="PT. Pintu Air Kopi Flores Logo" className="w-full h-full object-contain" />
-                </div>
-
-                {/* Right Column: Text Content */}
-                <div className="flex-1 text-center md:text-left">
-                  <div className="mb-8">
-                    {/* Text color is a lighter gray on the dark blue background, as in Image 1 */}
-                    <p className="text-gray-300 leading-relaxed"> {/* Lighter text on dark card */}
-                      FIC investment is led by Greg Hickman and Haigan Murray from Old
-                      Station Road New Zealand with Indonesian partner Pintu Air Credit
-                      Union. The partnership was signed in 2023 and is structured as a
-                      long-term profit share joint venture.
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-white font-semibold uppercase tracking-wider mb-3">PT. PINTU AIR KOPI FLORES</h3>
-                    {/* Second paragraph text color is also light, matching Image 1 */}
-                    <p className="text-gray-200 text-sm leading-relaxed"> {/* Slightly different light text */}
-                      Indonesian based commercial entity, established specifically to carry
-                      out FIC operations in Indonesia, incorporated and led by Pintu Air
-                      Cooperative.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Our Team */}
         <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-serif text-teal-800 text-center mb-12">Our Team</h2>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-5 gap-8">
               {teamData.map((member) => (
                 <TeamMember
                   key={member.id}
@@ -329,6 +200,25 @@ function About() {
                   alt={member.alt}
                 />
               ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-white">
+          <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-12">
+            <div className='text-center md:border-r md:border-gray-500 md:pr-6'>
+              <h2 className="text-xl lg:text-4xl xl:text-5xl font-serif text-slate-700 mb-4 lg:mb-12 font-light">Our Brand</h2>
+              <div className="flex flex-row gap-4 justify-center items-center">
+                <img src={ourBrand2} alt="Our Brand 2" className="max-w-[120px] md:max-w-40 w-full h-auto object-contain" />
+                <img src={ourBrand1} alt="Our Brand 1" className="max-w-[120px] md:max-w-40 w-full h-auto object-contain" />
+              </div>
+            </div>
+            <div className='text-center md:pl-6'>
+              <h2 className="text-xl lg:text-4xl xl:text-5xl font-serif text-slate-700 mb-4 lg:mb-12 font-light">Strategic Partnership</h2>
+              <div className="flex flex-row gap-4 justify-center items-center">
+                <img src={strategic1} alt="Strategic Partnership 1" className="max-w-[120px] md:max-w-40 w-full h-auto object-contain" />
+                <img src={strategic2} alt="Strategic Partnership 2" className="max-w-[120px] md:max-w-40 w-full h-auto object-contain" />
+              </div>
             </div>
           </div>
         </section>

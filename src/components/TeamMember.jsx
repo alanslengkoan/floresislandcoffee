@@ -1,12 +1,12 @@
 function TeamMember({ name, position, image, alt }) {
   return (
     <div className="text-center">
-      <div className="w-full aspect-square bg-gradient-to-br from-blue-100 to-teal-100 rounded-lg mb-4 overflow-hidden">
+      <div className="w-full aspect-square rounded-lg mb-4 overflow-hidden flex items-center justify-center">
         {image ? (
-          <img 
-            src={image} 
+          <img
+            src={image}
             alt={alt || `${name} - ${position}`}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

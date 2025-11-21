@@ -5,6 +5,9 @@ import About from "./About";
 import News from "./News";
 import ReadNews from "./ReadNews";
 import Contact from "./Contact";
+import Product from "./Product";
+import ProductDetail from "./ProductDetail";
+import CoffeeOrigin from "./CoffeeOrigin";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +23,14 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
+        path: "shop",
+        element: <Product />,
+      },
+      {
+        path: "shop/:id",
+        element: <ProductDetail />,
+      },
+      {
         path: "news",
         element: <News />,
       },
@@ -30,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "contact",
         element: <Contact />,
+      },
+      {
+        path: "origin",
+        element: <CoffeeOrigin />,
       },
     ],
   },

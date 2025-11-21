@@ -5,6 +5,8 @@ import logoFooter from './assets/logo/logo.png';
 import ScrollToTop from './components/ScrollToTop';
 import PageTransition from './components/PageTransition';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import CartDropdown from './components/CartDropdown';
+import { useCart } from './context/CartContext';
 import {
   Dialog,
   DialogPanel,
@@ -15,6 +17,7 @@ import {
   XMarkIcon,
   UserIcon,
   MagnifyingGlassIcon,
+  ShoppingBagIcon,
 } from '@heroicons/react/24/outline';
 
 // Animated Hamburger Icon Component
@@ -48,6 +51,8 @@ const AnimatedHamburger = ({ isOpen, onClick }) => (
 function RootLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const { getCartCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -87,11 +92,24 @@ function RootLayout() {
             </Link>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="flex lg:hidden">
-            <AnimatedHamburger 
-              isOpen={mobileMenuOpen} 
-              onClick={() => setMobileMenuOpen(true)} 
+          {/* Mobile menu button and cart */}
+          <div className="flex lg:hidden items-center gap-4">
+            <button
+              type="button"
+              onClick={() => setCartOpen(true)}
+              className="relative text-flores-primary hover:text-flores-primary/80"
+            >
+              <span className="sr-only">Shopping cart</span>
+              <ShoppingBagIcon className="h-6 w-6" aria-hidden="true" />
+              {getCartCount() > 0 && (
+                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {getCartCount()}
+                </span>
+              )}
+            </button>
+            <AnimatedHamburger
+              isOpen={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen(true)}
             />
           </div>
 
@@ -102,8 +120,8 @@ function RootLayout() {
               <NavLink to="/about" className={getNavLinkClass}>
                 About Us
               </NavLink>
-              <NavLink to="/products" className={getNavLinkClass}>
-                Product
+              <NavLink to="/shop" className={getNavLinkClass}>
+                Shop
               </NavLink>
               <NavLink to="/news" className={getNavLinkClass}>
                 News
@@ -114,16 +132,21 @@ function RootLayout() {
             </div>
 
             {/* Icons */}
-            {/* <div className="flex items-center gap-x-4 ml-4">
-              <Link to="/profile" className="text-flores-primary hover:text-flores-primary/80">
-                <span className="sr-only">Profile</span>
-                <UserIcon className="h-6 w-6" aria-hidden="true" />
-              </Link>
-              <button type="button" className="text-flores-primary hover:text-flores-primary/80">
-                <span className="sr-only">Search</span>
-                <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
+            <div className="flex items-center gap-x-4 ml-4">
+              <button
+                type="button"
+                onClick={() => setCartOpen(true)}
+                className="relative text-flores-primary hover:text-flores-primary/80"
+              >
+                <span className="sr-only">Shopping cart</span>
+                <ShoppingBagIcon className="h-6 w-6" aria-hidden="true" />
+                {getCartCount() > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {getCartCount()}
+                  </span>
+                )}
               </button>
-            </div> */}
+            </div>
           </div>
         </nav>
 
@@ -233,8 +256,11 @@ function RootLayout() {
       {/* Floating Scroll to Top Button */}
       <ScrollToTopButton />
 
+      {/* Cart Dropdown */}
+      <CartDropdown isOpen={cartOpen} setIsOpen={setCartOpen} />
+
       {/* Footer */}
-      <footer className="bg-[#143F58] text-white">
+      <footer className="bg-flores-footer text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           {/* center the 3-column group and top-align items */}
           <div className="flex flex-col md:flex-row md:justify-center md:items-start md:gap-24">

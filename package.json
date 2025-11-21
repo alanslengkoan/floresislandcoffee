@@ -16,6 +16,7 @@
     "highcharts": "^12.4.0",
     "highcharts-react-official": "^3.2.3",
     "leaflet": "^1.9.4",
+    "lucide-react": "^0.554.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-helmet-async": "^2.0.5",

@@ -1,10 +1,24 @@
-import { useParams, useNavigate } from 'react-router';
+import { useParams, useNavigate, Link } from 'react-router';
 import SEOHead from './components/SEOHead';
 import { newsData } from './data/newsData';
 
 function ReadNews() {
   const { slug } = useParams();
   const navigate = useNavigate();
+
+  // Author Badge Component
+  const AuthorBadge = ({ author }) => (
+    <div className="flex items-center gap-2 mb-6">
+      <div className="bg-teal-700 text-white rounded-full px-3 py-1 flex items-center gap-2">
+        <div className="w-6 h-6 bg-teal-600 rounded-full flex items-center justify-center">
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
+          </svg>
+        </div>
+        <span className="text-xs font-medium">{author}</span>
+      </div>
+    </div>
+  );
   
   const getNewsFromSlug = (slug) => {
     const newsMap = {
@@ -154,116 +168,146 @@ function ReadNews() {
           <h1 className="text-4xl font-bold text-gray-800 mb-4">Article Not Found</h1>
           <p className="text-gray-600 mb-8">The article you're looking for doesn't exist.</p>
           <button 
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/news')}
             className="bg-flores-primary text-white px-6 py-3 rounded-lg hover:bg-flores-primary/90 transition-colors"
           >
-            Back to Home
+            Back to News
           </button>
         </div>
       </div>
     );
   }
 
+  // Get related articles
+  const relatedArticles = newsData
+    .filter(news => news.id !== newsArticle?.id)
+    .slice(0, 3);
+
+  const latestArticles = newsData
+    .filter(news => news.id !== newsArticle?.id)
+    .slice(3, 7);
+
   return (
     <>
-      <SEOHead 
+      <SEOHead
         title={`${newsArticle.title} - Flores Island Coffee News`}
         description={newsArticle.content[0]?.text?.substring(0, 160) || 'Expert coffee insights and brewing techniques from Flores Island Coffee'}
         keywords={`${newsArticle.category.toLowerCase()}, coffee ${newsArticle.category.toLowerCase()}, flores island coffee, indonesian coffee, coffee techniques, specialty coffee, coffee industry news`}
       />
       <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative h-[70vh] overflow-hidden">
-        <img 
-          src={newsArticle.image} 
-          alt={newsArticle.alt}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 right-0 p-6 md:p-12">
-          <div className="max-w-4xl mx-auto text-white">
-            <div className="mb-4">
-              <span className="inline-block bg-flores-primary px-3 py-1 rounded-full text-sm font-medium">
-                {newsArticle.category}
-              </span>
+        {/* Article Header and Content */}
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+              {/* Main Article Content - Left Side */}
+              <div className="lg:col-span-2">
+                <AuthorBadge author={newsArticle.author} />
+
+                <h1 className="text-4xl md:text-5xl font-serif font-bold text-teal-800 mb-8">
+                  {newsArticle.title}
+                </h1>
+
+                {/* Featured Image */}
+                <div className="mb-4">
+                  <img
+                    src={newsArticle.image}
+                    alt={newsArticle.alt}
+                    className="w-full h-auto object-cover rounded-lg"
+                  />
+                </div>
+
+                {/* Photo Credit */}
+                <p className="text-xs text-gray-500 text-center mb-8">
+                  Photo by Wade Austin Ellis on Unsplash
+                </p>
+
+                {/* Article Body */}
+                <div className="prose prose-lg max-w-none">
+                  {newsArticle.content.map((block, index) => {
+                    if (block.type === 'heading') {
+                      return (
+                        <h2 key={index} className="text-2xl font-bold text-gray-900 mt-8 mb-4 first:mt-0">
+                          {block.text}
+                        </h2>
+                      );
+                    }
+
+                    if (block.type === 'paragraph') {
+                      return (
+                        <p key={index} className="text-base text-gray-700 leading-relaxed mb-6">
+                          {block.text}
+                        </p>
+                      );
+                    }
+
+                    return null;
+                  })}
+                </div>
+              </div>
+
+              {/* Related Content Sidebar - Right Side */}
+              <div className="lg:col-span-1">
+                <h2 className="text-2xl font-serif font-bold text-teal-800 mb-6">Related Content</h2>
+                <div className="space-y-6">
+                  {relatedArticles.map((news) => (
+                    <Link
+                      key={news.id}
+                      to={news.href}
+                      className="block bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow group"
+                    >
+                      <img
+                        src={news.image}
+                        alt={news.alt}
+                        className="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                        loading="lazy"
+                      />
+                      <div className="p-4">
+                        <AuthorBadge author={news.author} />
+                        <h3 className="text-lg font-serif font-bold text-teal-800 group-hover:text-teal-700 transition-colors">
+                          {news.title}: {news.category}
+                        </h3>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
             </div>
-            <h1 className="text-3xl md:text-5xl font-bold mb-4 leading-tight">
-              {newsArticle.title}
-            </h1>
-            <div className="flex flex-wrap gap-4 text-sm text-white/80">
-              <span>By {newsArticle.author}</span>
-              <span>•</span>
-              <span>{newsArticle.publishDate}</span>
-              <span>•</span>
-              <span>{newsArticle.readTime}</span>
+          </div>
+        </section>
+
+        {/* Latest Articles Section */}
+        <section className="py-20 bg-white border-t border-gray-200">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="flex justify-between items-center mb-12">
+              <h2 className="text-4xl font-serif font-bold text-teal-800">Latest Articles</h2>
+              <Link to="/news" className="text-teal-700 hover:text-teal-800 font-medium">
+                See All
+              </Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Article Content */}
-      <section className="py-16">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="prose prose-lg max-w-none">
-            {newsArticle.content.map((block, index) => {
-              if (block.type === 'heading') {
-                return (
-                  <h2 key={index} className="text-2xl md:text-3xl font-bold text-flores-primary mt-12 mb-6 first:mt-0">
-                    {block.text}
-                  </h2>
-                );
-              }
-              
-              if (block.type === 'paragraph') {
-                return (
-                  <p key={index} className="text-lg text-gray-700 leading-relaxed mb-6">
-                    {block.text}
-                  </p>
-                );
-              }
-              
-              return null;
-            })}
-          </div>
-
-          {/* Back to News Button */}
-          <div className="mt-12 pt-8 border-t border-gray-200">
-            <button 
-              onClick={() => navigate('/')}
-              className="inline-flex items-center text-flores-primary hover:text-flores-primary/80 transition-colors font-medium"
-            >
-              ← Back to Coffee News
-            </button>
-          </div>
-
-          {/* Related Articles */}
-          <div className="mt-16">
-            <h3 className="text-2xl font-bold text-flores-primary mb-8">More Coffee News</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {newsData
-                .filter(news => news.id !== newsArticle.id)
-                .slice(0, 2)
-                .map(news => (
-                  <div key={news.id} className="group cursor-pointer" onClick={() => navigate(news.href)}>
-                    <img 
-                      src={news.image} 
-                      alt={news.alt}
-                      className="w-full h-48 object-cover rounded-lg mb-4 group-hover:opacity-90 transition-opacity"
-                    />
-                    <div className="mb-2">
-                      <span className="inline-block bg-gray-100 text-flores-primary px-2 py-1 rounded text-sm font-medium">
-                        {news.category}
-                      </span>
-                    </div>
-                    <h4 className="text-lg font-semibold text-flores-primary group-hover:text-flores-primary/80 transition-colors">
-                      {news.title}: {news.category}
-                    </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+              {latestArticles.map((news) => (
+                <Link
+                  key={news.id}
+                  to={news.href}
+                  className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow group"
+                >
+                  <img
+                    src={news.image}
+                    alt={news.alt}
+                    className="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300"
+                    loading="lazy"
+                  />
+                  <div className="p-6">
+                    <AuthorBadge author={news.author} />
+                    <h3 className="text-xl font-serif font-bold text-teal-800 mt-4 mb-2 group-hover:text-teal-700 transition-colors">
+                      {news.title}
+                    </h3>
                   </div>
-                ))}
+                </Link>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
       </div>
     </>
   );

@@ -1,11 +1,63 @@
 import bg from '../assets/bg-product.png'
-import retail1 from '../assets/product1.png';
-import retail2 from '../assets/product2.png';
-import home1 from '../assets/product3.png';
-import home2 from '../assets/product4.png';
-import hospitality1 from '../assets/product5.png';
-import hospitality2 from '../assets/product6.png';
+import retail1 from '../assets/product1.webp';
+import home1 from '../assets/product2.webp';
+import hospitality1 from '../assets/product3.webp';
+import retail2 from '../assets/product4.webp';
+import home2 from '../assets/product5.webp';
+import hospitality2 from '../assets/product6.webp';
 
+export const products = [
+  {
+    id: 1,
+    title: 'Retail Package',
+    subtitle: 'Cold Brew 250ml',
+    price: 2,
+    image: retail1,
+    backgroundImg: bg,
+  },
+  {
+    id: 2,
+    title: 'Home Package',
+    subtitle: 'Cold Brew 2L',
+    price: 5,
+    image: home1,
+    backgroundImg: bg,
+  },
+  {
+    id: 3,
+    title: 'Hospitality Package',
+    subtitle: 'Cold Brew 10L',
+    price: 10,
+    image: hospitality1,
+    backgroundImg: bg,
+  },
+  {
+    id: 4,
+    title: 'Retail Box',
+    subtitle: 'Cold Brew 250ml',
+    price: 24,
+    image: retail2,
+    backgroundImg: bg,
+  },
+  {
+    id: 5,
+    title: 'Home Box',
+    subtitle: 'Cold Brew 2L',
+    price: 30,
+    image: home2,
+    backgroundImg: bg,
+  },
+  {
+    id: 6,
+    title: 'Hospitality Box',
+    subtitle: 'Cold Brew 10L',
+    price: 40,
+    image: hospitality2,
+    backgroundImg: bg,
+  }
+];
+
+// Keep old structure for backward compatibility
 export const productCatalog = {
   retail: {
     id: 'retail',
@@ -133,7 +185,7 @@ export const productCatalog = {
 };
 
 export const getAllProducts = () => {
-  return Object.values(productCatalog).flatMap(category => 
+  return Object.values(productCatalog).flatMap(category =>
     category.products.map(product => ({
       ...product,
       category: category.id,
