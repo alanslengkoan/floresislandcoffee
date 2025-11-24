@@ -65,21 +65,15 @@ function About() {
             {/* Description Text */}
             <div className="max-w-4xl mx-auto space-y-6 text-gray-600 leading-relaxed">
               <p className="text-lg">
-                Flores Island Coffee (FIC) is a strategic partnership between New Zealand and Indonesia, driving
-                sustainable growth in the Flores coffee industry.
+                {`Flores Island Coffee (FIC) is a strategic partnership between New Zealand and Indonesia, designed to accelerate sustainable growth and international market access for Flores coffee.`}
               </p>
 
               <p className="text-lg">
-                The venture is led by Old Station Road Limited (New Zealand), a brand owner and investor in
-                agriculture, food, and beverages, together with Kopdit Pintu Air, Indonesia's largest cooperative
-                credit union with 370,000+ members, including 222,000 smallholder farmers managing around
-                400,000 hectares of land.
+                {`The venture is led by Old Station Road Limited (New Zealand)—a brand owner and investor across agriculture, food, and beverage—and Kopdit Pintu Air, Indonesia’s largest cooperative credit union with over 370,000 members, including 222,000 smallholder farmers managing nearly 400,000 hectares of productive land.`}
               </p>
 
               <p className="text-lg">
-                Based in Maumere, East Flores, FIC works closely with farming communities across Mt. Egon and
-                Nilo, building a vertically integrated, sustainable coffee supply chain that delivers global impact
-                while empowering local farmers.
+                {`Headquartered in Maumere, East Flores, FIC collaborates directly with farming communities across the island, from Manggarai, Bajawa–Ngada, and Ende, to Maumere, to build a vertically integrated, end-to-end supply chain that connects farms, processing, roasting, and global markets.`}
               </p>
             </div>
           </div>
