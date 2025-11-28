@@ -1,0 +1,28 @@
+{% comment %}
+  Scroll to Top Button - Floating button
+{% endcomment %}
+
+<button
+  id="scroll-to-top"
+  class="fixed bottom-8 right-8 bg-flores-primary text-white p-4 rounded-full shadow-lg hover:bg-flores-primary/90 transition-all duration-300 opacity-0 invisible z-40"
+  aria-label="Scroll to top"
+  onclick="window.scrollTo({ top: 0, behavior: 'smooth' })"
+>
+  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+  </svg>
+</button>
+
+<script>
+  // Show/hide scroll to top button
+  window.addEventListener('scroll', function() {
+    const scrollBtn = document.getElementById('scroll-to-top');
+    if (window.pageYOffset > 300) {
+      scrollBtn.classList.remove('opacity-0', 'invisible');
+      scrollBtn.classList.add('opacity-100', 'visible');
+    } else {
+      scrollBtn.classList.add('opacity-0', 'invisible');
+      scrollBtn.classList.remove('opacity-100', 'visible');
+    }
+  });
+</script>

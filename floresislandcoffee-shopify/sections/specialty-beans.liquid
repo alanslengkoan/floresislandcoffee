@@ -1,0 +1,107 @@
+{% comment %}
+  Specialty Beans Section - Signature roasted beans
+{% endcomment %}
+
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6 text-center mb-16">
+    <h2 class="text-5xl font-bold text-flores-primary mb-4 font-heading">
+      {{ section.settings.title | default: 'Signature Flores Roasted Beans' }}
+    </h2>
+    <p class="text-lg text-flores-primary/80 font-body">
+      {{ section.settings.subtitle | default: 'Available for B2B inquiries and custom Houseblend requests.' }}
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-2">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'specialty_card' -%}
+        <div class="relative group overflow-hidden" {{ block.shopify_attributes }}>
+          {%- if block.settings.image != blank -%}
+            <img 
+              src="{{ block.settings.image | img_url: 'large' }}" 
+              alt="{{ block.settings.alt }}"
+              class="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            >
+          {%- else -%}
+            <div class="w-full h-[500px] bg-gray-200 flex items-center justify-center">
+              <span class="text-gray-400">Image placeholder</span>
+            </div>
+          {%- endif -%}
+          
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent flex items-end p-8 md:p-12">
+            <div class="text-white">
+              <h3 class="text-3xl md:text-4xl font-bold mb-4 font-heading">{{ block.settings.title }}</h3>
+              {%- if block.settings.button_text != blank and block.settings.button_url != blank -%}
+                <a 
+                  href="{{ block.settings.button_url }}"
+                  class="inline-block bg-white text-flores-primary px-8 py-3 rounded-lg font-semibold hover:bg-white/90 transition-colors duration-300 font-body"
+                >
+                  {{ block.settings.button_text }}
+                </a>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Specialty Beans",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Signature Flores Roasted Beans"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section subtitle",
+      "default": "Available for B2B inquiries and custom Houseblend requests."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "specialty_card",
+      "name": "Specialty Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image alt text"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Button text"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Button URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Specialty Beans"
+    }
+  ]
+}
+{% endschema %}

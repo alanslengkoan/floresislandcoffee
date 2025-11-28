@@ -1,0 +1,139 @@
+{% comment %}
+  Coffee News Section - Display blog posts
+{% endcomment %}
+
+<section class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-5xl font-bold text-flores-primary mb-16 text-center font-heading">
+      {{ section.settings.title | default: 'Coffee News' }}
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {%- if section.settings.blog != blank -%}
+        {%- assign blog = blogs[section.settings.blog] -%}
+        {%- for article in blog.articles limit: 3 -%}
+          <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            {%- if article.image -%}
+              <a href="{{ article.url }}">
+                <img 
+                  src="{{ article.image | img_url: 'large' }}" 
+                  alt="{{ article.image.alt | default: article.title }}"
+                  class="w-full h-64 object-cover"
+                  loading="lazy"
+                >
+              </a>
+            {%- endif -%}
+            
+            <div class="p-6">
+              {%- if article.tags.size > 0 -%}
+                <span class="inline-block bg-flores-light/30 text-flores-primary px-3 py-1 rounded-full text-sm font-medium mb-3 font-body">
+                  {{ article.tags | first }}
+                </span>
+              {%- endif -%}
+              
+              <h3 class="text-xl font-bold text-gray-900 mb-3 font-heading line-clamp-2">
+                <a href="{{ article.url }}" class="hover:text-flores-primary transition-colors">
+                  {{ article.title }}
+                </a>
+              </h3>
+              
+              <p class="text-gray-600 mb-4 font-body line-clamp-3">
+                {{ article.excerpt_or_content | strip_html | truncatewords: 20 }}
+              </p>
+              
+              <a 
+                href="{{ article.url }}"
+                class="inline-flex items-center text-flores-primary font-semibold hover:text-flores-primary/80 transition-colors font-body"
+              >
+                Read More
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment -%} Placeholder cards if no blog selected {%- endcomment -%}
+        {%- for i in (1..3) -%}
+          <div class="bg-white rounded-2xl overflow-hidden shadow-lg">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center">
+              <span class="text-gray-400">Blog post {{ i }}</span>
+            </div>
+            <div class="p-6">
+              <span class="inline-block bg-flores-light/30 text-flores-primary px-3 py-1 rounded-full text-sm font-medium mb-3">Category</span>
+              <h3 class="text-xl font-bold text-gray-900 mb-3 font-heading">Sample Blog Post Title</h3>
+              <p class="text-gray-600 mb-4 font-body">Sample excerpt text goes here...</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+    
+    {%- comment -%} See More Button {%- endcomment -%}
+    {%- if section.settings.button_url != blank -%}
+      <div class="text-center mt-12">
+        <a 
+          href="{{ section.settings.button_url }}"
+          class="inline-flex items-center bg-flores-primary text-white px-8 py-4 rounded-full font-semibold hover:bg-flores-primary/90 transition-colors duration-300 font-body"
+        >
+          {{ section.settings.button_text | default: 'See More News' }}
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Coffee News",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Coffee News"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "See More News"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coffee News"
+    }
+  ]
+}
+{% endschema %}

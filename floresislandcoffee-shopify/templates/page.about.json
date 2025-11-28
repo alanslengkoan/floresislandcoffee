@@ -1,0 +1,34 @@
+{
+  "sections": {
+    "hero": {
+      "type": "page-hero",
+      "settings": {
+        "title": "About Flores Island Coffee",
+        "subtitle": "OUR STORY"
+      }
+    },
+    "story": {
+      "type": "about-story",
+      "settings": {}
+    },
+    "mission": {
+      "type": "about-mission",
+      "settings": {}
+    },
+    "methodology": {
+      "type": "about-methodology",
+      "settings": {}
+    },
+    "team": {
+      "type": "about-team",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "story",
+    "mission",
+    "methodology",
+    "team"
+  ]
+}

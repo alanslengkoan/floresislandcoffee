@@ -1,0 +1,52 @@
+{% comment %}
+  Contact Hero Section - Hero banner for contact page
+{% endcomment %}
+
+<section 
+  class="relative h-[70vh] bg-cover bg-center bg-no-repeat flex items-center"
+  {% if section.settings.background_image != blank %}
+    style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url({{ section.settings.background_image | img_url: 'master' }});"
+  {% else %}
+    style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop);"
+  {% endif %}
+>
+  <div class="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
+  <div class="relative max-w-7xl mx-auto px-6 text-center text-white">
+    <h1 class="text-4xl md:text-6xl font-bold mb-6 font-heading">
+      {{ section.settings.title | default: 'Contact Flores Island Coffee Export' }}
+    </h1>
+    <p class="text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed font-body opacity-90">
+      {{ section.settings.subtitle | default: 'Connect with us for Indonesian coffee export partnerships, wholesale inquiries, and premium specialty coffee orders. Based in Maumere, Flores Island - serving coffee businesses worldwide.' }}
+    </p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Contact Flores Island Coffee Export"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Connect with us for Indonesian coffee export partnerships, wholesale inquiries, and premium specialty coffee orders."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Hero"
+    }
+  ]
+}
+{% endschema %}

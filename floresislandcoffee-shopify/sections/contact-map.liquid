@@ -1,0 +1,98 @@
+{% comment %}
+  Contact Map Section - Location map display
+{% endcomment %}
+
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-flores-primary mb-4 font-heading">
+        {{ section.settings.title | default: 'Find Us in Flores Island' }}
+      </h2>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto font-body">
+        {{ section.settings.subtitle | default: 'Located in the heart of Flores Island, our processing facility is where the magic happens. Visit us to see our coffee journey from bean to cup.' }}
+      </p>
+    </div>
+
+    <div class="bg-gray-100 rounded-3xl overflow-hidden shadow-xl">
+      {%- if section.settings.map_embed != blank -%}
+        {%- comment -%} Google Maps Embed {%- endcomment -%}
+        <div class="relative h-96">
+          {{ section.settings.map_embed }}
+        </div>
+      {%- else -%}
+        {%- comment -%} Map Placeholder {%- endcomment -%}
+        <div class="relative h-96 bg-gradient-to-br from-flores-primary/20 to-flores-primary/10 flex items-center justify-center">
+          <div class="text-center">
+            <svg class="w-16 h-16 text-flores-primary mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+            </svg>
+            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+              {{ section.settings.location_name | default: 'Flores Island Coffee Processing Center' }}
+            </h3>
+            <p class="text-gray-600">
+              {{ section.settings.location_address | default: 'Maumere, East Nusa Tenggara, Indonesia' }}
+            </p>
+            {%- if section.settings.map_link != blank -%}
+              <a 
+                href="{{ section.settings.map_link }}" 
+                target="_blank" 
+                rel="noopener"
+                class="inline-block mt-4 px-6 py-2 bg-flores-primary text-white rounded-lg hover:bg-flores-primary/90 transition-colors"
+              >
+                View on Google Maps
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact Map",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Find Us in Flores Island"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle"
+    },
+    {
+      "type": "html",
+      "id": "map_embed",
+      "label": "Google Maps Embed Code",
+      "info": "Paste your Google Maps iframe embed code here"
+    },
+    {
+      "type": "text",
+      "id": "location_name",
+      "label": "Location name (if no map)",
+      "default": "Flores Island Coffee Processing Center"
+    },
+    {
+      "type": "text",
+      "id": "location_address",
+      "label": "Location address (if no map)",
+      "default": "Maumere, East Nusa Tenggara, Indonesia"
+    },
+    {
+      "type": "url",
+      "id": "map_link",
+      "label": "Google Maps link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact Map"
+    }
+  ]
+}
+{% endschema %}

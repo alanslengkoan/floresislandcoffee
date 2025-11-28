@@ -1,0 +1,124 @@
+{% comment %}
+  About Mission Section - Mission statement and values
+{% endcomment %}
+
+<section class="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-blue-50 to-teal-50">
+  <div class="max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-serif text-teal-800 mb-8">{{ section.settings.title | default: 'Mission Statement' }}</h2>
+      <div class="space-y-4 text-lg text-gray-700 leading-relaxed max-w-3xl mx-auto">
+        <p>
+          {{ section.settings.mission_text | default: 'Within 3 years achieve the aggregation of coffee production from 3% of the 75,000 Flores smallholder coffee farmer households, into a high quality, globally significant production centre, and to reach a target of 6% of these farmer households within 5 years.' }}
+        </p>
+      </div>
+    </div>
+    
+    {%- if section.blocks.size > 0 -%}
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-12">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'value' -%}
+            <div class="text-center" {{ block.shopify_attributes }}>
+              {%- if block.settings.icon != blank -%}
+                <div class="w-16 h-16 mx-auto mb-4">
+                  <img 
+                    src="{{ block.settings.icon | img_url: 'small' }}" 
+                    alt="{{ block.settings.title }}"
+                    class="w-full h-full object-contain text-teal-600"
+                    loading="lazy"
+                  >
+                </div>
+              {%- else -%}
+                <div class="w-16 h-16 mx-auto mb-4">
+                  <svg viewBox="0 0 100 100" class="w-full h-full text-teal-600">
+                    <circle cx="50" cy="50" r="45" fill="none" stroke="currentColor" stroke-width="3"/>
+                  </svg>
+                </div>
+              {%- endif -%}
+              <h3 class="text-sm font-semibold text-gray-800 mb-1">{{ block.settings.title }}</h3>
+              {%- if block.settings.subtitle != blank -%}
+                <p class="text-xs text-gray-600">{{ block.settings.subtitle }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Mission",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Mission Statement"
+    },
+    {
+      "type": "textarea",
+      "id": "mission_text",
+      "label": "Mission text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Mission",
+      "blocks": [
+        {
+          "type": "value",
+          "settings": {
+            "title": "Ethical Labour &",
+            "subtitle": "Gender Neutral Practices"
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Deforestation",
+            "subtitle": "Free"
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Biodiversity &",
+            "subtitle": "Ecosystem Services Protection"
+          }
+        },
+        {
+          "type": "value",
+          "settings": {
+            "title": "Emissions & Circular",
+            "subtitle": "Economy"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

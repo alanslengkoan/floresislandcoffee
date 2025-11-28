@@ -1,0 +1,95 @@
+{% comment %}
+  Hero Home Section - Converted from Home.jsx
+  Full-screen hero with background image and coffee icon
+{% endcomment %}
+
+<section 
+  class="relative h-screen bg-cover bg-center bg-no-repeat" 
+  {% if section.settings.hero_image != blank %}
+    style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url({{ section.settings.hero_image | img_url: 'master' }});"
+  {% else %}
+    style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop);"
+  {% endif %}
+>
+  <div class="absolute inset-0 flex items-center justify-center text-center text-white">
+    <div class="max-w-4xl px-6 hero-content">
+      {%- comment -%} Coffee Bean Icon {%- endcomment -%}
+      <div class="mb-8">
+        <div class="w-20 h-20 mx-auto mb-6 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
+          {%- if section.settings.coffee_icon != blank -%}
+            <img 
+              src="{{ section.settings.coffee_icon | img_url: 'small' }}" 
+              alt="Flores Island Coffee Logo"
+              loading="lazy"
+            >
+          {%- else -%}
+            <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M2 21h19v-3H2v3zM20 8H4V6h16v2zm-2.5 7c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM22 3H2v2h20V3zM5.5 10c-.83 0-1.5.67-1.5 1.5S4.67 13 5.5 13 7 12.33 7 11.5 6.33 10 5.5 10z"/>
+            </svg>
+          {%- endif -%}
+        </div>
+      </div>
+      
+      <h1 class="text-4xl md:text-6xl lg:text-6xl font-bold mb-6 tracking-tight font-heading leading-tight">
+        {{ section.settings.hero_title | default: 'Premium Flores Island Coffee - The richness echoes the depth of emerald hills and ocean skies' }}
+      </h1>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* GSAP-like entrance animation using CSS */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .hero-content > * {
+    animation: fadeInUp 1s ease-out forwards;
+  }
+  
+  .hero-content > *:nth-child(1) {
+    animation-delay: 0.5s;
+    opacity: 0;
+  }
+  
+  .hero-content > *:nth-child(2) {
+    animation-delay: 0.8s;
+    opacity: 0;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Home",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "coffee_icon",
+      "label": "Coffee icon"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_title",
+      "label": "Hero title",
+      "default": "Premium Flores Island Coffee - The richness echoes the depth of emerald hills and ocean skies"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Home"
+    }
+  ]
+}
+{% endschema %}

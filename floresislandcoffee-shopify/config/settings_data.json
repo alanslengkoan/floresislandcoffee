@@ -1,0 +1,26 @@
+{
+  "current": {
+    "color_primary": "#005E75",
+    "color_light": "#9AD7E5",
+    "color_footer": "#143F58",
+    "sections": {
+      "header": {
+        "type": "header"
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "email_general": "admin@flores.coffee",
+          "email_indonesian": "contact@flores.coffee"
+        }
+      }
+    }
+  },
+  "presets": {
+    "Default": {
+      "color_primary": "#005E75",
+      "color_light": "#9AD7E5",
+      "color_footer": "#143F58"
+    }
+  }
+}

@@ -1,0 +1,43 @@
+{% comment %}
+  Coffee Harvest Section from Home.jsx
+  Full-width background image with text overlay
+{% endcomment %}
+
+<section
+  class="min-h-[80vh] bg-cover bg-center flex items-center"
+  {% if section.settings.background_image != blank %}
+    style="background-image: linear-gradient(to right, rgba(0,0,0,0.5), transparent), url({{ section.settings.background_image | img_url: 'master' }});"
+  {% else %}
+    style="background-image: linear-gradient(to right, rgba(0,0,0,0.5), transparent), url(https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop);"
+  {% endif %}
+>
+  <div class="w-full max-w-7xl mx-auto px-6">
+    <h2 class="text-5xl font-bold font-serif max-w-2xl text-white">
+      {{ section.settings.title | default: 'The best product <br />from Flores Island Coffee' }}
+    </h2>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coffee Harvest",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "html",
+      "id": "title",
+      "label": "Title (HTML allowed)",
+      "default": "The best product <br />from Flores Island Coffee"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coffee Harvest"
+    }
+  ]
+}
+{% endschema %}

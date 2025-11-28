@@ -1,0 +1,26 @@
+{
+  "sections": {
+    "hero": {
+      "type": "contact-hero",
+      "settings": {}
+    },
+    "contact_form": {
+      "type": "contact-form-section",
+      "settings": {}
+    },
+    "map": {
+      "type": "contact-map",
+      "settings": {}
+    },
+    "faq": {
+      "type": "contact-faq",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "contact_form",
+    "map",
+    "faq"
+  ]
+}

@@ -1,0 +1,64 @@
+{% comment %}
+  Page Hero Section - Generic hero for pages
+{% endcomment %}
+
+<section class="py-20 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-8">
+      {%- if section.settings.subtitle != blank -%}
+        <p class="text-teal-600 text-sm font-semibold tracking-wide uppercase mb-6">
+          {{ section.settings.subtitle }}
+        </p>
+      {%- endif -%}
+      
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif text-teal-800 leading-tight max-w-4xl mx-auto">
+        {{ section.settings.title | default: page.title }}
+      </h1>
+    </div>
+    
+    {%- if section.settings.featured_image != blank -%}
+      <div class="mt-12">
+        <img 
+          src="{{ section.settings.featured_image | img_url: '1200x500', crop: 'center' }}" 
+          alt="{{ section.settings.image_alt | default: page.title }}" 
+          class="w-full h-96 md:h-[500px] object-cover rounded-lg shadow-lg"
+          loading="lazy"
+        >
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "OUR STORY"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "image_picker",
+      "id": "featured_image",
+      "label": "Featured image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image alt text"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Page Hero"
+    }
+  ]
+}
+{% endschema %}

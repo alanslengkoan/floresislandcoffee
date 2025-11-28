@@ -1,0 +1,106 @@
+{% comment %}
+  Contact FAQ Section - Frequently Asked Questions
+{% endcomment %}
+
+<section class="py-20 bg-gray-50">
+  <div class="max-w-4xl mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-flores-primary mb-4 font-heading">
+        {{ section.settings.title | default: 'Frequently Asked Questions' }}
+      </h2>
+      <p class="text-lg text-gray-600 font-body">
+        {{ section.settings.subtitle | default: 'Quick answers to common questions about Flores Island Coffee' }}
+      </p>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="space-y-6">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'faq_item' -%}
+            <div class="bg-white rounded-2xl p-6 shadow-lg" {{ block.shopify_attributes }}>
+              <h3 class="text-lg font-semibold text-gray-900 mb-3 font-heading">
+                {{ block.settings.question }}
+              </h3>
+              <p class="text-gray-600 font-body leading-relaxed">
+                {{ block.settings.answer }}
+              </p>
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Quick answers to common questions about Flores Island Coffee"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact FAQ",
+      "blocks": [
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is the minimum order quantity for wholesale?",
+            "answer": "Our minimum wholesale order is 50kg for domestic orders and 100kg for international orders. We offer flexible packaging options to suit your business needs."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you offer custom roasting profiles?",
+            "answer": "Yes! We work closely with our B2B partners to develop custom roasting profiles that match your specific requirements and target market preferences."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does international shipping take?",
+            "answer": "International shipping typically takes 7-14 business days depending on the destination. We use reliable logistics partners to ensure your coffee arrives fresh and on time."
+          }
+        },
+        {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I visit your processing facility?",
+            "answer": "Absolutely! We welcome visitors to our Maumere facility. Please contact us in advance to schedule a tour and learn about our coffee processing methods firsthand."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

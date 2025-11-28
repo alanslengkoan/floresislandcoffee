@@ -1,0 +1,175 @@
+{% comment %}
+  About Team Section - Team members and leadership
+{% endcomment %}
+
+{%- comment -%} Strategic Leadership {%- endcomment -%}
+<section class="py-16 px-4 sm:px-6 lg:px-8 bg-slate-800 text-white">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-serif text-white text-center mb-12">
+      {{ section.settings.leadership_title | default: 'Strategic Leadership' }}
+    </h2>
+    
+    <div class="bg-slate-700 rounded-lg p-8">
+      <div class="flex flex-col md:flex-row items-start gap-8">
+        {%- if section.settings.leadership_logo != blank -%}
+          <div class="flex-shrink-0">
+            <div class="w-24 h-24 bg-teal-600 rounded-lg flex items-center justify-center mb-4 overflow-hidden">
+              <img 
+                src="{{ section.settings.leadership_logo | img_url: 'small' }}" 
+                alt="PT. PINTU AIR KOPI FLORES"
+                class="w-full h-full object-contain"
+                loading="lazy"
+              >
+            </div>
+            <div class="text-sm text-gray-300">
+              <p class="font-semibold">PT. PINTU AIR</p>
+              <p class="font-semibold">KOPI FLORES</p>
+            </div>
+          </div>
+        {%- endif -%}
+        
+        <div class="flex-1">
+          <div class="mb-6">
+            <p class="text-gray-300 leading-relaxed">
+              {{ section.settings.leadership_text | default: 'FIC investment is led by Greg Hickman and Haligan Murray from Old Station Road New Zealand with Indonesian partner Pintu Air Credit Union. The partnership was signed in 2023 and is structured as a long-term profit share joint venture.' }}
+            </p>
+          </div>
+          
+          <div>
+            <h3 class="text-white font-semibold mb-2">PT. PINTU AIR KOPI FLORES</h3>
+            <p class="text-gray-300 text-sm">
+              {{ section.settings.company_description | default: 'Indonesian based commercial entity, established specifically to carry out FIC operations in Indonesia. Incorporated and led by Pintu Air Cooperative.' }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} Our Team {%- endcomment -%}
+<section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-serif text-teal-800 text-center mb-12">
+      {{ section.settings.team_title | default: 'Our Team' }}
+    </h2>
+    
+    {%- if section.blocks.size > 0 -%}
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'team_member' -%}
+            <div class="text-center" {{ block.shopify_attributes }}>
+              {%- if block.settings.photo != blank -%}
+                <img 
+                  src="{{ block.settings.photo | img_url: 'medium' }}" 
+                  alt="{{ block.settings.name }}"
+                  class="w-full aspect-square object-cover rounded-lg mb-4"
+                  loading="lazy"
+                >
+              {%- else -%}
+                <div class="w-full aspect-square bg-gradient-to-br from-blue-100 to-teal-100 rounded-lg mb-4"></div>
+              {%- endif -%}
+              <h3 class="font-semibold text-gray-900 text-sm">{{ block.settings.name }}</h3>
+              {%- if block.settings.position != blank -%}
+                <p class="text-xs text-gray-600">{{ block.settings.position }}</p>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Team",
+  "settings": [
+    {
+      "type": "text",
+      "id": "leadership_title",
+      "label": "Leadership section title",
+      "default": "Strategic Leadership"
+    },
+    {
+      "type": "image_picker",
+      "id": "leadership_logo",
+      "label": "Leadership logo"
+    },
+    {
+      "type": "textarea",
+      "id": "leadership_text",
+      "label": "Leadership text"
+    },
+    {
+      "type": "textarea",
+      "id": "company_description",
+      "label": "Company description"
+    },
+    {
+      "type": "text",
+      "id": "team_title",
+      "label": "Team section title",
+      "default": "Our Team"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "team_member",
+      "name": "Team Member",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "photo",
+          "label": "Photo"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name"
+        },
+        {
+          "type": "text",
+          "id": "position",
+          "label": "Position"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Team",
+      "blocks": [
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Mustika Ridwan",
+            "position": "Director"
+          }
+        },
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Haligan Murray",
+            "position": "Director / Founder"
+          }
+        },
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Vivi",
+            "position": "Finance Director"
+          }
+        },
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Greg Hickman",
+            "position": "Director / Founder"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

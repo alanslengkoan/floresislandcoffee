@@ -1,0 +1,51 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-home",
+      "settings": {}
+    },
+    "values": {
+      "type": "our-values",
+      "settings": {}
+    },
+    "sustainability": {
+      "type": "coffee-origin",
+      "settings": {}
+    },
+    "cultivation": {
+      "type": "cultivation-story",
+      "settings": {}
+    },
+    "harvest": {
+      "type": "coffee-harvest",
+      "settings": {}
+    },
+    "products": {
+      "type": "product-showcase",
+      "settings": {}
+    },
+    "specialty": {
+      "type": "specialty-beans",
+      "settings": {}
+    },
+    "news": {
+      "type": "coffee-news",
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter-signup",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "values",
+    "sustainability",
+    "cultivation",
+    "harvest",
+    "products",
+    "specialty",
+    "news",
+    "newsletter"
+  ]
+}

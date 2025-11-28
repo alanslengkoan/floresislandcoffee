@@ -1,0 +1,23 @@
+{
+  "name": "flores-island-coffee-shopify-theme",
+  "version": "1.0.0",
+  "description": "Shopify theme for Flores Island Coffee with TailwindCSS",
+  "type": "module",
+  "scripts": {
+    "build:css": "npx tailwindcss -i ./src/input.css -o ./assets/application.css --minify",
+    "watch:css": "npx tailwindcss -i ./src/input.css -o ./assets/application.css --watch",
+    "build": "npm run build:css && npm run build:js",
+    "build:js": "node build-js.js",
+    "dev": "concurrently \"npm run watch:css\" \"shopify theme dev\"",
+    "deploy": "npm run build && shopify theme push"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.1"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.3"
+  }
+}

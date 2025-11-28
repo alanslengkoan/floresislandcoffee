@@ -1,0 +1,187 @@
+{% comment %}
+  Our Values Section - Converted from Home.jsx
+  Grid of value cards with icons and background images
+{% endcomment %}
+
+<section class="p-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <h2 class="text-2xl lg:text-3xl font-medium tracking-wide text-flores-primary uppercase mb-3 font-body">
+        {{ section.settings.section_subtitle | default: 'Our Coffee Values - Sustainable Indonesian Coffee Production' }}
+      </h2>
+      <p class="text-3xl md:text-4xl font-semibold text-flores-primary leading-relaxed font-heading">
+        {{ section.settings.section_title | default: 'Innovation in specialty coffee farming, <br />rooted in the volcanic soil of Flores Island.' }}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 values-grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'value_card' -%}
+          <div 
+            class="bg-[#9AD7E5] h-48 md:h-64 lg:h-80 rounded-lg md:rounded-2xl flex flex-col items-center justify-center text-center p-2 md:p-6 relative overflow-hidden"
+            {% if block.settings.background_image != blank %}
+              style="background-image: url({{ block.settings.background_image | img_url: 'large' }}); background-size: cover; background-position: center;"
+            {% endif %}
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.background_image != blank -%}
+              <div class="absolute inset-0 bg-black/20 rounded-lg md:rounded-2xl"></div>
+            {%- endif -%}
+            
+            <div class="relative z-10 flex flex-col items-center justify-center">
+              {%- if block.settings.icon != blank -%}
+                <img 
+                  src="{{ block.settings.icon | img_url: 'small' }}" 
+                  alt="icon" 
+                  class="w-8 h-8 md:w-16 lg:w-20 md:h-16 lg:h-20 mb-1 md:mb-3 object-contain" 
+                  loading="lazy"
+                >
+              {%- elsif block.settings.icon_emoji != blank -%}
+                <span class="text-2xl md:text-4xl lg:text-5xl mb-1 md:mb-3 block text-center">{{ block.settings.icon_emoji }}</span>
+              {%- endif -%}
+              
+              <p class="font-medium text-xs md:text-sm lg:text-base leading-tight text-center {% if block.settings.background_image != blank %}text-white{% else %}text-gray-800{% endif %}">
+                {{ block.settings.title }}
+              </p>
+            </div>
+          </div>
+        {%- elsif block.type == 'image_card' -%}
+          <div class="h-48 md:h-64 lg:h-80 rounded-lg md:rounded-2xl overflow-hidden" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | img_url: 'large' }}"
+                alt="{{ block.settings.alt_text }}"
+                class="w-full h-full object-cover"
+                loading="lazy"
+              >
+            {%- else -%}
+              <div class="w-full h-full bg-gray-200 flex items-center justify-center">
+                <span class="text-gray-400">Image placeholder</span>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Stagger animation for value cards */
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  .values-grid > * {
+    animation: fadeInScale 0.6s ease-out forwards;
+  }
+  
+  .values-grid > *:nth-child(1) { animation-delay: 0.1s; opacity: 0; }
+  .values-grid > *:nth-child(2) { animation-delay: 0.2s; opacity: 0; }
+  .values-grid > *:nth-child(3) { animation-delay: 0.3s; opacity: 0; }
+  .values-grid > *:nth-child(4) { animation-delay: 0.4s; opacity: 0; }
+  .values-grid > *:nth-child(5) { animation-delay: 0.5s; opacity: 0; }
+  .values-grid > *:nth-child(6) { animation-delay: 0.6s; opacity: 0; }
+</style>
+
+{% schema %}
+{
+  "name": "Our Values",
+  "settings": [
+    {
+      "type": "text",
+      "id": "section_subtitle",
+      "label": "Section subtitle",
+      "default": "Our Coffee Values - Sustainable Indonesian Coffee Production"
+    },
+    {
+      "type": "textarea",
+      "id": "section_title",
+      "label": "Section title",
+      "default": "Innovation in specialty coffee farming, rooted in the volcanic soil of Flores Island."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value_card",
+      "name": "Value Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image"
+        },
+        {
+          "type": "text",
+          "id": "icon_emoji",
+          "label": "Icon emoji (if no image)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background image"
+        }
+      ]
+    },
+    {
+      "type": "image_card",
+      "name": "Image Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt_text",
+          "label": "Alt text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Our Values",
+      "blocks": [
+        {
+          "type": "value_card",
+          "settings": {
+            "title": "Ethical Labour & Gender Neutral Practices"
+          }
+        },
+        {
+          "type": "value_card",
+          "settings": {
+            "title": "Deforestation Free"
+          }
+        },
+        {
+          "type": "value_card",
+          "settings": {
+            "title": "Biodiversity & Ecosystem Services"
+          }
+        },
+        {
+          "type": "value_card",
+          "settings": {
+            "title": "Emissions & Circular Economy"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

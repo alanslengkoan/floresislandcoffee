@@ -1,0 +1,168 @@
+{% comment %}
+  Cultivation Story Section - Coffee mill and map from Home.jsx
+{% endcomment %}
+
+<section class="py-12 md:py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 text-center">
+    <h2 class="text-2xl md:text-4xl lg:text-5xl font-semibold text-flores-primary mb-8 md:mb-16 leading-snug font-heading">
+      {{ section.settings.title | default: 'From Flores highlands, each bean carries a story of tradition and dedication.' }}
+    </h2>
+
+    {%- comment -%} Desktop and Tablet Version {%- endcomment -%}
+    <div class="hidden md:block relative w-full max-w-5xl mx-auto">
+      {%- if section.settings.map_image != blank -%}
+        <img
+          src="{{ section.settings.map_image | img_url: '1200x500', crop: 'center' }}"
+          alt="Flores Island map"
+          class="w-full object-cover rounded-lg"
+          loading="lazy"
+        >
+      {%- else -%}
+        <img
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&h=500&fit=crop&crop=center"
+          alt="Flores Island map"
+          class="w-full object-cover rounded-lg"
+          loading="lazy"
+        >
+      {%- endif -%}
+
+      {%- comment -%} Marker {%- endcomment -%}
+      <div class="absolute left-[65%] top-[40%] transform -translate-x-1/2 -translate-y-1/2">
+        <div class="w-4 h-4 md:w-6 md:h-6 bg-flores-primary text-white flex items-center justify-center rounded-full shadow-lg text-xs md:text-base">
+          ☕
+        </div>
+      </div>
+
+      {%- comment -%} Popup Card {%- endcomment -%}
+      <div class="absolute right-0 md:right-4 lg:right-8 top-[20%] md:top-[30%] bg-white rounded-2xl shadow-lg p-3 md:p-4 lg:p-6 w-64 md:w-72 lg:w-80 xl:w-96">
+        <div class="flex md:block items-center gap-3 md:gap-0">
+          {%- if section.settings.factory_image != blank -%}
+            <img
+              src="{{ section.settings.factory_image | img_url: 'medium' }}"
+              alt="{{ section.settings.factory_title }}"
+              class="w-16 h-16 md:w-20 md:h-20 lg:w-28 lg:h-28 rounded-lg object-cover md:float-right md:ml-4 md:mb-2"
+              loading="lazy"
+            >
+          {%- endif -%}
+          <div class="flex-1 text-left">
+            <h4 class="text-xs uppercase text-flores-primary/70 font-body">{{ section.settings.factory_label | default: 'Our Factory' }}</h4>
+            <h3 class="text-lg md:text-xl lg:text-2xl font-bold text-flores-primary font-heading">{{ section.settings.factory_title | default: 'Maumere' }}</h3>
+            <p class="text-flores-primary/80 text-xs md:text-sm mt-1 md:mt-2 font-body">
+              {{ section.settings.factory_description | default: 'The heart of our production, where quality control and craft roasting begin.' }}
+            </p>
+            {%- if section.settings.factory_link != blank -%}
+              <a
+                href="{{ section.settings.factory_link }}"
+                class="inline-block mt-2 md:mt-4 px-3 md:px-4 py-1.5 md:py-2 bg-flores-primary text-white rounded-md text-xs md:text-sm hover:bg-flores-primary/90 transition font-body"
+              >
+                Read More
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Mobile Version {%- endcomment -%}
+    <div class="md:hidden">
+      {%- if section.settings.map_image != blank -%}
+        <img
+          src="{{ section.settings.map_image | img_url: '800x400', crop: 'center' }}"
+          alt="Flores Island map"
+          class="w-full object-cover rounded-lg mb-6"
+          loading="lazy"
+        >
+      {%- else -%}
+        <img
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=400&fit=crop&crop=center"
+          alt="Flores Island map"
+          class="w-full object-cover rounded-lg mb-6"
+          loading="lazy"
+        >
+      {%- endif -%}
+
+      <div class="bg-white rounded-2xl shadow-lg p-6 max-w-md mx-auto border">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 bg-flores-primary text-white flex items-center justify-center rounded-full">
+            ☕
+          </div>
+          <div class="text-left">
+            <h4 class="text-xs uppercase text-flores-primary/70 font-body">{{ section.settings.factory_label | default: 'Our Factory' }}</h4>
+            <h3 class="text-xl font-bold text-flores-primary font-heading">{{ section.settings.factory_title | default: 'Maumere' }}</h3>
+          </div>
+        </div>
+        <p class="text-flores-primary/80 text-sm mb-4 font-body">
+          {{ section.settings.factory_description | default: 'The heart of our production, where quality control and craft roasting begin.' }}
+        </p>
+        {%- if section.settings.factory_link != blank -%}
+          <a
+            href="{{ section.settings.factory_link }}"
+            class="inline-block px-4 py-2 bg-flores-primary text-white rounded-md text-sm hover:bg-flores-primary/90 transition font-body"
+          >
+            Read More
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} Legend {%- endcomment -%}
+    <div class="flex items-center justify-center gap-2 mt-6">
+      <div class="w-6 h-6 flex items-center justify-center rounded-full bg-flores-primary text-white">
+        ☕
+      </div>
+      <span class="text-flores-primary font-body">Coffee Mill</span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Cultivation Story",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title",
+      "default": "From Flores highlands, each bean carries a story of tradition and dedication."
+    },
+    {
+      "type": "image_picker",
+      "id": "map_image",
+      "label": "Map image"
+    },
+    {
+      "type": "image_picker",
+      "id": "factory_image",
+      "label": "Factory image"
+    },
+    {
+      "type": "text",
+      "id": "factory_label",
+      "label": "Factory label",
+      "default": "Our Factory"
+    },
+    {
+      "type": "text",
+      "id": "factory_title",
+      "label": "Factory title",
+      "default": "Maumere"
+    },
+    {
+      "type": "textarea",
+      "id": "factory_description",
+      "label": "Factory description",
+      "default": "The heart of our production, where quality control and craft roasting begin."
+    },
+    {
+      "type": "url",
+      "id": "factory_link",
+      "label": "Factory link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cultivation Story"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,69 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Flores Island Coffee",
+    "theme_version": "1.0.0",
+    "theme_author": "Codepoze",
+    "theme_documentation_url": "https://flores.coffee",
+    "theme_support_url": "https://flores.coffee/contact"
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary color",
+        "default": "#005E75"
+      },
+      {
+        "type": "color",
+        "id": "color_light",
+        "label": "Light accent color",
+        "default": "#9AD7E5"
+      },
+      {
+        "type": "color",
+        "id": "color_footer",
+        "label": "Footer background",
+        "default": "#143F58"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Fonts"
+      },
+      {
+        "type": "paragraph",
+        "content": "Heading font: Cormorant Garamond (loaded from Google Fonts)"
+      },
+      {
+        "type": "paragraph",
+        "content": "Body font: Raleway (loaded from Google Fonts)"
+      }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  }
+]

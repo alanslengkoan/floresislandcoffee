@@ -1,0 +1,166 @@
+{% comment %}
+  About Methodology Section - 4-step methodology
+{% endcomment %}
+
+<section class="py-16 px-4 sm:px-6 lg:px-8 bg-gray-50">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12">
+      <p class="text-teal-600 text-sm font-semibold tracking-wide uppercase mb-4">
+        {{ section.settings.subtitle | default: 'OUR STORY' }}
+      </p>
+      <h2 class="text-3xl md:text-4xl font-serif text-teal-800 leading-tight max-w-4xl mx-auto">
+        {{ section.settings.title | default: 'Our 4-step methodology ensures quality, sustainability, and global competitiveness' }}
+      </h2>
+    </div>
+    
+    {%- if section.blocks.size > 0 -%}
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'step' -%}
+            <div class="bg-gradient-to-br from-blue-50 to-teal-50 rounded-lg p-6" {{ block.shopify_attributes }}>
+              <div class="mb-4">
+                <p class="text-teal-700 text-sm leading-relaxed">
+                  {{ block.settings.description }}
+                </p>
+              </div>
+              {%- if block.settings.image != blank -%}
+                <div class="aspect-video">
+                  <img 
+                    src="{{ block.settings.image | img_url: 'large' }}" 
+                    alt="{{ block.settings.alt }}" 
+                    class="w-full h-full object-cover rounded-lg"
+                    loading="lazy"
+                  >
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{%- comment -%} Large Landscape Photo {%- endcomment -%}
+<section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
+  <div class="max-w-6xl mx-auto">
+    {%- if section.settings.landscape_image != blank -%}
+      <div class="mb-8">
+        <img 
+          src="{{ section.settings.landscape_image | img_url: '1200x400', crop: 'center' }}" 
+          alt="{{ section.settings.landscape_alt }}" 
+          class="w-full h-80 md:h-96 object-cover rounded-lg"
+          loading="lazy"
+        >
+      </div>
+    {%- endif -%}
+    
+    <div class="max-w-4xl mx-auto">
+      {%- if section.settings.conclusion_title != blank -%}
+        <h3 class="text-2xl md:text-3xl font-serif text-teal-800 mb-6 leading-tight">
+          {{ section.settings.conclusion_title }}
+        </h3>
+      {%- endif -%}
+      
+      {%- if section.settings.conclusion_text != blank -%}
+        <p class="text-gray-600 leading-relaxed text-lg">
+          {{ section.settings.conclusion_text }}
+        </p>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Methodology",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "OUR STORY"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Title",
+      "default": "Our 4-step methodology ensures quality, sustainability, and global competitiveness"
+    },
+    {
+      "type": "image_picker",
+      "id": "landscape_image",
+      "label": "Landscape image"
+    },
+    {
+      "type": "text",
+      "id": "landscape_alt",
+      "label": "Landscape image alt"
+    },
+    {
+      "type": "textarea",
+      "id": "conclusion_title",
+      "label": "Conclusion title"
+    },
+    {
+      "type": "textarea",
+      "id": "conclusion_text",
+      "label": "Conclusion text"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Methodology Step",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image alt text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Methodology",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "description": "Implement a sustainability KPI system (FESS) to improve farming practices, boost productivity, and strengthen farmer livelihoods."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "description": "Establish a near-source, high-tech processing facility to add value, ensure traceability, and reduce supply chain emissions."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "description": "Develop bulk high-quality cold brew concentrate for global B2B supply using coffee as the core ingredient."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "description": "Partner with local and international organizations to enhance farm-level yield and quality across Flores Island."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
