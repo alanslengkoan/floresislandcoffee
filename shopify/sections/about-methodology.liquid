@@ -14,22 +14,22 @@
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6 auto-rows-fr">
         {%- for block in section.blocks -%}
           {%- if block.type == 'step' -%}
-            <div class="flex flex-col" {{ block.shopify_attributes }}>
+            <div class="bg-linear-to-br from-blue-100/70 to-blue-200/50 rounded-lg overflow-hidden flex flex-col h-full" {{ block.shopify_attributes }}>
+              <div class="p-4 text-center grow flex items-center justify-center min-h-[120px]">
+                <p class="text-base md:text-lg text-gray-600">
+                  {{ block.settings.description }}
+                </p>
+              </div>
               {%- if block.settings.image != blank -%}
-                <div class="mb-4">
+                <div class="w-full h-48 md:h-56 shrink-0">
                   <img 
-                    src="{{ block.settings.image | img_url: '400x400' }}" 
+                    src="{{ block.settings.image | img_url: '800x800' }}" 
                     alt="{{ block.settings.alt | default: 'Methodology step' }}" 
-                    width="400"
-                    height="400"
-                    class="w-full h-auto object-cover rounded-lg"
+                    class="w-full h-full object-cover"
                     loading="lazy"
                   >
                 </div>
               {%- endif -%}
-              <p class="text-sm text-slate-700 leading-relaxed">
-                {{ block.settings.description }}
-              </p>
             </div>
           {%- endif -%}
         {%- endfor -%}
