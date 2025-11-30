@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 
 function SEOHead({
   title = "Flores Island Coffee - Premium Indonesian Coffee Beans Export",
