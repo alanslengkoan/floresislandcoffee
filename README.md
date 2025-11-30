@@ -1,12 +1,15 @@
-# React + Vite
+# Flores Island Coffee
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Premium coffee from the volcanic highlands of Flores Island, Indonesia. Experience the rich, unique flavors of our carefully cultivated and ethically sourced coffee beans.
 
-Currently, two official plugins are available:
+## About
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Flores Island Coffee brings you exceptional single-origin coffee from the fertile volcanic soils of Flores Island. Our beans are grown by local farmers using sustainable practices, ensuring both superior quality and positive community impact.
 
-## Expanding the ESLint configuration
+## Links
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**Template**  
+https://floresislandcoffee.netlify.app
+
+**Shopify**  
+https://flores-coffee.myshopify.com
