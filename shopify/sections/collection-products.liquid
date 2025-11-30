@@ -1,0 +1,160 @@
+{% comment %}
+  Collection Products Section - Display products grid with pagination
+  Styling matches Product.jsx 100%
+{% endcomment %}
+
+{%- paginate collection.products by 12 -%}
+<div class="bg-white">
+  {%- comment -%} Hero Section {%- endcomment -%}
+  <section class="relative bg-white px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="rounded-3xl overflow-hidden relative" style="background-image: url('{{ section.settings.hero_bg | img_url: '2048x' }}'); background-position: 10% 100%; background-size: 100%;">
+        <div class="absolute inset-0 bg-black/40"></div>
+        <div class="relative grid md:grid-cols-2 gap-8 items-center p-8 md:p-16">
+          {%- comment -%} Left Content {%- endcomment -%}
+          <div class="text-white">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight font-heading">
+              {{ section.settings.hero_title | default: 'Sip Into The Cup: Roasting' }}
+            </h1>
+            <p class="text-base md:text-lg leading-relaxed text-white/90 font-body">
+              {{ section.settings.hero_description | default: "Discover the rich character of coffee grown in the highlands of Flores. Rooted in tradition and crafted with care, our beans carry the island's natural sweetness, clean flavors, and unique aroma. Explore our collection and find the taste that speaks to you." }}
+            </p>
+          </div>
+
+          {%- comment -%} Right Image {%- endcomment -%}
+          <div class="flex justify-center items-center">
+            {%- if section.settings.hero_image -%}
+              <img
+                src="{{ section.settings.hero_image | img_url: '800x' }}"
+                alt="Flores Island Coffee Products"
+                class="w-full max-w-md h-auto object-contain drop-shadow-2xl"
+              >
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- comment -%} Products Section {%- endcomment -%}
+  <section class="py-16 bg-white px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="leading-relaxed md:leading-[33px] md:text-4xl font-extrabold text-flores-primary mb-12 font-heading">
+        Our Products
+      </h2>
+    
+    {%- if collection.products_count > 0 -%}
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {%- for product in collection.products -%}
+          <a href="{{ product.url }}" class="group cursor-pointer">
+            <div class="bg-[#D4E8E8] rounded-2xl p-8 mb-4 flex items-center justify-center h-[280px] group-hover:bg-[#c0dada] transition-colors">
+              {%- if product.featured_image -%}
+                <img
+                  src="{{ product.featured_image | img_url: '800x800' }}"
+                  alt="{{ product.title }}"
+                  class="max-w-full max-h-full object-contain"
+                >
+              {%- else -%}
+                <div class="w-full h-full flex items-center justify-center">
+                  <svg class="w-16 h-16 text-flores-primary/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                </div>
+              {%- endif -%}
+            </div>
+            <div class="flex items-start justify-between">
+              <div>
+                <h3 class="text-xl font-bold text-flores-primary mb-1 font-heading group-hover:text-flores-accent transition-colors">
+                  {{ product.title }}
+                </h3>
+                {%- if product.vendor -%}
+                  <p class="text-lg text-flores-primary/80 font-body">
+                    {{ product.vendor }}
+                  </p>
+                {%- endif -%}
+              </div>
+              <div class="text-2xl font-bold text-flores-primary font-heading">
+                {{ product.price | money }}
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="flex justify-center items-center gap-2 mt-12">
+          {%- if paginate.previous -%}
+            <a href="{{ paginate.previous.url }}" class="px-6 py-3 bg-white border-2 border-flores-primary text-flores-primary rounded-full font-semibold hover:bg-flores-primary hover:text-white transition-colors font-body">
+              ← Previous
+            </a>
+          {%- endif -%}
+
+          <div class="flex gap-2">
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <a href="{{ part.url }}" class="w-12 h-12 flex items-center justify-center bg-white border-2 border-gray-300 rounded-full hover:border-flores-primary transition-colors font-body">
+                  {{ part.title }}
+                </a>
+              {%- elsif part.title == paginate.current_page -%}
+                <span class="w-12 h-12 flex items-center justify-center bg-flores-primary text-white border-2 border-flores-primary rounded-full font-bold font-body">
+                  {{ part.title }}
+                </span>
+              {%- else -%}
+                <span class="w-12 h-12 flex items-center justify-center text-gray-400 font-body">{{ part.title }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.next -%}
+            <a href="{{ paginate.next.url }}" class="px-6 py-3 bg-flores-primary text-white rounded-full font-semibold hover:bg-flores-primary/90 transition-colors font-body">
+              Next →
+            </a>
+          {%- endif -%}
+        </nav>
+      {%- endif -%}
+
+    {%- else -%}
+      <div class="text-center py-16">
+        <svg class="w-20 h-20 mx-auto mb-6 text-flores-primary/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+        </svg>
+        <h2 class="text-2xl font-bold text-flores-primary mb-3 font-heading">No products in this collection</h2>
+        <a href="/collections/all" class="inline-flex items-center bg-flores-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-flores-primary/90 transition-colors font-body">
+          Browse All Products
+        </a>
+      </div>
+    {%- endif -%}
+    </div>
+  </section>
+</div>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Collection Products",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_bg",
+      "label": "Hero Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Product Image"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "Sip Into The Cup: Roasting"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_description",
+      "label": "Hero Description",
+      "default": "Discover the rich character of coffee grown in the highlands of Flores. Rooted in tradition and crafted with care, our beans carry the island's natural sweetness, clean flavors, and unique aroma. Explore our collection and find the taste that speaks to you."
+    }
+  ]
+}
+{% endschema %}

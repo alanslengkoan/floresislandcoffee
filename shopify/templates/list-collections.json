@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "collections-list": {
+      "type": "collections-list",
+      "settings": {
+        "title": "Our Coffee Collections",
+        "description": "Explore our carefully curated coffee collections from Flores Island"
+      }
+    }
+  },
+  "order": [
+    "collections-list"
+  ]
+}

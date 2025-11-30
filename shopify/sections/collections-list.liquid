@@ -1,0 +1,90 @@
+{% comment %}
+  Collections List Section - Display all collections
+{% endcomment %}
+
+<section class="py-20 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="mb-16 text-center">
+      <h1 class="leading-relaxed md:leading-[33px] text-3xl md:text-4xl font-extrabold font-heading text-gray-900">
+        {{ section.settings.title | default: 'Our Coffee Collections' }}
+      </h1>
+      {%- if section.settings.description != blank -%}
+        <p class="mt-4 text-lg text-gray-600 font-body max-w-2xl mx-auto">
+          {{ section.settings.description }}
+        </p>
+      {%- endif -%}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {%- for collection in collections -%}
+        {%- unless collection.handle == 'frontpage' -%}
+          <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 group">
+            <a href="{{ collection.url }}" class="block relative h-64 overflow-hidden">
+              {%- if collection.image != blank -%}
+                <img
+                  src="{{ collection.image | img_url: '800x600', crop: 'center' }}"
+                  alt="{{ collection.title }}"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                >
+              {%- elsif collection.products.first.featured_image -%}
+                <img
+                  src="{{ collection.products.first.featured_image | img_url: '800x600', crop: 'center' }}"
+                  alt="{{ collection.title }}"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                >
+              {%- else -%}
+                <div class="w-full h-full bg-gradient-to-br from-flores-primary/20 to-flores-primary/10 flex items-center justify-center">
+                  <svg class="w-20 h-20 text-flores-primary/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                  </svg>
+                </div>
+              {%- endif -%}
+            </a>
+
+            <div class="p-6">
+              <span class="inline-block bg-flores-light/30 text-flores-primary px-3 py-1 rounded-full text-sm font-medium mb-3 font-body">
+                {{ collection.products_count }} {% if collection.products_count == 1 %}Product{% else %}Products{% endif %}
+              </span>
+
+              <h2 class="text-2xl font-bold text-gray-900 mb-3 font-heading group-hover:text-flores-primary transition-colors">
+                <a href="{{ collection.url }}">{{ collection.title }}</a>
+              </h2>
+
+              {%- if collection.description != blank -%}
+                <p class="text-gray-600 mb-4 font-body line-clamp-3">
+                  {{ collection.description | strip_html | truncatewords: 20 }}
+                </p>
+              {%- endif -%}
+
+              <a href="{{ collection.url }}" class="inline-flex items-center text-flores-primary font-semibold hover:text-flores-primary/80 transition-colors font-body">
+                View Collection
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              </a>
+            </div>
+          </article>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collections List",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Page title",
+      "default": "Our Coffee Collections"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Page description"
+    }
+  ]
+}
+{% endschema %}

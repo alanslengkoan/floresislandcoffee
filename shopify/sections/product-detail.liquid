@@ -1,0 +1,202 @@
+{% comment %}
+  Product Detail Section - Individual product page
+{% endcomment %}
+
+<section class="py-12 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      
+      {%- comment -%} Product Images {%- endcomment -%}
+      <div class="space-y-4">
+        {%- if product.images.size > 0 -%}
+          <div class="relative overflow-hidden rounded-2xl bg-white shadow-lg">
+            <img
+              id="main-product-image"
+              src="{{ product.featured_image | img_url: '1024x1024', crop: 'center' }}"
+              alt="{{ product.title }}"
+              class="w-full h-auto object-cover"
+            >
+          </div>
+          
+          {%- if product.images.size > 1 -%}
+            <div class="grid grid-cols-4 gap-4">
+              {%- for image in product.images limit: 4 -%}
+                <button
+                  type="button"
+                  onclick="document.getElementById('main-product-image').src='{{ image | img_url: '1024x1024', crop: 'center' }}'"
+                  class="relative overflow-hidden rounded-lg bg-white shadow hover:shadow-md transition-shadow"
+                >
+                  <img
+                    src="{{ image | img_url: '300x300', crop: 'center' }}"
+                    alt="{{ product.title }}"
+                    class="w-full h-auto object-cover"
+                  >
+                </button>
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+        {%- else -%}
+          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-flores-primary/20 to-flores-primary/10 shadow-lg aspect-square flex items-center justify-center">
+            <svg class="w-32 h-32 text-flores-primary/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+            </svg>
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} Product Info {%- endcomment -%}
+      <div class="space-y-6">
+        <div>
+          <h1 class="text-4xl font-bold text-gray-900 mb-3 font-heading">
+            {{ product.title }}
+          </h1>
+          
+          {%- if product.vendor -%}
+            <p class="text-lg text-gray-600 font-body">
+              by <span class="font-semibold text-flores-primary">{{ product.vendor }}</span>
+            </p>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Price {%- endcomment -%}
+        <div class="border-t border-b border-gray-200 py-6">
+          <div class="flex items-baseline gap-3">
+            <span class="text-4xl font-bold text-flores-primary font-body">
+              {{ product.price | money }}
+            </span>
+            {%- if product.compare_at_price > product.price -%}
+              <span class="text-xl text-gray-500 line-through font-body">
+                {{ product.compare_at_price | money }}
+              </span>
+              <span class="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
+                Save {{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%
+              </span>
+            {%- endif -%}
+          </div>
+        </div>
+
+        {%- comment -%} Description {%- endcomment -%}
+        {%- if product.description != blank -%}
+          <div class="prose prose-lg max-w-none font-body">
+            {{ product.description }}
+          </div>
+        {%- endif -%}
+
+        {%- comment -%} Product Form {%- endcomment -%}
+        <form action="/cart/add" method="post" enctype="multipart/form-data" class="space-y-6">
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+          
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              <div class="space-y-2">
+                <label class="block text-sm font-semibold text-gray-900 font-body">
+                  {{ option.name }}
+                </label>
+                <select
+                  name="options[{{ option.name }}]"
+                  class="block w-full rounded-lg border-gray-300 py-3 px-4 text-base focus:border-flores-primary focus:ring-flores-primary font-body"
+                >
+                  {%- for value in option.values -%}
+                    <option value="{{ value }}">{{ value }}</option>
+                  {%- endfor -%}
+                </select>
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <div class="space-y-2">
+            <label class="block text-sm font-semibold text-gray-900 font-body">
+              Quantity
+            </label>
+            <input
+              type="number"
+              name="quantity"
+              value="1"
+              min="1"
+              class="block w-full rounded-lg border-gray-300 py-3 px-4 text-base focus:border-flores-primary focus:ring-flores-primary font-body"
+            >
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-flores-primary text-white py-4 px-8 rounded-lg text-lg font-semibold hover:bg-flores-primary/90 transition-colors shadow-lg hover:shadow-xl font-body"
+            {% unless product.available %}disabled{% endunless %}
+          >
+            {%- if product.available -%}
+              Add to Cart
+            {%- else -%}
+              Sold Out
+            {%- endif -%}
+          </button>
+        </form>
+
+        {%- comment -%} Product Meta {%- endcomment -%}
+        {%- if product.tags.size > 0 or product.type != blank -%}
+          <div class="border-t border-gray-200 pt-6 space-y-3">
+            {%- if product.type != blank -%}
+              <div class="flex items-center gap-2 text-sm font-body">
+                <span class="font-semibold text-gray-900">Type:</span>
+                <span class="text-gray-600">{{ product.type }}</span>
+              </div>
+            {%- endif -%}
+            
+            {%- if product.tags.size > 0 -%}
+              <div class="flex items-start gap-2 text-sm font-body">
+                <span class="font-semibold text-gray-900 mt-1">Tags:</span>
+                <div class="flex flex-wrap gap-2">
+                  {%- for tag in product.tags -%}
+                    <span class="bg-flores-light/30 text-flores-primary px-3 py-1 rounded-full text-xs font-medium">
+                      {{ tag }}
+                    </span>
+                  {%- endfor -%}
+                </div>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} Related Products {%- endcomment -%}
+    {%- if product.collections.size > 0 -%}
+      {%- assign related_collection = product.collections.first -%}
+      {%- if related_collection.products.size > 1 -%}
+        <div class="mt-20">
+          <h2 class="text-3xl font-bold text-gray-900 mb-8 font-heading">Related Products</h2>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {%- for related_product in related_collection.products limit: 4 -%}
+              {%- unless related_product.id == product.id -%}
+                <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 group">
+                  <a href="{{ related_product.url }}" class="block relative h-64 overflow-hidden">
+                    {%- if related_product.featured_image -%}
+                      <img
+                        src="{{ related_product.featured_image | img_url: '600x600', crop: 'center' }}"
+                        alt="{{ related_product.title }}"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      >
+                    {%- endif -%}
+                  </a>
+                  <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-900 mb-2 font-heading line-clamp-2">
+                      <a href="{{ related_product.url }}">{{ related_product.title }}</a>
+                    </h3>
+                    <div class="text-2xl font-bold text-flores-primary font-body">
+                      {{ related_product.price | money }}
+                    </div>
+                  </div>
+                </article>
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Detail",
+  "settings": []
+}
+{% endschema %}

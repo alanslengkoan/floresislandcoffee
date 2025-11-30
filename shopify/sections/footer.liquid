@@ -3,7 +3,7 @@
   Footer with company info and links
 {% endcomment %}
 
-<footer class="bg-[#143F58] text-white">
+<footer class="bg-flores-footer text-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     {%- comment -%} Center the 3-column group and top-align items {%- endcomment -%}
     <div class="flex flex-col md:flex-row md:justify-center md:items-start md:gap-24">
@@ -23,7 +23,7 @@
           {%- endif -%}
         </div>
 
-        <div class="space-y-2">
+        <div class="space-y-2 mb-6">
           {%- comment -%} Email Contact {%- endcomment -%}
           <div class="flex items-center gap-3">
             <svg class="w-5 h-5 text-white/60" fill="currentColor" viewBox="0 0 24 24">
@@ -113,7 +113,7 @@
     {%- comment -%} Divider + copyright {%- endcomment -%}
     <div class="border-t border-white/20 mt-12 pt-8">
       <p class="text-white/60 text-base font-body">
-        &copy;{{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+        &copy;{{ 'now' | date: '%Y' }} All rights reserved.
       </p>
     </div>
   </div>

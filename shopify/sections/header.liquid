@@ -8,13 +8,9 @@
   class="sticky top-0 z-50 transition-all duration-300 bg-white border-b border-gray-200"
   x-data="{ 
     mobileMenuOpen: false, 
-    isScrolled: false,
-    init() {
-      window.addEventListener('scroll', () => {
-        this.isScrolled = window.scrollY > 50;
-      });
-    }
+    isScrolled: false
   }"
+  x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 50; })"
   :class="isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-white/20 shadow-lg' : 'bg-white border-b border-gray-200'"
 >
   <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between px-3 py-2 lg:px-4">
@@ -43,8 +39,22 @@
       </a>
     </div>
 
-    {%- comment -%} Mobile menu button {%- endcomment -%}
-    <div class="flex lg:hidden">
+    {%- comment -%} Mobile menu button and cart {%- endcomment -%}
+    <div class="flex lg:hidden items-center gap-4">
+      <a
+        href="/cart"
+        class="relative text-flores-primary hover:text-flores-primary/80"
+      >
+        <span class="sr-only">Shopping cart</span>
+        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+        </svg>
+        {%- if cart.item_count > 0 -%}
+          <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+            {{ cart.item_count }}
+          </span>
+        {%- endif -%}
+      </a>
       <button
         type="button"
         @click="mobileMenuOpen = true"
@@ -64,8 +74,8 @@
         <a href="/pages/about" class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20">
           About Us
         </a>
-        <a href="/collections" class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20">
-          Product
+        <a href="/collections/all" class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20">
+          Shop
         </a>
         <a href="/blogs/news" class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20">
           News
@@ -77,18 +87,20 @@
 
       {%- comment -%} Icons {%- endcomment -%}
       <div class="flex items-center gap-x-4 ml-4">
-        <a href="/account" class="text-flores-primary hover:text-flores-primary/80">
-          <span class="sr-only">Profile</span>
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+        <a
+          href="/cart"
+          class="relative text-flores-primary hover:text-flores-primary/80"
+        >
+          <span class="sr-only">Shopping cart</span>
+          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
           </svg>
+          {%- if cart.item_count > 0 -%}
+            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+              {{ cart.item_count }}
+            </span>
+          {%- endif -%}
         </a>
-        <button type="button" class="text-flores-primary hover:text-flores-primary/80" onclick="document.querySelector('.search-modal').style.display='flex'">
-          <span class="sr-only">Search</span>
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
-        </button>
       </div>
     </div>
   </nav>
@@ -130,17 +142,9 @@
         <div class="-my-6 divide-y divide-gray-500/10">
           <div class="space-y-2 py-4">
             <a href="/pages/about" class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20">About Us</a>
-            <a href="/collections" class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20">Product</a>
+            <a href="/collections/all" class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20">Shop</a>
             <a href="/blogs/news" class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20">News</a>
             <a href="/pages/contact" class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20">Contact</a>
-          </div>
-          <div class="py-4">
-            <a href="/account" class="-mx-3 flex items-center gap-x-3 rounded-lg px-3 py-2.5 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20">
-              <svg class="h-6 w-6 text-flores-primary" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
-              </svg>
-              Profile
-            </a>
           </div>
         </div>
       </div>
