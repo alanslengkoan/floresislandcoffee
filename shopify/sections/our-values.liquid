@@ -18,9 +18,9 @@
       {%- for block in section.blocks -%}
         {%- if block.type == 'value_card' -%}
           <div 
-            class="bg-[#9AD7E5] h-48 md:h-64 lg:h-80 rounded-lg md:rounded-2xl flex flex-col items-center justify-center text-center p-2 md:p-6 relative overflow-hidden"
+            class="bg-flores-light h-48 md:h-64 lg:h-80 rounded-lg md:rounded-2xl flex flex-col items-center justify-center text-center p-2 md:p-6 relative overflow-hidden bg-cover bg-center"
             {% if block.settings.background_image != blank %}
-              style="background-image: url({{ block.settings.background_image | img_url: 'large' }}); background-size: cover; background-position: center;"
+              style="background-image: url({{ block.settings.background_image | img_url: '800x800' }});"
             {% endif %}
             {{ block.shopify_attributes }}
           >
@@ -31,16 +31,18 @@
             <div class="relative z-10 flex flex-col items-center justify-center">
               {%- if block.settings.icon != blank -%}
                 <img 
-                  src="{{ block.settings.icon | img_url: 'small' }}" 
-                  alt="icon" 
+                  src="{{ block.settings.icon | img_url: '200x200' }}" 
+                  alt="{{ block.settings.title | escape }}" 
+                  width="80"
+                  height="80"
                   class="w-8 h-8 md:w-16 lg:w-20 md:h-16 lg:h-20 mb-1 md:mb-3 object-contain" 
                   loading="lazy"
                 >
               {%- elsif block.settings.icon_emoji != blank -%}
-                <span class="text-2xl md:text-4xl lg:text-5xl mb-1 md:mb-3 block text-center">{{ block.settings.icon_emoji }}</span>
+                <span class="text-2xl md:text-4xl lg:text-5xl mb-1 md:mb-3 block text-center" aria-hidden="true">{{ block.settings.icon_emoji }}</span>
               {%- endif -%}
               
-              <p class="font-medium text-xs md:text-sm lg:text-base leading-tight text-center {% if block.settings.background_image != blank %}text-white{% else %}text-gray-800{% endif %}">
+              <p class="font-medium text-xs md:text-sm lg:text-base leading-tight text-center {% if block.settings.background_image != blank %}text-white{% else %}text-gray-800{% endif %} font-body">
                 {{ block.settings.title }}
               </p>
             </div>
@@ -49,14 +51,16 @@
           <div class="h-48 md:h-64 lg:h-80 rounded-lg md:rounded-2xl overflow-hidden" {{ block.shopify_attributes }}>
             {%- if block.settings.image != blank -%}
               <img
-                src="{{ block.settings.image | img_url: 'large' }}"
-                alt="{{ block.settings.alt_text }}"
+                src="{{ block.settings.image | img_url: '800x800' }}"
+                alt="{{ block.settings.alt_text | default: 'Flores Island Coffee' | escape }}"
+                width="800"
+                height="800"
                 class="w-full h-full object-cover"
                 loading="lazy"
               >
             {%- else -%}
               <div class="w-full h-full bg-gray-200 flex items-center justify-center">
-                <span class="text-gray-400">Image placeholder</span>
+                <span class="text-gray-400 font-body">Image placeholder</span>
               </div>
             {%- endif -%}
           </div>
@@ -65,31 +69,6 @@
     </div>
   </div>
 </section>
-
-<style>
-  /* Stagger animation for value cards */
-  @keyframes fadeInScale {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  .values-grid > * {
-    animation: fadeInScale 0.6s ease-out forwards;
-  }
-  
-  .values-grid > *:nth-child(1) { animation-delay: 0.1s; opacity: 0; }
-  .values-grid > *:nth-child(2) { animation-delay: 0.2s; opacity: 0; }
-  .values-grid > *:nth-child(3) { animation-delay: 0.3s; opacity: 0; }
-  .values-grid > *:nth-child(4) { animation-delay: 0.4s; opacity: 0; }
-  .values-grid > *:nth-child(5) { animation-delay: 0.5s; opacity: 0; }
-  .values-grid > *:nth-child(6) { animation-delay: 0.6s; opacity: 0; }
-</style>
 
 {% schema %}
 {

@@ -4,18 +4,15 @@
 
 <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
   <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-serif text-teal-800 mb-2">{{ section.settings.location_title | default: 'FLORES ISLAND' }}</h2>
-      <p class="text-xl text-teal-600">{{ section.settings.location_subtitle | default: 'INDONESIA' }}</p>
-    </div>
-    
     {%- if section.settings.map_image != blank -%}
       <div class="mb-16">
-        <div class="bg-gradient-to-br from-blue-100 to-teal-100 rounded-lg p-8 mb-8">
+        <div class="relative">
           <img 
-            src="{{ section.settings.map_image | img_url: 'large' }}" 
-            alt="Flores Island Map"
-            class="w-full h-64 md:h-80 object-contain rounded-lg"
+            src="{{ section.settings.map_image | img_url: '1200x800' }}" 
+            alt="Coffee map Flores Island"
+            width="1200"
+            height="800"
+            class="w-full h-auto"
             loading="lazy"
           >
         </div>
@@ -24,15 +21,15 @@
     
     <div class="max-w-4xl mx-auto space-y-6 text-gray-600 leading-relaxed">
       <p class="text-lg">
-        {{ section.settings.paragraph_1 | default: 'Flores Island Coffee (FIC) is a strategic partnership between New Zealand and Indonesia, driving sustainable growth in the Flores coffee industry.' }}
+        Flores Island Coffee (FIC) is a strategic partnership between New Zealand and Indonesia, designed to accelerate sustainable growth and international market access for Flores coffee.
       </p>
       
       <p class="text-lg">
-        {{ section.settings.paragraph_2 | default: "The venture is led by Old Station Road Limited (New Zealand), a brand owner and investor in agriculture, food, and beverages, together with Kopdit Pintu Air, Indonesia's largest cooperative credit union with 370,000+ members, including 222,000 smallholder farmers managing around 400,000 hectares of land." }}
+        The venture is led by Old Station Road Limited (New Zealand)—a brand owner and investor across agriculture, food, and beverage—and Kopdit Pintu Air, Indonesia's largest cooperative credit union with over 370,000 members, including 222,000 smallholder farmers managing nearly 400,000 hectares of productive land.
       </p>
       
       <p class="text-lg">
-        {{ section.settings.paragraph_3 | default: 'Based in Maumere, East Flores, FIC works closely with farming communities across Mt. Egon and Nilo, building a vertically integrated, sustainable coffee supply chain that delivers global impact while empowering local farmers.' }}
+        Headquartered in Maumere, East Flores, FIC collaborates directly with farming communities across the island, from Manggarai, Bajawa–Ngada, and Ende, to Maumere, to build a vertically integrated, end-to-end supply chain that connects farms, processing, roasting, and global markets.
       </p>
     </div>
   </div>
@@ -66,36 +63,9 @@
   "name": "About Story",
   "settings": [
     {
-      "type": "text",
-      "id": "location_title",
-      "label": "Location title",
-      "default": "FLORES ISLAND"
-    },
-    {
-      "type": "text",
-      "id": "location_subtitle",
-      "label": "Location subtitle",
-      "default": "INDONESIA"
-    },
-    {
       "type": "image_picker",
       "id": "map_image",
-      "label": "Map image"
-    },
-    {
-      "type": "textarea",
-      "id": "paragraph_1",
-      "label": "Paragraph 1"
-    },
-    {
-      "type": "textarea",
-      "id": "paragraph_2",
-      "label": "Paragraph 2"
-    },
-    {
-      "type": "textarea",
-      "id": "paragraph_3",
-      "label": "Paragraph 3"
+      "label": "Timeline/Map image"
     }
   ],
   "blocks": [

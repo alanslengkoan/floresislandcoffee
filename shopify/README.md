@@ -1,88 +1,147 @@
 # Flores Island Coffee - Shopify Theme
 
-Shopify Liquid theme converted from React SPA, preserving all TailwindCSS styling and design.
+A high-performance, optimized Shopify theme for Flores Island Coffee, built following Shopify best practices.
 
-## 🚀 Features
+## ✨ Features
 
-- **TailwindCSS v4** - Same styling as React version
-- **Alpine.js** - For interactive components
-- **Responsive Design** - Mobile-first approach
-- **SEO Optimized** - Meta tags and structured data
-- **Custom Sections** - Modular and reusable
-- **Custom Fonts** - Cormorant Garamond & Raleway
+- 🎨 **Modern Design** - Clean, professional layout dengan brand identity yang kuat
+- ⚡ **Performance Optimized** - Lazy loading, resource hints, dan optimized assets
+- ♿ **Accessibility First** - WCAG 2.1 AA compliant dengan proper ARIA labels
+- 📱 **Fully Responsive** - Mobile-first approach, optimal di semua devices
+- 🌐 **SEO Ready** - Semantic HTML, meta tags, dan structured data
+- 🎯 **Conversion Focused** - Clear CTAs dan user-friendly navigation
+- 🔧 **Developer Friendly** - Well-organized code dengan comprehensive documentation
 
-## 📁 Structure
+## 🛠 Tech Stack
+
+- **Shopify Liquid** - Template language untuk dynamic content
+- **Tailwind CSS v3.4** - Utility-first CSS framework
+- **Alpine.js v3** - Lightweight JavaScript untuk interactivity
+- **PostCSS** - CSS processing dan optimization
+- **Autoprefixer** - Automatic vendor prefixes
+
+## 📁 Project Structure
 
 ```
-shopify-theme/
-├── assets/           # CSS, JS, images
-├── config/           # Theme settings
-├── layout/           # theme.liquid
-├── locales/          # Translations
-├── sections/         # Reusable sections
-├── snippets/         # Small reusable components
-├── templates/        # Page templates
-└── src/              # Source files for build
+shopify/
+├── assets/              # Compiled & minified assets
+│   ├── application.css  # Main stylesheet (compiled)
+│   ├── theme.js        # Theme JavaScript
+│   └── vendor.js       # Third-party libraries
+├── config/
+│   └── settings_schema.json  # Theme settings
+├── layout/
+│   └── theme.liquid    # Main layout template
+├── locales/
+│   └── en.default.json # Translations
+├── sections/           # 21 sections
+│   ├── header.liquid
+│   ├── footer.liquid
+│   ├── hero-home.liquid
+│   ├── our-values.liquid
+│   └── ...
+├── snippets/           # Reusable components
+│   ├── product-card.liquid
+│   ├── icon.liquid
+│   ├── meta-tags.liquid
+│   └── scroll-to-top-button.liquid
+├── src/
+│   └── input.css       # Source CSS dengan Tailwind
+├── templates/          # Page templates (JSON)
+│   ├── index.json
+│   ├── page.about.json
+│   └── page.contact.json
+├── package.json
+├── tailwind.config.js
+├── postcss.config.js
+├── OPTIMIZATION.md     # Detailed optimization guide
+└── README.md
 ```
 
-## 🛠️ Setup & Development
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ 
-- Shopify CLI
-- NPM or Yarn
+
+- **Node.js** v16 atau lebih baru
+- **npm** atau **yarn**
+- **Shopify CLI** ([Install Guide](https://shopify.dev/themes/tools/cli/installation))
+- **Shopify Partner Account** atau **Store Access**
 
 ### Installation
 
-1. **Install dependencies:**
+1. **Clone atau download repository**
+
+2. **Install dependencies:**
 ```bash
+cd shopify
 npm install
 ```
 
-2. **Build CSS:**
+3. **Login ke Shopify:**
+```bash
+shopify login
+```
+
+4. **Connect ke store:**
+```bash
+shopify theme dev --store=your-store.myshopify.com
+```
+
+### Development Workflow
+
+**Start development server:**
+```bash
+npm run dev
+```
+
+Ini akan:
+- Watch CSS changes dan auto-compile
+- Start Shopify theme dev server
+- Open preview di browser dengan hot reload
+
+**Build CSS only:**
 ```bash
 npm run build:css
 ```
-
-3. **Build JavaScript:**
-```bash
-npm run build:js
-```
-
-4. **Build all assets:**
-```bash
-npm run build
-```
-
-### Development
 
 **Watch CSS changes:**
 ```bash
 npm run watch:css
 ```
 
-**Development with Shopify CLI:**
+**Build untuk production:**
 ```bash
-npm run dev
+npm run build
 ```
 
-This will:
-- Watch for CSS changes with TailwindCSS
-- Start Shopify theme dev server
-- Enable hot reload
+## 📦 Deployment
 
-### Deployment
+### Deploy ke Shopify
 
-**Deploy to Shopify:**
+**Development deployment:**
+```bash
+shopify theme push --development
+```
+
+**Production deployment:**
 ```bash
 npm run deploy
 ```
 
-Or manually:
+atau manual:
 ```bash
 npm run build
 shopify theme push
 ```
+
+### Pre-deployment Checklist
+
+- [ ] Run `npm run build` untuk compile assets
+- [ ] Test di mobile devices
+- [ ] Check accessibility dengan screen reader
+- [ ] Verify SEO meta tags
+- [ ] Test performance dengan Lighthouse
+- [ ] Backup current theme
 
 ## 🎨 Customization
 

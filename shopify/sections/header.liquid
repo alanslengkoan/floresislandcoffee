@@ -20,14 +20,22 @@
   <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between px-3 py-2 lg:px-4">
     
     {%- comment -%} Logo {%- endcomment -%}
-    <div class="flex">
-      <a href="/" class="-m-1.5 p-1.5">
+    <div class="flex lg:flex-1">
+      <a href="/" class="-m-1.5 p-1.5" aria-label="Homepage - {{ shop.name }}">
+        <span class="sr-only">{{ shop.name }}</span>
         {%- if section.settings.logo != blank -%}
+          {%- liquid
+            assign logo_width = section.settings.logo_width | default: 100
+            assign logo_height = logo_width | times: 0.5 | round
+          -%}
           <img
-            src="{{ section.settings.logo | img_url: 'medium' }}"
+            src="{{ section.settings.logo | img_url: width: 200 }}"
+            srcset="{{ section.settings.logo | img_url: width: 200 }} 1x, {{ section.settings.logo | img_url: width: 400 }} 2x"
             alt="{{ shop.name }}"
+            width="{{ logo_width }}"
+            height="{{ logo_height }}"
             class="h-13 w-auto"
-            loading="lazy"
+            loading="eager"
           >
         {%- else -%}
           <span class="text-2xl font-bold text-flores-primary font-heading">{{ shop.name }}</span>

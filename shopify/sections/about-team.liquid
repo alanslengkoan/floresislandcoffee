@@ -2,51 +2,6 @@
   About Team Section - Team members and leadership
 {% endcomment %}
 
-{%- comment -%} Strategic Leadership {%- endcomment -%}
-<section class="py-16 px-4 sm:px-6 lg:px-8 bg-slate-800 text-white">
-  <div class="max-w-6xl mx-auto">
-    <h2 class="text-3xl md:text-4xl font-serif text-white text-center mb-12">
-      {{ section.settings.leadership_title | default: 'Strategic Leadership' }}
-    </h2>
-    
-    <div class="bg-slate-700 rounded-lg p-8">
-      <div class="flex flex-col md:flex-row items-start gap-8">
-        {%- if section.settings.leadership_logo != blank -%}
-          <div class="flex-shrink-0">
-            <div class="w-24 h-24 bg-teal-600 rounded-lg flex items-center justify-center mb-4 overflow-hidden">
-              <img 
-                src="{{ section.settings.leadership_logo | img_url: 'small' }}" 
-                alt="PT. PINTU AIR KOPI FLORES"
-                class="w-full h-full object-contain"
-                loading="lazy"
-              >
-            </div>
-            <div class="text-sm text-gray-300">
-              <p class="font-semibold">PT. PINTU AIR</p>
-              <p class="font-semibold">KOPI FLORES</p>
-            </div>
-          </div>
-        {%- endif -%}
-        
-        <div class="flex-1">
-          <div class="mb-6">
-            <p class="text-gray-300 leading-relaxed">
-              {{ section.settings.leadership_text | default: 'FIC investment is led by Greg Hickman and Haligan Murray from Old Station Road New Zealand with Indonesian partner Pintu Air Credit Union. The partnership was signed in 2023 and is structured as a long-term profit share joint venture.' }}
-            </p>
-          </div>
-          
-          <div>
-            <h3 class="text-white font-semibold mb-2">PT. PINTU AIR KOPI FLORES</h3>
-            <p class="text-gray-300 text-sm">
-              {{ section.settings.company_description | default: 'Indonesian based commercial entity, established specifically to carry out FIC operations in Indonesia. Incorporated and led by Pintu Air Cooperative.' }}
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 {%- comment -%} Our Team {%- endcomment -%}
 <section class="py-16 px-4 sm:px-6 lg:px-8 bg-white">
   <div class="max-w-6xl mx-auto">
@@ -55,14 +10,16 @@
     </h2>
     
     {%- if section.blocks.size > 0 -%}
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div class="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-5 gap-8">
         {%- for block in section.blocks -%}
           {%- if block.type == 'team_member' -%}
             <div class="text-center" {{ block.shopify_attributes }}>
               {%- if block.settings.photo != blank -%}
                 <img 
-                  src="{{ block.settings.photo | img_url: 'medium' }}" 
-                  alt="{{ block.settings.name }}"
+                  src="{{ block.settings.photo | img_url: '400x400' }}" 
+                  alt="{{ block.settings.name }}, {{ block.settings.position }}"
+                  width="400"
+                  height="400"
                   class="w-full aspect-square object-cover rounded-lg mb-4"
                   loading="lazy"
                 >
@@ -81,36 +38,115 @@
   </div>
 </section>
 
+{%- comment -%} Our Brand & Strategic Partnership {%- endcomment -%}
+<section class="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 bg-white">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-12">
+    <div class="text-center md:border-r md:border-gray-500 md:pr-6">
+      <h2 class="text-xl lg:text-4xl xl:text-5xl font-serif text-slate-700 mb-4 lg:mb-12 font-light">
+        {{ section.settings.brand_title | default: 'Our Brand' }}
+      </h2>
+      <div class="flex flex-row gap-4 justify-center items-center">
+        {%- if section.settings.brand_logo_2 != blank -%}
+          <img 
+            src="{{ section.settings.brand_logo_2 | img_url: '200x200' }}" 
+            alt="Our Brand Logo"
+            width="120"
+            height="120"
+            class="max-w-[120px] md:max-w-40 w-full h-auto object-contain"
+            loading="lazy"
+          >
+        {%- endif -%}
+        {%- if section.settings.brand_logo_1 != blank -%}
+          <img 
+            src="{{ section.settings.brand_logo_1 | img_url: '200x200' }}" 
+            alt="Our Brand Logo"
+            width="120"
+            height="120"
+            class="max-w-[120px] md:max-w-40 w-full h-auto object-contain"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+    <div class="text-center md:pl-6">
+      <h2 class="text-xl lg:text-4xl xl:text-5xl font-serif text-slate-700 mb-4 lg:mb-12 font-light">
+        {{ section.settings.partnership_title | default: 'Strategic Partnership' }}
+      </h2>
+      <div class="flex flex-row gap-4 justify-center items-center">
+        {%- if section.settings.partner_logo_1 != blank -%}
+          <img 
+            src="{{ section.settings.partner_logo_1 | img_url: '200x200' }}" 
+            alt="Strategic Partnership Logo"
+            width="120"
+            height="120"
+            class="max-w-[120px] md:max-w-40 w-full h-auto object-contain"
+            loading="lazy"
+          >
+        {%- endif -%}
+        {%- if section.settings.partner_logo_2 != blank -%}
+          <img 
+            src="{{ section.settings.partner_logo_2 | img_url: '200x200' }}" 
+            alt="Strategic Partnership Logo"
+            width="120"
+            height="120"
+            class="max-w-[120px] md:max-w-40 w-full h-auto object-contain"
+            loading="lazy"
+          >
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
 {% schema %}
 {
   "name": "About Team",
   "settings": [
     {
       "type": "text",
-      "id": "leadership_title",
-      "label": "Leadership section title",
-      "default": "Strategic Leadership"
-    },
-    {
-      "type": "image_picker",
-      "id": "leadership_logo",
-      "label": "Leadership logo"
-    },
-    {
-      "type": "textarea",
-      "id": "leadership_text",
-      "label": "Leadership text"
-    },
-    {
-      "type": "textarea",
-      "id": "company_description",
-      "label": "Company description"
-    },
-    {
-      "type": "text",
       "id": "team_title",
       "label": "Team section title",
       "default": "Our Team"
+    },
+    {
+      "type": "header",
+      "content": "Our Brand Section"
+    },
+    {
+      "type": "text",
+      "id": "brand_title",
+      "label": "Brand section title",
+      "default": "Our Brand"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo_1",
+      "label": "Brand logo 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_logo_2",
+      "label": "Brand logo 2"
+    },
+    {
+      "type": "header",
+      "content": "Strategic Partnership Section"
+    },
+    {
+      "type": "text",
+      "id": "partnership_title",
+      "label": "Partnership section title",
+      "default": "Strategic Partnership"
+    },
+    {
+      "type": "image_picker",
+      "id": "partner_logo_1",
+      "label": "Partner logo 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "partner_logo_2",
+      "label": "Partner logo 2"
     }
   ],
   "blocks": [
@@ -144,28 +180,35 @@
           "type": "team_member",
           "settings": {
             "name": "Mustika Ridwan",
-            "position": "Director"
-          }
-        },
-        {
-          "type": "team_member",
-          "settings": {
-            "name": "Haligan Murray",
-            "position": "Director / Founder"
-          }
-        },
-        {
-          "type": "team_member",
-          "settings": {
-            "name": "Vivi",
-            "position": "Finance Director"
+            "position": "Co-Founder & CEO"
           }
         },
         {
           "type": "team_member",
           "settings": {
             "name": "Greg Hickman",
-            "position": "Director / Founder"
+            "position": "Founder & Advisor"
+          }
+        },
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Mitchell Hong",
+            "position": "Co-Founder & SG Partner"
+          }
+        },
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Yulianus Damar",
+            "position": "Production Manager (TBC)"
+          }
+        },
+        {
+          "type": "team_member",
+          "settings": {
+            "name": "Theresia Ine RuThi",
+            "position": "Senior Agri GM"
           }
         }
       ]

@@ -1,11 +1,15 @@
 <!doctype html>
-<html lang="{{ request.locale.iso_code }}">
+<html lang="{{ request.locale.iso_code }}" class="no-js">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="#005E75">
     <link rel="canonical" href="{{ canonical_url }}">
+    
+    {%- comment -%} Preconnect to required origins for better performance {%- endcomment -%}
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
     
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | img_url: '32x32' }}">
@@ -15,7 +19,7 @@
       <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
     {%- endunless -%}
 
-    <!-- Google Fonts - Flores Island Coffee Typography -->
+    {%- comment -%} Google Fonts - Preconnect for performance {%- endcomment -%}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -33,11 +37,11 @@
 
     {% render 'meta-tags' %}
 
-    <!-- Alpine.js for interactivity -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {%- comment -%} Preload critical CSS {%- endcomment -%}
+    <link rel="preload" href="{{ 'application.css' | asset_url }}" as="style">
     
-    <!-- Theme JavaScript -->
-    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    {%- comment -%} Tailwind CSS - Critical path {%- endcomment -%}
+    {{ 'application.css' | asset_url | stylesheet_tag }}
 
     {{ content_for_header }}
 
@@ -47,12 +51,16 @@
       assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
     %}
 
-    <!-- Tailwind CSS -->
-    {{ 'application.css' | asset_url | stylesheet_tag }}
-
+    {%- comment -%} Remove no-js class immediately {%- endcomment -%}
     <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
     </script>
+    
+    {%- comment -%} Alpine.js for interactivity - defer for non-blocking {%- endcomment -%}
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    {%- comment -%} Theme JavaScript - defer for non-blocking {%- endcomment -%}
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   </head>
 
   <body class="min-h-screen bg-white">

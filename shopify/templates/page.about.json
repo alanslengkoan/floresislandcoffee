@@ -3,32 +3,40 @@
     "hero": {
       "type": "page-hero",
       "settings": {
-        "title": "About Flores Island Coffee",
-        "subtitle": "OUR STORY"
+        "subtitle": "Our Story",
+        "title": "The richness of Flores coffee echoes the depth of its emerald hills and ocean skies."
       }
     },
     "story": {
       "type": "about-story",
       "settings": {}
     },
-    "mission": {
-      "type": "about-mission",
-      "settings": {}
-    },
     "methodology": {
       "type": "about-methodology",
-      "settings": {}
+      "settings": {
+        "title": "Methodology"
+      }
+    },
+    "mission": {
+      "type": "about-mission",
+      "settings": {
+        "title": "Mission Statement"
+      }
     },
     "team": {
       "type": "about-team",
-      "settings": {}
+      "settings": {
+        "team_title": "Our Team",
+        "brand_title": "Our Brand",
+        "partnership_title": "Strategic Partnership"
+      }
     }
   },
   "order": [
     "hero",
     "story",
-    "mission",
     "methodology",
+    "mission",
     "team"
   ]
 }

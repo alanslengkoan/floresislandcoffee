@@ -6,7 +6,7 @@
 <section 
   class="relative h-screen bg-cover bg-center bg-no-repeat" 
   {% if section.settings.hero_image != blank %}
-    style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url({{ section.settings.hero_image | img_url: 'master' }});"
+    style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url({{ section.settings.hero_image | img_url: '2048x2048' }});"
   {% else %}
     style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop);"
   {% endif %}
@@ -18,12 +18,14 @@
         <div class="w-20 h-20 mx-auto mb-6 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
           {%- if section.settings.coffee_icon != blank -%}
             <img 
-              src="{{ section.settings.coffee_icon | img_url: 'small' }}" 
+              src="{{ section.settings.coffee_icon | img_url: '100x100' }}" 
               alt="Flores Island Coffee Logo"
-              loading="lazy"
+              width="48"
+              height="48"
+              loading="eager"
             >
           {%- else -%}
-            <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path d="M2 21h19v-3H2v3zM20 8H4V6h16v2zm-2.5 7c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM22 3H2v2h20V3zM5.5 10c-.83 0-1.5.67-1.5 1.5S4.67 13 5.5 13 7 12.33 7 11.5 6.33 10 5.5 10z"/>
             </svg>
           {%- endif -%}
@@ -36,34 +38,6 @@
     </div>
   </div>
 </section>
-
-<style>
-  /* GSAP-like entrance animation using CSS */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(50px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .hero-content > * {
-    animation: fadeInUp 1s ease-out forwards;
-  }
-  
-  .hero-content > *:nth-child(1) {
-    animation-delay: 0.5s;
-    opacity: 0;
-  }
-  
-  .hero-content > *:nth-child(2) {
-    animation-delay: 0.8s;
-    opacity: 0;
-  }
-</style>
 
 {% schema %}
 {

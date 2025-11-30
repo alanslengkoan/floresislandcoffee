@@ -1,55 +1,88 @@
 {% comment %}
   Product Card Snippet - Reusable product card component
-  Usage: {% render 'product-card', product: product, type: 'image' %}
+  
+  Parameters:
+  - type: 'category' or 'image'
+  - title: Card title
+  - subtitle: Card subtitle
+  - product_image: Main product image (for type='image')
+  - background_img: Background image
+  - button_text: Button text
+  - button_url: Button URL
+  - alt: Alt text for images
+  
+  Usage: 
+  {% render 'product-card', type: 'image', title: 'Coffee Name', subtitle: 'Origin', product_image: product.featured_image, button_url: product.url %}
 {% endcomment %}
 
+{%- liquid
+  assign card_title = title | default: ''
+  assign card_subtitle = subtitle | default: ''
+  assign card_button_text = button_text | default: 'View Details'
+  assign card_alt = alt | default: card_title | escape
+-%}
+
 {%- if type == 'category' -%}
-  <div class="bg-[#264653] text-white p-3 md:p-6 flex flex-col items-center justify-center rounded-xl text-center transition-transform duration-500 hover:scale-105">
-    <h3 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-1 md:mb-2">{{ title }}</h3>
-    <p class="text-sm md:text-lg lg:text-xl opacity-90 mb-3 md:mb-4">{{ subtitle }}</p>
+  <article class="bg-flores-footer text-white p-3 md:p-6 flex flex-col items-center justify-center rounded-xl text-center transition-transform duration-500 hover:scale-105">
+    {%- if card_title != blank -%}
+      <h3 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-1 md:mb-2 font-heading">{{ card_title }}</h3>
+    {%- endif -%}
+    {%- if card_subtitle != blank -%}
+      <p class="text-sm md:text-lg lg:text-xl opacity-90 mb-3 md:mb-4 font-body">{{ card_subtitle }}</p>
+    {%- endif -%}
     {%- if button_url != blank -%}
       <a
         href="{{ button_url }}"
-        class="bg-white text-[#264653] px-8 py-3 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-all duration-300 hover:shadow-lg whitespace-nowrap"
+        class="bg-white text-flores-footer px-8 py-3 rounded-lg font-semibold text-lg hover:bg-opacity-90 transition-all duration-300 hover:shadow-lg whitespace-nowrap font-body inline-block"
+        aria-label="{{ card_button_text }} - {{ card_title }}"
       >
-        {{ button_text | default: 'View Details' }}
+        {{ card_button_text }}
       </a>
     {%- endif -%}
-  </div>
+  </article>
+
 {%- elsif type == 'image' -%}
-  <div class="relative group overflow-hidden rounded-xl bg-cover bg-center min-h-[300px] md:min-h-[400px]"
+  <article 
+    class="relative group overflow-hidden rounded-xl bg-cover bg-center min-h-[300px] md:min-h-[400px]"
     {% if background_img != blank %}
-      style="background-image: url({{ background_img | img_url: 'large' }});"
+      style="background-image: url({{ background_img | img_url: '800x800' }});"
     {% endif %}
   >
     {%- if product_image != blank -%}
       <div class="absolute inset-0 flex items-center justify-center">
         <img
-          src="{{ product_image | img_url: 'medium' }}"
-          alt="{{ alt }}"
+          src="{{ product_image | img_url: '600x600' }}"
+          alt="{{ card_alt }}"
+          width="300"
+          height="300"
           class="w-2/4 h-2/4 object-contain transition-transform duration-500 group-hover:scale-110"
           loading="lazy"
         >
       </div>
     {%- endif -%}
-    <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    
+    {%- comment -%} Hover overlay {%- endcomment -%}
+    <div class="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" aria-hidden="true"></div>
+    
+    {%- comment -%} Card content {%- endcomment -%}
     <div class="absolute bottom-0 left-0 right-0 p-3 md:p-4 bg-gradient-to-t from-black/70 to-transparent flex flex-col items-center">
-      {%- if title != blank -%}
+      {%- if card_title != blank -%}
         <div class="text-white mb-2 md:mb-3 text-center">
-          <h3 class="text-sm md:text-lg font-bold">{{ title }}</h3>
-          {%- if subtitle != blank -%}
-            <p class="text-xs md:text-sm opacity-90">{{ subtitle }}</p>
+          <h3 class="text-sm md:text-lg font-bold font-heading">{{ card_title }}</h3>
+          {%- if card_subtitle != blank -%}
+            <p class="text-xs md:text-sm opacity-90 font-body">{{ card_subtitle }}</p>
           {%- endif -%}
         </div>
       {%- endif -%}
       {%- if button_url != blank -%}
         <a
           href="{{ button_url }}"
-          class="bg-flores-primary font-family-heading font-semibold text-white px-8 py-2.5 rounded-lg text-lg whitespace-nowrap"
+          class="bg-flores-primary font-heading font-semibold text-white px-8 py-2.5 rounded-lg text-lg whitespace-nowrap hover:bg-flores-primary/90 transition-colors duration-300 inline-block"
+          aria-label="View {{ card_title }}"
         >
-          {{ alt }}
+          {{ card_alt }}
         </a>
       {%- endif -%}
     </div>
-  </div>
+  </article>
 {%- endif -%}

@@ -15,17 +15,20 @@
   <div class="grid grid-cols-1 lg:grid-cols-2">
     {%- for block in section.blocks -%}
       {%- if block.type == 'specialty_card' -%}
-        <div class="relative group overflow-hidden" {{ block.shopify_attributes }}>
+        <article class="relative group overflow-hidden" {{ block.shopify_attributes }}>
           {%- if block.settings.image != blank -%}
             <img 
-              src="{{ block.settings.image | img_url: 'large' }}" 
-              alt="{{ block.settings.alt }}"
+              src="{{ block.settings.image | img_url: '1000x1000' }}" 
+              srcset="{{ block.settings.image | img_url: '1000x1000' }} 1x, {{ block.settings.image | img_url: '2000x2000' }} 2x"
+              alt="{{ block.settings.alt | default: block.settings.title | escape }}"
+              width="1000"
+              height="500"
               class="w-full h-[500px] object-cover transition-transform duration-700 group-hover:scale-105"
               loading="lazy"
             >
           {%- else -%}
             <div class="w-full h-[500px] bg-gray-200 flex items-center justify-center">
-              <span class="text-gray-400">Image placeholder</span>
+              <span class="text-gray-400 font-body">Image placeholder</span>
             </div>
           {%- endif -%}
           
@@ -36,13 +39,14 @@
                 <a 
                   href="{{ block.settings.button_url }}"
                   class="inline-block bg-white text-flores-primary px-8 py-3 rounded-lg font-semibold hover:bg-white/90 transition-colors duration-300 font-body"
+                  aria-label="{{ block.settings.button_text }} - {{ block.settings.title }}"
                 >
                   {{ block.settings.button_text }}
                 </a>
               {%- endif -%}
             </div>
           </div>
-        </div>
+        </article>
       {%- endif -%}
     {%- endfor -%}
   </div>
