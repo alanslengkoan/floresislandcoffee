@@ -3,12 +3,12 @@
 {% endcomment %}
 
 <section class="py-20 bg-gray-50">
-  <div class="max-w-7xl mx-auto px-6">
-    <h2 class="text-5xl font-bold text-flores-primary mb-16 text-center font-heading">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="mb-16 text-center leading-relaxed md:leading-[33px] md:text-4xl font-extrabold font-heading">
       {{ section.settings.title | default: 'Coffee News' }}
     </h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 news-grid">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-[60px] news-grid">
       {%- if section.settings.blog != blank -%}
         {%- assign blog = blogs[section.settings.blog] -%}
         {%- for article in blog.articles limit: 3 -%}
@@ -75,7 +75,7 @@
     
     {%- comment -%} See More Button {%- endcomment -%}
     {%- if section.settings.button_url != blank -%}
-      <div class="text-center mt-12">
+      <div class="text-center mt-12 px-[114px]">
         <a 
           href="{{ section.settings.button_url }}"
           class="inline-flex items-center bg-flores-primary text-white px-8 py-4 rounded-full font-semibold hover:bg-flores-primary/90 transition-colors duration-300 font-body"

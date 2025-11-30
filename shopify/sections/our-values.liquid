@@ -3,18 +3,18 @@
   Grid of value cards with icons and background images
 {% endcomment %}
 
-<section class="p-20 bg-white">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="text-center mb-16">
-      <h2 class="text-2xl lg:text-3xl font-medium tracking-wide text-flores-primary uppercase mb-3 font-body">
-        {{ section.settings.section_subtitle | default: 'Our Coffee Values - Sustainable Indonesian Coffee Production' }}
+<section class="py-20 bg-white mb-16">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center my-8 md:my-16 px-6 md:px-[114px]">
+      <h2 class="text-sm lg:text-xl font-medium tracking-wide text-flores-primary uppercase mb-8 font-heading">
+        {{ section.settings.section_subtitle | default: 'Our Values' }}
       </h2>
-      <p class="text-3xl md:text-4xl font-semibold text-flores-primary leading-relaxed font-heading">
-        {{ section.settings.section_title | default: 'Innovation in specialty coffee farming, <br />rooted in the volcanic soil of Flores Island.' }}
+      <p class="leading-[33px] md:text-4xl font-extrabold font-heading">
+        {{ section.settings.section_title | default: 'An innovation in coffee, <br />rooted in the soul of Flores soil.' }}
       </p>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 values-grid">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 px-[60px] values-grid">
       {%- for block in section.blocks -%}
         {%- if block.type == 'value_card' -%}
           <div 
@@ -78,13 +78,13 @@
       "type": "text",
       "id": "section_subtitle",
       "label": "Section subtitle",
-      "default": "Our Coffee Values - Sustainable Indonesian Coffee Production"
+      "default": "Our Values"
     },
     {
       "type": "textarea",
       "id": "section_title",
       "label": "Section title",
-      "default": "Innovation in specialty coffee farming, rooted in the volcanic soil of Flores Island."
+      "default": "An innovation in coffee, rooted in the soul of Flores soil."
     }
   ],
   "blocks": [

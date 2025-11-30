@@ -2,39 +2,63 @@
   "sections": {
     "hero": {
       "type": "hero-home",
-      "settings": {}
+      "settings": {
+        "hero_title": "Premium Flores Island Coffee - The richness echoes the depth of emerald hills and ocean skies"
+      }
     },
     "values": {
       "type": "our-values",
-      "settings": {}
+      "settings": {
+        "section_subtitle": "Our Values",
+        "section_title": "An innovation in coffee, <br />rooted in the soul of Flores soil."
+      }
     },
     "sustainability": {
       "type": "coffee-origin",
-      "settings": {}
+      "settings": {
+        "subtitle": "COFFEE ORIGIN",
+        "title": "Born in Flores,<br />Shared with the World",
+        "description": "Hand-picked and processed with care — using wet-hulled and natural methods — Flores coffee reflects the craft and commitment of smallholder farmers.",
+        "button_text": "Find Out More"
+      }
     },
     "cultivation": {
       "type": "cultivation-story",
-      "settings": {}
+      "settings": {
+        "title": "From Flores highlands, each bean carries <br class=\"hidden sm:block\" />a story of tradition and dedication."
+      }
     },
     "harvest": {
       "type": "coffee-harvest",
-      "settings": {}
+      "settings": {
+        "title": "The best product <br />from Flores Island Coffee"
+      }
     },
     "products": {
       "type": "product-showcase",
-      "settings": {}
+      "settings": {
+        "title": "Our Signature Coffee Product"
+      }
     },
     "specialty": {
       "type": "specialty-beans",
-      "settings": {}
+      "settings": {
+        "title": "Our Signature Beans",
+        "subtitle": "Available for B2B inquiries and custom Houseblend requests."
+      }
     },
     "news": {
       "type": "coffee-news",
-      "settings": {}
+      "settings": {
+        "title": "Coffee News"
+      }
     },
     "newsletter": {
       "type": "newsletter-signup",
-      "settings": {}
+      "settings": {
+        "title": "Stay Updated",
+        "description": "Subscribe to our newsletter to be in the know about latest updates from Flores Island Coffee"
+      }
     }
   },
   "order": [

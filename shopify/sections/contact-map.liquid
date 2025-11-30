@@ -27,18 +27,21 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
             </svg>
-            <h3 class="text-xl font-semibold text-gray-800 mb-2">
+            <h3 class="text-xl font-semibold text-gray-800 mb-2 font-heading">
               {{ section.settings.location_name | default: 'Flores Island Coffee Processing Center' }}
             </h3>
-            <p class="text-gray-600">
+            <p class="text-gray-600 font-body">
               {{ section.settings.location_address | default: 'Maumere, East Nusa Tenggara, Indonesia' }}
+            </p>
+            <p class="text-sm text-gray-500 mt-2 font-body">
+              Interactive map integration available
             </p>
             {%- if section.settings.map_link != blank -%}
               <a 
                 href="{{ section.settings.map_link }}" 
                 target="_blank" 
                 rel="noopener"
-                class="inline-block mt-4 px-6 py-2 bg-flores-primary text-white rounded-lg hover:bg-flores-primary/90 transition-colors"
+                class="inline-block mt-4 px-6 py-2 bg-flores-primary text-white rounded-lg hover:bg-flores-primary/90 transition-colors font-body"
               >
                 View on Google Maps
               </a>

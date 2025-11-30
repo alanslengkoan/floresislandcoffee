@@ -2,19 +2,139 @@
   "sections": {
     "hero": {
       "type": "contact-hero",
-      "settings": {}
+      "settings": {
+        "title": "Contact Flores Island Coffee Export",
+        "subtitle": "Connect with us for Indonesian coffee export partnerships, wholesale inquiries, and premium specialty coffee orders. Based in Maumere, Flores Island - serving coffee businesses worldwide."
+      }
     },
     "contact_form": {
       "type": "contact-form-section",
-      "settings": {}
+      "settings": {
+        "form_title": "Send us a Message",
+        "form_subtitle": "Have a question or want to start a conversation? We'd love to hear from you.",
+        "info_title": "Contact Information",
+        "info_subtitle": "Multiple ways to reach us. Choose what works best for you."
+      },
+      "blocks": {
+        "info_1": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "email",
+            "title": "General Inquiries",
+            "detail_1": "admin@flores.coffee",
+            "description": "For general questions and information"
+          }
+        },
+        "info_2": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "email",
+            "title": "Indonesian Inquiries",
+            "detail_1": "contact@flores.coffee",
+            "description": "For local partnerships and Indonesian market"
+          }
+        },
+        "info_3": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "globe",
+            "title": "Wholesale & B2B",
+            "detail_1": "wholesale@flores.coffee",
+            "detail_2": "+62 123 456 7890",
+            "description": "For bulk orders and business partnerships"
+          }
+        },
+        "info_4": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "location",
+            "title": "Our Location",
+            "detail_1": "Maumere, Flores Island",
+            "detail_2": "East Nusa Tenggara, Indonesia",
+            "description": "Visit our coffee processing facility"
+          }
+        },
+        "info_5": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "clock",
+            "title": "Business Hours",
+            "detail_1": "Mon - Fri: 8:00 AM - 6:00 PM",
+            "detail_2": "Sat: 9:00 AM - 4:00 PM",
+            "description": "Indonesian Western Time (WITA)"
+          }
+        },
+        "info_6": {
+          "type": "contact_info",
+          "settings": {
+            "icon": "globe",
+            "title": "Export Inquiries",
+            "detail_1": "export@flores.coffee",
+            "detail_2": "+62 987 654 3210",
+            "description": "International shipping and distribution"
+          }
+        }
+      },
+      "block_order": [
+        "info_1",
+        "info_2",
+        "info_3",
+        "info_4",
+        "info_5",
+        "info_6"
+      ]
     },
     "map": {
       "type": "contact-map",
-      "settings": {}
+      "settings": {
+        "title": "Find Us in Flores Island",
+        "subtitle": "Located in the heart of Flores Island, our processing facility is where the magic happens. Visit us to see our coffee journey from bean to cup.",
+        "location_name": "Flores Island Coffee Processing Center",
+        "location_address": "Maumere, East Nusa Tenggara, Indonesia"
+      }
     },
     "faq": {
       "type": "contact-faq",
-      "settings": {}
+      "settings": {
+        "title": "Frequently Asked Questions",
+        "subtitle": "Quick answers to common questions about Flores Island Coffee"
+      },
+      "blocks": {
+        "faq_1": {
+          "type": "faq_item",
+          "settings": {
+            "question": "What is the minimum order quantity for wholesale?",
+            "answer": "Our minimum wholesale order is 50kg for domestic orders and 100kg for international orders. We offer flexible packaging options to suit your business needs."
+          }
+        },
+        "faq_2": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Do you offer custom roasting profiles?",
+            "answer": "Yes! We work closely with our B2B partners to develop custom roasting profiles that match your specific requirements and target market preferences."
+          }
+        },
+        "faq_3": {
+          "type": "faq_item",
+          "settings": {
+            "question": "How long does international shipping take?",
+            "answer": "International shipping typically takes 7-14 business days depending on the destination. We use reliable logistics partners to ensure your coffee arrives fresh and on time."
+          }
+        },
+        "faq_4": {
+          "type": "faq_item",
+          "settings": {
+            "question": "Can I visit your processing facility?",
+            "answer": "Absolutely! We welcome visitors to our Maumere facility. Please contact us in advance to schedule a tour and learn about our coffee processing methods firsthand."
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4"
+      ]
     }
   },
   "order": [

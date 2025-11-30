@@ -4,15 +4,11 @@
 {% endcomment %}
 
 <section
-  class="min-h-[80vh] bg-cover bg-center flex items-center"
-  {% if section.settings.background_image != blank %}
-    style="background-image: linear-gradient(to right, rgba(0,0,0,0.5), transparent), url({{ section.settings.background_image | img_url: 'master' }});"
-  {% else %}
-    style="background-image: linear-gradient(to right, rgba(0,0,0,0.5), transparent), url(https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop);"
-  {% endif %}
+  class="h-screen bg-cover md:bg-cover bg-center flex items-center bg-no-repeat"
+  style="background-image: linear-gradient(to right, rgba(0,0,0,0.5), transparent), url({{ section.settings.background_image | img_url: '2048x2048' }}); background-size: cover;"
 >
-  <div class="w-full max-w-7xl mx-auto px-6">
-    <h2 class="text-5xl font-bold font-serif max-w-2xl text-white">
+  <div class="w-full max-w-7xl mx-auto px-6 md:mt-96 mt-0">
+    <h2 class="text-3xl md:text-5xl font-bold max-w-2xl text-white">
       {{ section.settings.title | default: 'The best product <br />from Flores Island Coffee' }}
     </h2>
   </div>

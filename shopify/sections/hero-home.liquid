@@ -5,34 +5,24 @@
 
 <section 
   class="relative h-screen bg-cover bg-center bg-no-repeat" 
-  {% if section.settings.hero_image != blank %}
-    style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url({{ section.settings.hero_image | img_url: '2048x2048' }});"
-  {% else %}
-    style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop);"
-  {% endif %}
+  style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url({{ section.settings.hero_image | img_url: '2048x2048' }});" 
 >
   <div class="absolute inset-0 flex items-center justify-center text-center text-white">
     <div class="max-w-4xl px-6 hero-content">
       {%- comment -%} Coffee Bean Icon {%- endcomment -%}
       <div class="mb-8">
-        <div class="w-20 h-20 mx-auto mb-6 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-sm border border-white/20">
+        <div class="w-20 h-20 mx-auto mb-6 flex items-center justify-center">
           {%- if section.settings.coffee_icon != blank -%}
             <img 
-              src="{{ section.settings.coffee_icon | img_url: '100x100' }}" 
-              alt="Flores Island Coffee Logo"
-              width="48"
-              height="48"
+              src="{{ section.settings.coffee_icon | img_url: '200x200' }}" 
+              alt="Flores Island Coffee Logo - Premium Indonesian Coffee"
               loading="eager"
             >
-          {%- else -%}
-            <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M2 21h19v-3H2v3zM20 8H4V6h16v2zm-2.5 7c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5-1.5.67-1.5 1.5.67 1.5 1.5 1.5zM22 3H2v2h20V3zM5.5 10c-.83 0-1.5.67-1.5 1.5S4.67 13 5.5 13 7 12.33 7 11.5 6.33 10 5.5 10z"/>
-            </svg>
           {%- endif -%}
         </div>
       </div>
       
-      <h1 class="text-4xl md:text-6xl lg:text-6xl font-bold mb-6 tracking-tight font-heading leading-tight">
+      <h1 class="text-xl md:text-4xl lg:text-4xl font-bold mb-6 tracking-tight font-heading leading-tight">
         {{ section.settings.hero_title | default: 'Premium Flores Island Coffee - The richness echoes the depth of emerald hills and ocean skies' }}
       </h1>
     </div>
