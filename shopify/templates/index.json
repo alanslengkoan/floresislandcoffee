@@ -35,7 +35,7 @@
       }
     },
     "products": {
-      "type": "product-showcase",
+      "type": "collection-products",
       "settings": {
         "title": "Our Signature Coffee Product"
       }
@@ -48,7 +48,7 @@
       }
     },
     "news": {
-      "type": "coffee-news",
+      "type": "blog-page",
       "settings": {
         "title": "Coffee News"
       }

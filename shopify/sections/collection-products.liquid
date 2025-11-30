@@ -3,9 +3,20 @@
   Styling matches Product.jsx 100%
 {% endcomment %}
 
-{%- paginate collection.products by 12 -%}
+{%- liquid
+  if template == 'collection'
+    assign current_collection = collection
+  elsif section.settings.collection != blank
+    assign current_collection = collections[section.settings.collection]
+  else
+    assign current_collection = collections.all
+  endif
+-%}
+
+{%- paginate current_collection.products by 12 -%}
 <div class="bg-white">
-  {%- comment -%} Hero Section {%- endcomment -%}
+  {%- comment -%} Hero Section - Only show on collection template pages {%- endcomment -%}
+  {%- if template == 'collection' or section.settings.show_hero -%}
   <section class="relative bg-white px-4 sm:px-6 lg:px-8 py-12 md:py-20">
     <div class="max-w-7xl mx-auto">
       <div class="rounded-3xl overflow-hidden relative" style="background-image: url('{{ section.settings.hero_bg | img_url: '2048x' }}'); background-position: 10% 100%; background-size: 100%;">
@@ -35,17 +46,18 @@
       </div>
     </div>
   </section>
+  {%- endif -%}
 
   {%- comment -%} Products Section {%- endcomment -%}
   <section class="py-16 bg-white px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
-      <h2 class="leading-relaxed md:leading-[33px] md:text-4xl font-extrabold text-flores-primary mb-12 font-heading">
-        Our Products
+      <h2 class="leading-relaxed md:leading-[33px] md:text-4xl font-extrabold text-flores-primary mb-12 font-heading {% if template == 'index' %}text-center{% endif %}">
+        {{ section.settings.title | default: current_collection.title | default: 'Our Products' }}
       </h2>
     
-    {%- if collection.products_count > 0 -%}
+    {%- if current_collection.products_count > 0 -%}
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {%- for product in collection.products -%}
+        {%- for product in current_collection.products -%}
           <a href="{{ product.url }}" class="group cursor-pointer">
             <div class="bg-[#D4E8E8] rounded-2xl p-8 mb-4 flex items-center justify-center h-[280px] group-hover:bg-[#c0dada] transition-colors">
               {%- if product.featured_image -%}
@@ -133,6 +145,30 @@
 {
   "name": "Collection Products",
   "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "Select which collection to display. Leave empty to show all products."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Our Signature Coffee Product",
+      "info": "Leave empty to use collection name"
+    },
+    {
+      "type": "header",
+      "content": "Hero Section"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_hero",
+      "label": "Show Hero Section",
+      "default": false,
+      "info": "Enable to show hero section on homepage. Automatically shown on collection pages."
+    },
     {
       "type": "image_picker",
       "id": "hero_bg",
