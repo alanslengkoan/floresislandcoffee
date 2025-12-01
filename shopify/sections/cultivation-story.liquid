@@ -1,105 +1,281 @@
 {% comment %}
-  Cultivation Story Section - Coffee mill and map from Home.jsx
+  Cultivation Story Section - Highcharts Maps with GeoJSON
 {% endcomment %}
+
+<script src="https://code.highcharts.com/maps/highmaps.js"></script>
 
 <section class="py-12 md:py-20 bg-white">
   <div class="max-w-7xl mx-auto px-4 md:px-6 text-center">
     <h2 class="leading-relaxed md:leading-[33px] md:text-4xl font-extrabold font-heading mb-8 md:mb-12">
-      {{ section.settings.title | default: 'From Flores highlands, each bean carries <br class="hidden sm:block" />a story of tradition and dedication.' }}
+      {{ section.settings.title | default: 'From Flores highlands, each bean carries a story of tradition and dedication.' }}
     </h2>
 
     {%- comment -%} Desktop and Tablet Version {%- endcomment -%}
-    <div class="hidden md:block relative w-full max-w-5xl mx-auto">
-      {%- if section.settings.map_image != blank -%}
-        <img
-          src="{{ section.settings.map_image | img_url: '1200x500', crop: 'center' }}"
-          alt="Flores Island map"
-          class="w-full object-cover rounded-lg"
-          loading="lazy"
+    <div 
+      x-data="mapChart()"
+      x-init="init()"
+      @click.away="$store.mapStore.clearActiveLocation()"
+      class="hidden md:block relative w-full max-w-5xl mx-auto"
+    >
+      {%- comment -%} Highcharts Container {%- endcomment -%}
+      <div id="flores-map" style="height: 420px; width: 100%;"></div>
+
+      {%- comment -%} Floating Info Card - Desktop {%- endcomment -%}
+      <template x-if="$store.mapStore.activeLocation">
+        <div 
+          @click.stop
+          :style="`left: ${$store.mapStore.cardPosition.x}px; top: ${$store.mapStore.cardPosition.y}px; transform: translate(-50%, calc(-100% - 20px));`"
+          class="absolute z-[1000] pointer-events-none animate-fade-in"
         >
-      {%- endif -%}
-
-      {%- comment -%} Marker {%- endcomment -%}
-      <div class="absolute left-[65%] top-[40%] transform -translate-x-1/2 -translate-y-1/2">
-        <div class="w-4 h-4 md:w-6 md:h-6 bg-flores-primary text-white flex items-center justify-center rounded-full shadow-lg text-xs md:text-base">
-          ☕
-        </div>
-      </div>
-
-      {%- comment -%} Popup Card {%- endcomment -%}
-      <div class="absolute right-0 md:right-4 lg:right-8 top-[20%] md:top-[30%] bg-white rounded-2xl shadow-lg p-3 md:p-4 lg:p-6 w-64 md:w-72 lg:w-80 xl:w-96">
-        <div class="flex md:block items-center gap-3 md:gap-0">
-          {%- if section.settings.factory_image != blank -%}
-            <img
-              src="{{ section.settings.factory_image | img_url: 'medium' }}"
-              alt="{{ section.settings.factory_title }}"
-              class="w-16 h-16 md:w-20 md:h-20 lg:w-28 lg:h-28 rounded-lg object-cover md:float-right md:ml-4 md:mb-2"
-              loading="lazy"
-            >
-          {%- endif -%}
-          <div class="flex-1 text-left">
-            <h4 class="text-xs uppercase text-flores-primary/70 font-body">{{ section.settings.factory_label | default: 'Our Factory' }}</h4>
-            <h3 class="text-lg md:text-xl lg:text-2xl font-bold text-flores-primary font-heading">{{ section.settings.factory_title | default: 'Maumere' }}</h3>
-            <p class="text-flores-primary/80 text-xs md:text-sm mt-1 md:mt-2 font-body">
-              {{ section.settings.factory_description | default: 'The heart of our production, where quality control and craft roasting begin.' }}
-            </p>
-            {%- if section.settings.factory_link != blank -%}
-              <a
-                href="{{ section.settings.factory_link }}"
-                class="inline-block mt-2 md:mt-4 px-3 md:px-4 py-1.5 md:py-2 bg-flores-primary text-white rounded-md text-xs md:text-sm hover:bg-flores-primary/90 transition font-body"
+          <div class="bg-white shadow-xl rounded-2xl flex overflow-hidden w-[340px] pointer-events-auto">
+            <div class="w-1/2 p-4 flex flex-col justify-center">
+              <div class="text-sm text-flores-primary font-semibold mb-1" x-text="$store.mapStore.activeLocation.subtitle"></div>
+              <h3 class="text-xl font-bold text-flores-primary mb-2" x-text="$store.mapStore.activeLocation.name"></h3>
+              <p class="text-gray-600 text-sm leading-snug mb-3" x-text="$store.mapStore.activeLocation.description"></p>
+              <button class="text-white bg-flores-primary text-sm py-2 rounded-md hover:bg-flores-primary/90 transition">
+                READ MORE
+              </button>
+            </div>
+            <div class="w-1/2">
+              <img 
+                :src="$store.mapStore.activeLocation.image" 
+                :alt="$store.mapStore.activeLocation.name"
+                class="w-full h-full object-cover"
               >
-                Read More
-              </a>
-            {%- endif -%}
+            </div>
           </div>
+          {%- comment -%} Arrow pointing to marker {%- endcomment -%}
+          <div 
+            class="absolute left-1/2 -translate-x-1/2 w-0 h-0"
+            style="border-left: 8px solid transparent; border-right: 8px solid transparent; border-top: 8px solid white; bottom: -8px;"
+          ></div>
         </div>
-      </div>
+      </template>
     </div>
 
     {%- comment -%} Mobile Version {%- endcomment -%}
-    <div class="md:hidden">
-      {%- if section.settings.map_image != blank -%}
-        <img
-          src="{{ section.settings.map_image | img_url: '800x400', crop: 'center' }}"
-          alt="Flores Island map"
-          class="w-full object-cover rounded-lg mb-6"
-          loading="lazy"
-        >
-      {%- endif -%}
+    <div 
+      x-data="mapChart()"
+      x-init="init()"
+      class="md:hidden"
+    >
+      {%- comment -%} Mobile Map {%- endcomment -%}
+      <div id="flores-map-mobile" style="height: 300px; width: 100%;" class="mb-6"></div>
 
-      <div class="bg-white rounded-2xl shadow-lg p-6 max-w-md mx-auto border">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-8 h-8 bg-flores-primary text-white flex items-center justify-center rounded-full">
-            ☕
+      {%- comment -%} Info Card - Mobile {%- endcomment -%}
+      <template x-if="$store.mapStore.activeLocation">
+        <div class="bg-white rounded-2xl shadow-lg p-6 max-w-md mx-auto border animate-fade-in">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-8 h-8 bg-flores-primary text-white flex items-center justify-center rounded-full">
+              ☕
+            </div>
+            <div class="text-left flex-1">
+              <h4 class="text-xs uppercase text-flores-primary/70 font-body" x-text="$store.mapStore.activeLocation.subtitle"></h4>
+              <h3 class="text-xl font-bold text-flores-primary font-heading" x-text="$store.mapStore.activeLocation.name"></h3>
+            </div>
+            <button 
+              @click="$store.mapStore.clearActiveLocation()"
+              class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition"
+            >
+              <span class="text-gray-500 text-xl leading-none">×</span>
+            </button>
           </div>
-          <div class="text-left">
-            <h4 class="text-xs uppercase text-flores-primary/70 font-body">{{ section.settings.factory_label | default: 'Our Factory' }}</h4>
-            <h3 class="text-xl font-bold text-flores-primary font-heading">{{ section.settings.factory_title | default: 'Maumere' }}</h3>
-          </div>
-        </div>
-        <p class="text-flores-primary/80 text-sm mb-4 font-body">
-          {{ section.settings.factory_description | default: 'The heart of our production, where quality control and craft roasting begin.' }}
-        </p>
-        {%- if section.settings.factory_link != blank -%}
-          <a
-            href="{{ section.settings.factory_link }}"
-            class="inline-block px-4 py-2 bg-flores-primary text-white rounded-md text-sm hover:bg-flores-primary/90 transition font-body"
+          <img
+            :src="$store.mapStore.activeLocation.image"
+            :alt="$store.mapStore.activeLocation.name"
+            class="w-full h-48 object-cover rounded-lg mb-4"
           >
-            Read More
-          </a>
-        {%- endif -%}
-      </div>
-    </div>
-
-    {%- comment -%} Legend {%- endcomment -%}
-    <div class="flex items-center justify-center gap-2 mt-6">
-      <div class="w-6 h-6 flex items-center justify-center rounded-full bg-flores-primary text-white">
-        ☕
-      </div>
-      <span class="text-flores-primary font-body">Coffee Mill</span>
+          <p class="text-flores-primary/80 text-sm font-body" x-text="$store.mapStore.activeLocation.description"></p>
+        </div>
+      </template>
     </div>
   </div>
 </section>
+
+<script>
+  // Alpine.js global store for shared state
+  document.addEventListener('alpine:init', () => {
+    Alpine.store('mapStore', {
+      activeLocation: null,
+      cardPosition: { x: 0, y: 0 },
+      
+      setActiveLocation(location, position) {
+        this.activeLocation = location;
+        this.cardPosition = position || { x: 0, y: 0 };
+      },
+      
+      clearActiveLocation() {
+        this.activeLocation = null;
+      }
+    });
+  });
+  
+  function mapChart() {
+    return {
+      chart: null,
+      isMobile: window.innerWidth < 768,
+      geojsonUrl: '{{ "ntt.geojson" | asset_url }}',
+      coffeeIconUrl: '{{ "coffe-circle.png" | asset_url }}',
+      
+      locations: [
+        {
+          id: 'manggarai',
+          name: 'Manggarai',
+          subtitle: 'Coffee Farm',
+          description: 'Premium arabica beans grown in the volcanic highlands.',
+          image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=400&fit=crop',
+          lat: -8.528,
+          lon: 120.458
+        },
+        {
+          id: 'bajawa',
+          name: 'Bajawa Ngada',
+          subtitle: 'Coffee Farm',
+          description: 'High altitude coffee cultivation with traditional farming methods.',
+          image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=400&fit=crop',
+          lat: -8.798,
+          lon: 120.897
+        },
+        {
+          id: 'maumere',
+          name: 'MAUMERE',
+          subtitle: 'Our Factory',
+          description: 'The heart of our production, where quality control and craft roasting begin.',
+          image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=400&fit=crop',
+          lat: -8.618,
+          lon: 122.213
+        }
+      ],
+
+      async init() {
+        const self = this;
+        const containerId = this.isMobile ? 'flores-map-mobile' : 'flores-map';
+        const height = this.isMobile ? 300 : 420;
+        
+        try {
+          // Load GeoJSON data
+          const response = await fetch(this.geojsonUrl);
+          const geoJsonData = await response.json();
+          
+          const mapData = geoJsonData.features.map((feature, index) => ({
+            ...feature,
+            id: feature.properties.NAMOBJ || feature.properties.NAME || `region-${index}`,
+            name: feature.properties.NAMOBJ || feature.properties.NAME || `Region ${index}`,
+            properties: feature.properties
+          }));
+          
+          this.chart = Highcharts.mapChart(containerId, {
+            chart: {
+              map: {
+                type: 'FeatureCollection',
+                features: mapData
+              },
+              backgroundColor: 'transparent',
+              plotBackgroundColor: 'transparent',
+              height: height,
+              plotBorderWidth: 0,
+              spacing: [0, 0, 0, 0],
+              events: {
+                click: function() {
+                  Alpine.store('mapStore').clearActiveLocation();
+                }
+              }
+            },
+            title: { text: '' },
+            credits: { enabled: false },
+            mapNavigation: { enabled: false },
+            legend: { enabled: false },
+            tooltip: { enabled: false },
+            
+            series: [
+              {
+                type: 'map',
+                mapData: mapData,
+                nullColor: '#73B9CC',
+                borderColor: 'transparent',
+                allAreas: true,
+                enableMouseTracking: false,
+                color: '#73B9CC',
+                states: {
+                  hover: {
+                    enabled: false,
+                    color: '#73B9CC'
+                  },
+                  inactive: {
+                    opacity: 1
+                  }
+                }
+              },
+              {
+                type: 'mappoint',
+                name: 'Coffee Locations',
+                data: this.locations.map(loc => ({
+                  id: loc.id,
+                  lat: loc.lat,
+                  lon: loc.lon,
+                  name: loc.name,
+                  marker: {
+                    symbol: `url(${this.coffeeIconUrl})`,
+                    width: 38,
+                    height: 38
+                  }
+                })),
+                cursor: 'pointer',
+                dataLabels: {
+                  enabled: false
+                },
+                point: {
+                  events: {
+                    click: function(e) {
+                      if (e && e.browserEvent) {
+                        e.browserEvent.stopPropagation();
+                      }
+                      const location = self.locations.find(l => l.id === this.id);
+                      
+                      // Get marker position for card placement
+                      const chart = this.series.chart;
+                      const plotX = this.plotX + chart.plotLeft;
+                      const plotY = this.plotY + chart.plotTop;
+                      
+                      // Update Alpine store
+                      Alpine.store('mapStore').setActiveLocation(location, { x: plotX, y: plotY });
+                    }
+                  }
+                }
+              }
+            ],
+            
+            mapView: {
+              center: [121.0, -8.6],
+              zoom: this.isMobile ? 7.5 : 9
+            }
+          });
+        } catch (error) {
+          console.error('Error loading map:', error);
+        }
+      }
+    };
+  }
+</script>
+
+<style>
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-in {
+    animation: fade-in 0.3s ease-out;
+  }
+  .highcharts-container {
+    border-radius: 0.5rem;
+  }
+</style>
 
 {% schema %}
 {
@@ -110,39 +286,6 @@
       "id": "title",
       "label": "Title",
       "default": "From Flores highlands, each bean carries a story of tradition and dedication."
-    },
-    {
-      "type": "image_picker",
-      "id": "map_image",
-      "label": "Map image"
-    },
-    {
-      "type": "image_picker",
-      "id": "factory_image",
-      "label": "Factory image"
-    },
-    {
-      "type": "text",
-      "id": "factory_label",
-      "label": "Factory label",
-      "default": "Our Factory"
-    },
-    {
-      "type": "text",
-      "id": "factory_title",
-      "label": "Factory title",
-      "default": "Maumere"
-    },
-    {
-      "type": "textarea",
-      "id": "factory_description",
-      "label": "Factory description",
-      "default": "The heart of our production, where quality control and craft roasting begin."
-    },
-    {
-      "type": "url",
-      "id": "factory_link",
-      "label": "Factory link"
     }
   ],
   "presets": [
