@@ -5,18 +5,18 @@
 
 <header 
   id="shopify-section-header" 
-  class="sticky top-0 z-50 transition-all duration-300 bg-white border-b border-gray-200"
   x-data="{ 
     mobileMenuOpen: false, 
     isScrolled: false
   }"
   x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 50; })"
-  :class="isScrolled ? 'bg-white/80 backdrop-blur-md border-b border-white/20 shadow-lg' : 'bg-white border-b border-gray-200'"
+  x-bind:class="isScrolled ? 'sticky top-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-lg' : 'sticky top-0 z-50 transition-all duration-300 bg-white border-b border-gray-200'"
+  class="sticky top-0 z-50 transition-all duration-300 bg-white border-b border-gray-200"
 >
   <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between px-3 py-2 lg:px-4">
     
     {%- comment -%} Logo {%- endcomment -%}
-    <div class="flex lg:flex-1">
+    <div class="flex">
       <a href="/" class="-m-1.5 p-1.5" aria-label="Homepage - {{ shop.name }}">
         <span class="sr-only">{{ shop.name }}</span>
         {%- if section.settings.logo != blank -%}
@@ -30,8 +30,9 @@
             alt="{{ shop.name }}"
             width="{{ logo_width }}"
             height="{{ logo_height }}"
-            class="h-13 w-auto"
+            class="h-12 w-auto"
             loading="eager"
+            style="height: 52px;"
           >
         {%- else -%}
           <span class="text-2xl font-bold text-flores-primary font-heading">{{ shop.name }}</span>
@@ -71,16 +72,29 @@
     <div class="hidden lg:flex lg:flex-1 lg:justify-end items-center gap-x-6">
       {%- comment -%} Navigation Links {%- endcomment -%}
       <div class="flex gap-x-6">
-        <a href="/pages/about" class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20">
+        {% assign current_path = request.path %}
+        <a 
+          href="/pages/about" 
+          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20 {% if current_path == '/pages/about' or template.name == 'page.about' %}bg-flores-primary !text-white{% endif %}"
+        >
           About Us
         </a>
-        <a href="/collections/all" class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20">
+        <a 
+          href="/collections/all" 
+          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20 {% if template.name == 'collection' or template.name == 'product' %}bg-flores-primary !text-white{% endif %}"
+        >
           Shop
         </a>
-        <a href="/blogs/news" class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20">
+        <a 
+          href="/blogs/news" 
+          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20 {% if template.name == 'article' or template.name == 'blog' %}bg-flores-primary !text-white{% endif %}"
+        >
           News
         </a>
-        <a href="/pages/contact" class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20">
+        <a 
+          href="/pages/contact" 
+          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20 {% if current_path == '/pages/contact' or template.name == 'page.contact' %}bg-flores-primary !text-white{% endif %}"
+        >
           Contact
         </a>
       </div>
@@ -108,21 +122,38 @@
   {%- comment -%} Mobile Navigation Menu {%- endcomment -%}
   <div 
     x-show="mobileMenuOpen"
-    x-transition:enter="transition ease-out duration-300"
-    x-transition:enter-start="opacity-0"
-    x-transition:enter-end="opacity-100"
-    x-transition:leave="transition ease-in duration-200"
-    x-transition:leave-start="opacity-100"
-    x-transition:leave-end="opacity-0"
+    @click.self="mobileMenuOpen = false"
     class="lg:hidden fixed inset-0 z-50"
     style="display: none;"
   >
-    <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-4 py-4 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+    {%- comment -%} Backdrop Overlay {%- endcomment -%}
+    <div 
+      x-show="mobileMenuOpen"
+      x-transition:enter="transition-opacity ease-out duration-300"
+      x-transition:enter-start="opacity-0"
+      x-transition:enter-end="opacity-100"
+      x-transition:leave="transition-opacity ease-in duration-200"
+      x-transition:leave-start="opacity-100"
+      x-transition:leave-end="opacity-0"
+      class="fixed inset-0 z-40 bg-black/25"
+    ></div>
+    
+    {%- comment -%} Menu Panel {%- endcomment -%}
+    <div 
+      x-show="mobileMenuOpen"
+      x-transition:enter="transition ease-out duration-300 transform"
+      x-transition:enter-start="translate-x-full"
+      x-transition:enter-end="translate-x-0"
+      x-transition:leave="transition ease-in duration-200 transform"
+      x-transition:leave-start="translate-x-0"
+      x-transition:leave-end="translate-x-full"
+      class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-4 py-4 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
+    >
       <div class="flex items-center justify-between">
         <a href="/" class="-m-1.5 p-1.5" @click="mobileMenuOpen = false">
           <span class="sr-only">{{ shop.name }}</span>
           {%- if section.settings.logo != blank -%}
-            <img src="{{ section.settings.logo | img_url: 'small' }}" alt="{{ shop.name }}" class="h-10 w-auto">
+            <img src="{{ section.settings.logo | img_url: 'small' }}" alt="{{ shop.name }}" class="h-12 w-auto" style="height: 52px;">
           {%- else -%}
             <span class="text-xl font-bold text-flores-primary font-heading">{{ shop.name }}</span>
           {%- endif -%}
@@ -141,13 +172,46 @@
       <div class="mt-6 flow-root">
         <div class="-my-6 divide-y divide-gray-500/10">
           <div class="space-y-2 py-4">
-            <a href="/pages/about" class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20">About Us</a>
-            <a href="/collections/all" class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20">Shop</a>
-            <a href="/blogs/news" class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20">News</a>
-            <a href="/pages/contact" class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20">Contact</a>
+            <a 
+              href="/pages/about" 
+              @click="mobileMenuOpen = false"
+              class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20 transform transition-all duration-500 ease-out"
+              x-bind:class="mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'"
+              x-bind:style="mobileMenuOpen ? 'transition-delay: 200ms' : 'transition-delay: 0ms'"
+            >
+              About Us
+            </a>
+            <a 
+              href="/collections/all" 
+              @click="mobileMenuOpen = false"
+              class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20 transform transition-all duration-500 ease-out"
+              x-bind:class="mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'"
+              x-bind:style="mobileMenuOpen ? 'transition-delay: 300ms' : 'transition-delay: 0ms'"
+            >
+              Shop
+            </a>
+            <a 
+              href="/blogs/news" 
+              @click="mobileMenuOpen = false"
+              class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20 transform transition-all duration-500 ease-out"
+              x-bind:class="mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'"
+              x-bind:style="mobileMenuOpen ? 'transition-delay: 400ms' : 'transition-delay: 0ms'"
+            >
+              News
+            </a>
+            <a 
+              href="/pages/contact" 
+              @click="mobileMenuOpen = false"
+              class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20 transform transition-all duration-500 ease-out"
+              x-bind:class="mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'"
+              x-bind:style="mobileMenuOpen ? 'transition-delay: 500ms' : 'transition-delay: 0ms'"
+            >
+              Contact
+            </a>
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </header>
