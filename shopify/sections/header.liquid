@@ -10,8 +10,8 @@
     isScrolled: false
   }"
   x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 50; })"
-  x-bind:class="isScrolled ? 'sticky top-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-white/20 shadow-lg' : 'sticky top-0 z-50 transition-all duration-300 bg-white border-b border-gray-200'"
-  class="sticky top-0 z-50 transition-all duration-300 bg-white border-b border-gray-200"
+  x-bind:class="isScrolled ? 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-lg' : 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-gray-200'"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-gray-200"
 >
   <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between px-3 py-2 lg:px-4">
     
@@ -73,27 +73,43 @@
       {%- comment -%} Navigation Links {%- endcomment -%}
       <div class="flex gap-x-6">
         {% assign current_path = request.path %}
+        {% assign is_about_active = false %}
+        {% if current_path == '/pages/about' or template.name == 'page.about' %}
+          {% assign is_about_active = true %}
+        {% endif %}
         <a 
           href="/pages/about" 
-          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20 {% if current_path == '/pages/about' or template.name == 'page.about' %}bg-flores-primary !text-white{% endif %}"
+          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body {% if is_about_active %}bg-flores-primary !text-white{% else %}text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20{% endif %}"
         >
           About Us
         </a>
+        {% assign is_shop_active = false %}
+        {% if template.name == 'collection' or template.name == 'product' %}
+          {% assign is_shop_active = true %}
+        {% endif %}
         <a 
           href="/collections/all" 
-          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20 {% if template.name == 'collection' or template.name == 'product' %}bg-flores-primary !text-white{% endif %}"
+          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body {% if is_shop_active %}bg-flores-primary !text-white{% else %}text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20{% endif %}"
         >
           Shop
         </a>
+        {% assign is_news_active = false %}
+        {% if template.name == 'article' or template.name == 'blog' %}
+          {% assign is_news_active = true %}
+        {% endif %}
         <a 
           href="/blogs/news" 
-          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20 {% if template.name == 'article' or template.name == 'blog' %}bg-flores-primary !text-white{% endif %}"
+          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body {% if is_news_active %}bg-flores-primary !text-white{% else %}text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20{% endif %}"
         >
           News
         </a>
+        {% assign is_contact_active = false %}
+        {% if current_path == '/pages/contact' or template.name == 'page.contact' %}
+          {% assign is_contact_active = true %}
+        {% endif %}
         <a 
           href="/pages/contact" 
-          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20 {% if current_path == '/pages/contact' or template.name == 'page.contact' %}bg-flores-primary !text-white{% endif %}"
+          class="text-base font-semibold leading-6 transition-colors duration-200 px-4 py-2 rounded-md font-body {% if is_contact_active %}bg-flores-primary !text-white{% else %}text-flores-primary hover:text-flores-primary/80 hover:bg-flores-light/20{% endif %}"
         >
           Contact
         </a>
