@@ -4,8 +4,8 @@
 {% endcomment %}
 
 <section 
-  class="relative h-screen bg-cover bg-center bg-no-repeat" 
-  style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url({{ section.settings.hero_image | img_url: '2048x2048' }});" 
+  class="relative bg-cover bg-center bg-no-repeat -mt-20" 
+  style="background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url({{ section.settings.hero_image | img_url: '2048x2048' }}); height: 100vh; padding-top: 5rem;" 
 >
   <div class="absolute inset-0 flex items-center justify-center text-center text-white">
     <div class="max-w-4xl px-6 hero-content">
