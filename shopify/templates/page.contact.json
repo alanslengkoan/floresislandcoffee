@@ -12,39 +12,20 @@
       "settings": {
         "form_title": "Send us a Message",
         "form_subtitle": "Have a question or want to start a conversation? We'd love to hear from you.",
-        "info_title": "Contact Information",
-        "info_subtitle": "Multiple ways to reach us. Choose what works best for you."
+        "info_title": "Contact Us",
+        "info_subtitle": "For all enquiries; general questions, wholesale pricing, partnerships, or product information, please reach out to our team at:"
       },
       "blocks": {
         "info_1": {
           "type": "contact_info",
           "settings": {
             "icon": "email",
-            "title": "General Inquiries",
+            "title": "Email",
             "detail_1": "admin@flores.coffee",
-            "description": "For general questions and information"
+            "description": "We aim to respond within 1–2 business days."
           }
         },
         "info_2": {
-          "type": "contact_info",
-          "settings": {
-            "icon": "email",
-            "title": "Indonesian Inquiries",
-            "detail_1": "contact@flores.coffee",
-            "description": "For local partnerships and Indonesian market"
-          }
-        },
-        "info_3": {
-          "type": "contact_info",
-          "settings": {
-            "icon": "globe",
-            "title": "Wholesale & B2B",
-            "detail_1": "wholesale@flores.coffee",
-            "detail_2": "+62 123 456 7890",
-            "description": "For bulk orders and business partnerships"
-          }
-        },
-        "info_4": {
           "type": "contact_info",
           "settings": {
             "icon": "location",
@@ -54,17 +35,17 @@
             "description": "Visit our coffee processing facility"
           }
         },
-        "info_5": {
+        "info_3": {
           "type": "contact_info",
           "settings": {
             "icon": "clock",
             "title": "Business Hours",
             "detail_1": "Mon - Fri: 8:00 AM - 6:00 PM",
             "detail_2": "Sat: 9:00 AM - 4:00 PM",
-            "description": "Indonesian Western Time (WITA)"
+            "description": "Western Indonesian Time (WIB)"
           }
         },
-        "info_6": {
+        "info_4": {
           "type": "contact_info",
           "settings": {
             "icon": "globe",
@@ -79,9 +60,7 @@
         "info_1",
         "info_2",
         "info_3",
-        "info_4",
-        "info_5",
-        "info_6"
+        "info_4"
       ]
     },
     "map": {

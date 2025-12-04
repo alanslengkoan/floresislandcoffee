@@ -4,14 +4,14 @@
 
 <section class="py-10 px-4 sm:px-6 lg:px-8">
   <div class="max-w-6xl mx-auto">
-    <div class="text-center my-8 md:my-16 px-6 md:px-[114px]">
+    <div class="text-center my-8 md:my-16 px-4 md:px-8">
       {%- if section.settings.subtitle != blank -%}
         <h2 class="text-sm lg:text-xl font-medium tracking-wide text-flores-primary uppercase mb-8 font-heading">
           {{ section.settings.subtitle }}
         </h2>
       {%- endif -%}
       
-      <h1 class="text-xl md:text-4xl lg:text-4xl font-bold mb-6 tracking-tight font-heading leading-tight">
+      <h1 class="text-xl md:text-4xl lg:text-4xl font-bold mb-6 tracking-tight font-heading leading-tight whitespace-nowrap">
         {{ section.settings.title | default: page.title }}
       </h1>
     </div>

@@ -47,24 +47,24 @@
       </h2>
       <div class="flex flex-row gap-4 justify-center items-center">
         {%- if section.settings.brand_logo_2 != blank -%}
-          <img 
-            src="{{ section.settings.brand_logo_2 | img_url: '200x200' }}" 
-            alt="Our Brand Logo"
-            width="120"
-            height="120"
-            class="max-w-[120px] md:max-w-40 w-full h-auto object-contain"
-            loading="lazy"
-          >
+          <div class="w-[120px] h-[120px] md:w-[160px] md:h-[160px] flex items-center justify-center">
+            <img 
+              src="{{ section.settings.brand_logo_2 | img_url: '300x300' }}" 
+              alt="Our Brand Logo"
+              class="w-full h-full object-contain"
+              loading="lazy"
+            >
+          </div>
         {%- endif -%}
         {%- if section.settings.brand_logo_1 != blank -%}
-          <img 
-            src="{{ section.settings.brand_logo_1 | img_url: '200x200' }}" 
-            alt="Our Brand Logo"
-            width="120"
-            height="120"
-            class="max-w-[120px] md:max-w-40 w-full h-auto object-contain"
-            loading="lazy"
-          >
+          <div class="w-[120px] h-[120px] md:w-[160px] md:h-[160px] flex items-center justify-center">
+            <img 
+              src="{{ section.settings.brand_logo_1 | img_url: '300x300' }}" 
+              alt="Our Brand Logo"
+              class="w-full h-full object-contain"
+              loading="lazy"
+            >
+          </div>
         {%- endif -%}
       </div>
     </div>
@@ -74,24 +74,24 @@
       </h2>
       <div class="flex flex-row gap-4 justify-center items-center">
         {%- if section.settings.partner_logo_1 != blank -%}
-          <img 
-            src="{{ section.settings.partner_logo_1 | img_url: '200x200' }}" 
-            alt="Strategic Partnership Logo"
-            width="120"
-            height="120"
-            class="max-w-[120px] md:max-w-40 w-full h-auto object-contain"
-            loading="lazy"
-          >
+          <div class="w-[120px] h-[120px] md:w-[160px] md:h-[160px] flex items-center justify-center">
+            <img 
+              src="{{ section.settings.partner_logo_1 | img_url: '300x300' }}" 
+              alt="Strategic Partnership Logo"
+              class="w-full h-full object-contain"
+              loading="lazy"
+            >
+          </div>
         {%- endif -%}
         {%- if section.settings.partner_logo_2 != blank -%}
-          <img 
-            src="{{ section.settings.partner_logo_2 | img_url: '200x200' }}" 
-            alt="Strategic Partnership Logo"
-            width="120"
-            height="120"
-            class="max-w-[120px] md:max-w-40 w-full h-auto object-contain"
-            loading="lazy"
-          >
+          <div class="w-[120px] h-[120px] md:w-[160px] md:h-[160px] flex items-center justify-center">
+            <img 
+              src="{{ section.settings.partner_logo_2 | img_url: '300x300' }}" 
+              alt="Strategic Partnership Logo"
+              class="w-full h-full object-contain"
+              loading="lazy"
+            >
+          </div>
         {%- endif -%}
       </div>
     </div>

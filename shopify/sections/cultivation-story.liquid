@@ -4,8 +4,8 @@
 
 <script src="https://code.highcharts.com/maps/highmaps.js"></script>
 
-<section class="py-12 md:py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-4 md:px-6 text-center">
+<section class="min-h-screen flex items-center justify-center bg-white">
+  <div class="max-w-7xl mx-auto px-4 md:px-6 text-center w-full">
     <h2 class="leading-relaxed md:leading-[33px] md:text-4xl font-extrabold font-heading mb-8 md:mb-12">
       {{ section.settings.title | default: 'From Flores highlands, each bean carries a story of tradition and dedication.' }}
     </h2>
@@ -123,7 +123,7 @@
           name: 'Manggarai',
           subtitle: 'Coffee Farm',
           description: 'Premium arabica beans grown in the volcanic highlands.',
-          image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=400&h=400&fit=crop',
+          image: '{{ "images/cultivation3.jpg" | asset_url }}',
           lat: -8.528,
           lon: 120.458
         },
@@ -132,7 +132,7 @@
           name: 'Bajawa Ngada',
           subtitle: 'Coffee Farm',
           description: 'High altitude coffee cultivation with traditional farming methods.',
-          image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=400&fit=crop',
+          image: '{{ "images/cultivation2.jpg" | asset_url }}',
           lat: -8.798,
           lon: 120.897
         },
@@ -141,7 +141,7 @@
           name: 'MAUMERE',
           subtitle: 'Our Factory',
           description: 'The heart of our production, where quality control and craft roasting begin.',
-          image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=400&fit=crop',
+          image: '{{ "images/cultivation1.jpg" | asset_url }}',
           lat: -8.618,
           lon: 122.213
         }

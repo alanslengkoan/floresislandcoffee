@@ -49,8 +49,8 @@
   {%- endif -%}
 
   {%- comment -%} Blog Articles Section {%- endcomment -%}
-  <section class="py-16 bg-white px-4 sm:px-6 lg:px-8">
-    <div class="max-w-7xl mx-auto">
+  <section class="min-h-screen flex items-center justify-center bg-white px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto w-full">
       <h2 class="leading-relaxed md:leading-[33px] md:text-4xl font-extrabold text-flores-primary mb-12 font-heading {% if template == 'index' %}text-center{% endif %}">
         {{ section.settings.title | default: current_blog.title | default: 'Coffee News' }}
       </h2>
