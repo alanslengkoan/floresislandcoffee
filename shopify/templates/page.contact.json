@@ -44,23 +44,12 @@
             "detail_2": "Sat: 9:00 AM - 4:00 PM",
             "description": "Western Indonesian Time (WIB)"
           }
-        },
-        "info_4": {
-          "type": "contact_info",
-          "settings": {
-            "icon": "globe",
-            "title": "Export Inquiries",
-            "detail_1": "export@flores.coffee",
-            "detail_2": "+62 987 654 3210",
-            "description": "International shipping and distribution"
-          }
         }
       },
       "block_order": [
         "info_1",
         "info_2",
-        "info_3",
-        "info_4"
+        "info_3"
       ]
     },
     "map": {
