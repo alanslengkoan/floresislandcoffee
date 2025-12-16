@@ -1,0 +1,146 @@
+{% comment %}
+  Coffee News Section - Homepage preview showing 3 latest articles
+  Displays recent blog posts with "See More News" button
+{% endcomment %}
+
+{%- liquid
+  if section.settings.blog != blank
+    assign current_blog = blogs[section.settings.blog]
+  else
+    assign current_blog = blogs['news']
+  endif
+-%}
+
+<section class="min-h-screen flex items-center justify-center bg-white px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 lg:pt-20 pb-12 md:pb-16 lg:pb-20">
+  <div class="max-w-7xl mx-auto w-full">
+    <h2 class="leading-relaxed md:leading-[33px] md:text-4xl font-extrabold text-flores-primary mt-8 md:mt-12 mb-12 font-heading text-center">
+      {{ section.settings.title | default: 'Coffee News' }}
+    </h2>
+    
+    {%- if current_blog.articles_count > 0 -%}
+    {%- comment -%} Articles Grid - Show only 3 latest {%- endcomment -%}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 md:mb-16">
+      {%- for article in current_blog.articles limit: 3 -%}
+        <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+          {%- comment -%} Article Image {%- endcomment -%}
+          {%- if article.image != blank -%}
+            <a href="{{ article.url }}" aria-label="Read {{ article.title }}">
+              <img 
+                src="{{ article.image | img_url: '800x600', crop: 'center' }}" 
+                srcset="{{ article.image | img_url: '800x600', crop: 'center' }} 1x, {{ article.image | img_url: '1600x1200', crop: 'center' }} 2x"
+                alt="{{ article.image.alt | default: article.title | escape }}"
+                width="800"
+                height="600"
+                class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
+                loading="lazy"
+              >
+            </a>
+          {%- else -%}
+            <div class="w-full h-64 bg-gradient-to-br from-flores-primary/20 to-flores-primary/10 flex items-center justify-center">
+              <svg class="w-16 h-16 text-flores-primary/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+              </svg>
+            </div>
+          {%- endif -%}
+          
+          {%- comment -%} Article Content {%- endcomment -%}
+          <div class="p-6">
+            {%- comment -%} Tags {%- endcomment -%}
+            {%- if article.tags.size > 0 -%}
+              <span class="inline-block bg-flores-light/30 text-flores-primary px-3 py-1 rounded-full text-sm font-medium mb-3 font-body">
+                {{ article.tags | first }}
+              </span>
+            {%- endif -%}
+            
+            {%- comment -%} Title {%- endcomment -%}
+            <h2 class="text-xl font-bold text-gray-900 mb-3 font-heading line-clamp-2">
+              <a href="{{ article.url }}" class="hover:text-flores-primary transition-colors">
+                {{ article.title }}
+              </a>
+            </h2>
+            
+            {%- comment -%} Meta Info {%- endcomment -%}
+            <div class="flex items-center gap-3 text-sm text-gray-500 mb-3 font-body">
+              <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
+                {{ article.published_at | date: '%B %d, %Y' }}
+              </time>
+              {%- if article.author != blank -%}
+                <span>•</span>
+                <span>{{ article.author }}</span>
+              {%- endif -%}
+            </div>
+            
+            {%- comment -%} Excerpt {%- endcomment -%}
+            <p class="text-gray-600 mb-4 font-body line-clamp-3">
+              {{ article.excerpt_or_content | strip_html | truncatewords: 20 }}
+            </p>
+            
+            {%- comment -%} Read More Link {%- endcomment -%}
+            <a 
+              href="{{ article.url }}"
+              class="inline-flex items-center text-flores-primary font-semibold hover:text-flores-primary/80 transition-colors font-body"
+              aria-label="Read more about {{ article.title }}"
+            >
+              Read More
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </article>
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} See More News Button {%- endcomment -%}
+    <div class="text-center">
+      <a 
+        href="{{ section.settings.blog_url | default: '/blogs/news' }}" 
+        class="inline-block px-8 py-3 bg-flores-primary text-white rounded-full font-semibold hover:bg-flores-primary/90 transition-colors font-body"
+      >
+        See More News
+      </a>
+    </div>
+
+    {%- else -%}
+      {%- comment -%} Empty State {%- endcomment -%}
+      <div class="text-center py-16">
+        <svg class="w-20 h-20 mx-auto mb-6 text-flores-primary/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+        </svg>
+        <h2 class="text-2xl font-bold text-flores-primary mb-3 font-heading">No articles yet</h2>
+        <p class="text-gray-600 font-body">Check back soon for the latest coffee news and updates.</p>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coffee News",
+  "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog",
+      "info": "Select which blog to display. Defaults to 'news' blog."
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Coffee News"
+    },
+    {
+      "type": "url",
+      "id": "blog_url",
+      "label": "Blog Page URL",
+      "info": "URL for the 'See More News' button. Leave empty to use /blogs/news"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coffee News"
+    }
+  ]
+}
+{% endschema %}

@@ -35,9 +35,10 @@
       }
     },
     "products": {
-      "type": "collection-products",
+      "type": "featured-products",
       "settings": {
-        "title": "Our Signature Coffee Product"
+        "title": "Our Signature Coffee Product",
+        "button_text": "See More Products"
       }
     },
     "specialty": {
@@ -48,7 +49,7 @@
       }
     },
     "news": {
-      "type": "blog-page",
+      "type": "coffee-news",
       "settings": {
         "title": "Coffee News"
       }

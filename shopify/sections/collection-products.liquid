@@ -49,14 +49,14 @@
   {%- endif -%}
 
   {%- comment -%} Products Section {%- endcomment -%}
-  <section class="min-h-screen flex items-center justify-center bg-white px-4 sm:px-6 lg:px-8">
+  <section class="min-h-screen flex items-center justify-center bg-white px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 lg:pt-20 pb-12 md:pb-16 lg:pb-20">
     <div class="max-w-7xl mx-auto w-full">
-      <h2 class="leading-relaxed md:leading-[33px] md:text-4xl font-extrabold text-flores-primary mb-12 font-heading {% if template == 'index' %}text-center{% endif %}">
+      <h2 class="leading-relaxed md:leading-[33px] md:text-4xl font-extrabold text-flores-primary mt-8 md:mt-12 mb-12 font-heading {% if template == 'index' %}text-center{% endif %}">
         {{ section.settings.title | default: current_collection.title | default: 'Our Products' }}
       </h2>
     
     {%- if current_collection.products_count > 0 -%}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8 md:mb-12">
         {%- for product in current_collection.products -%}
           <a href="{{ product.url }}" class="group cursor-pointer">
             <div class="bg-[#D4E8E8] rounded-2xl p-8 mb-4 flex items-center justify-center h-[280px] group-hover:bg-[#c0dada] transition-colors">
@@ -94,7 +94,7 @@
       </div>
 
       {%- if paginate.pages > 1 -%}
-        <nav class="flex justify-center items-center gap-2 mt-12">
+        <nav class="flex justify-center items-center gap-2 mt-12 mb-12 md:mb-16 lg:mb-20">
           {%- if paginate.previous -%}
             <a href="{{ paginate.previous.url }}" class="px-6 py-3 bg-white border-2 border-flores-primary text-flores-primary rounded-full font-semibold hover:bg-flores-primary hover:text-white transition-colors font-body">
               ← Previous
