@@ -1,0 +1,61 @@
+<section class="py-16 md:py-20 flex justify-center">
+  <div class="max-w-7xl mx-auto px-6 md:px-12 bg-[#E8F4F4] rounded-lg py-12 md:py-16">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-flores-primary mb-6 font-heading">
+          {{ section.settings.snapshot_title }}
+        </h2>
+        <div class="space-y-4">
+          <p class="text-base md:text-lg leading-relaxed text-[#476472] font-body">
+            {{ section.settings.snapshot_description }}
+          </p>
+        </div>
+      </div>
+      <div>
+        {%- if section.settings.snapshot_image != blank -%}
+          <img
+            src="{{ section.settings.snapshot_image | img_url: '800x' }}"
+            alt="{{ section.settings.snapshot_image_alt }}"
+            class="w-full rounded-lg shadow-lg"
+          />
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Origin Coffee Snapshot",
+  "settings": [
+    {
+      "type": "text",
+      "id": "snapshot_title",
+      "label": "Coffee Snapshot Title",
+      "default": "Coffee Snapshot"
+    },
+    {
+      "type": "textarea",
+      "id": "snapshot_description",
+      "label": "Coffee Snapshot Description",
+      "default": "The island of Flores has produced significant volumes of coffee for well over a century. Arabica coffee is grown at 1,200 to 1,800 metres above sea level. Flores coffee cultivation covers more than 72,000 hectares of Robusta and Arabica species from the western part (Labuan Bajo) to the eastern end (Maumere). Most coffee is grown under shade trees without chemicals and is known for sweet chocolate, floral and woody notes. Kartika is the most common arabica variety along with Yellow Colombian, Lini S, Red Columbian, and Juria."
+    },
+    {
+      "type": "image_picker",
+      "id": "snapshot_image",
+      "label": "Coffee Snapshot Image"
+    },
+    {
+      "type": "text",
+      "id": "snapshot_image_alt",
+      "label": "Snapshot Image Alt Text",
+      "default": "Coffee Snapshot"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Origin Coffee Snapshot"
+    }
+  ]
+}
+{% endschema %}

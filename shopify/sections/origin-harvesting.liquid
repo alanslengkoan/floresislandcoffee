@@ -1,0 +1,46 @@
+<section class="bg-white py-16 md:py-20">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <h2 class="text-center mb-12 leading-relaxed md:leading-[33px] md:text-4xl font-extrabold flores-heading text-flores-primary">
+      {{ section.settings.harvesting_title }}
+    </h2>
+    <div class="relative">
+      {%- if section.settings.harvesting_image != blank -%}
+        <img
+          src="{{ section.settings.harvesting_image | img_url: '1920x' }}"
+          alt="{{ section.settings.harvesting_image_alt }}"
+          class="w-full max-w-7xl mx-auto"
+        />
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Origin Harvesting",
+  "settings": [
+    {
+      "type": "text",
+      "id": "harvesting_title",
+      "label": "Harvesting Title",
+      "default": "We Are Harvesting"
+    },
+    {
+      "type": "image_picker",
+      "id": "harvesting_image",
+      "label": "Harvesting Map Image"
+    },
+    {
+      "type": "text",
+      "id": "harvesting_image_alt",
+      "label": "Harvesting Image Alt Text",
+      "default": "Indonesia Map - Harvesting Locations"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Origin Harvesting"
+    }
+  ]
+}
+{% endschema %}

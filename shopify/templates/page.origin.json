@@ -1,0 +1,75 @@
+{
+  "sections": {
+    "origin_hero": {
+      "type": "origin-hero",
+      "settings": {
+        "hero_image_alt": "Coffee Origin Header",
+        "hero_title": "Our Coffee Origin",
+        "hero_paragraph_1": "Indonesia has a unique place in coffee history. Dutch smugglers took coffee seeds from Mocha in Yemen in the 1600s and founded coffee cultivation at the island of Java, expanding to Sumatra, Bali, Sulawesi, and Flores Island. Collectively known as the Indonesian Arabica Peninsula.",
+        "hero_paragraph_2": "Today, Indonesian coffee plantations cover approximately 1.24 million hectares, producing around 800,000 tonnes annually. 96% of this production is from smallholder farmers."
+      }
+    },
+    "origin_harvesting": {
+      "type": "origin-harvesting",
+      "settings": {
+        "harvesting_title": "We Are Harvesting",
+        "harvesting_image_alt": "Indonesia Map - Harvesting Locations"
+      }
+    },
+    "origin_arabica": {
+      "type": "origin-arabica",
+      "settings": {
+        "arabica_title": "Common Arabica Varieties",
+        "arabica_varieties": "Abyssinia,S-795,Ateng,Typica,Sigararutang,Andungsari,Catimors,Tim-Tim (Timor Hybrid)",
+        "arabica_image_alt": "Coffee Varieties"
+      }
+    },
+    "origin_flores": {
+      "type": "origin-flores",
+      "settings": {
+        "flores_title": "Flores Island",
+        "flores_description": "The name Flores is from \"Cabo de Flores\" - Cape of Flowers - used by Portuguese sailors in the 17th century. 570 kms long and located 300 kms to the east of Bali, Flores is home to exotic tropical fruits, spices and creatures, high mountain ranges and volcanoes surrounded by some of the world's best coral reefs. Flores Island is populated by various ethnic groups with their own traditions and languages within a total island wide population of around 2 million.",
+        "flores_image_alt": "Flores Island"
+      }
+    },
+    "origin_snapshot": {
+      "type": "origin-snapshot",
+      "settings": {
+        "snapshot_title": "Coffee Snapshot",
+        "snapshot_description": "The island of Flores has produced significant volumes of coffee for well over a century. Arabica coffee is grown at 1,200 to 1,800 metres above sea level. Flores coffee cultivation covers more than 72,000 hectares of Robusta and Arabica species from the western part (Labuan Bajo) to the eastern end (Maumere). Most coffee is grown under shade trees without chemicals and is known for sweet chocolate, floral and woody notes. Kartika is the most common arabica variety along with Yellow Colombian, Lini S, Red Columbian, and Juria.",
+        "snapshot_image_alt": "Coffee Snapshot"
+      }
+    },
+    "origin_regions": {
+      "type": "origin-regions",
+      "settings": {
+        "region_maumere_title": "Maumere",
+        "region_maumere_description": "Located in Sikka Regency, Maumere is a growing coffee producing region. This region is cultivated over flat hills and Mount Egon. Some smallholder farmers apply the semi-intensive vanilla in agroforestry systems.",
+        "region_manggarai_title": "Manggarai",
+        "region_manggarai_description": "East of volcano Reja, Manggarai has the most specialty coffee in Flores. Manggarai has been famous for the variety of arabica in Manggarai Raya, covering West, Central, and East Manggarai. Here, smallholder farmers work with a medium body and mild nutty flavour notes.",
+        "region_bajawa_title": "Bajawa",
+        "region_bajawa_description": "In Ngada Regency, Bajawa sits on a volcanic region surrounded by volcanoes like Inerie, Ebulobo, Laki-laki, Catimor and Timor Hybrids. With fruity Wamena Ageing across the region, Bajawa coffee has an earthly notes of wood, chocolate and tobacco.",
+        "region_kelimutu_title": "Kelimutu",
+        "region_kelimutu_description": "Located in Ende Regency near the famous three-colored lakes known as the lakes of coffee origin, producing Arabica and Robusta. \"Nge Ende\", a local traditional drink made with ginger and ground ries powder."
+      }
+    },
+    "origin_tourism": {
+      "type": "origin-tourism",
+      "settings": {
+        "tourism_title": "Tourism Snapshot",
+        "tourism_image_alt": "Tourism Snapshot",
+        "tourism_paragraph_1": "Flores island is visually extraordinary and showcases the world-famous Komodo National Park, a UNESCO World Heritage site, multi-coloured volcanic lakes, pristine waterfalls, uninhabited islands, and pristine reefs. Unique agriculture, like the spider web rice fields of Cancar and shade grown plantations of coffee, cacao, coconut, the island wide cultivation of aromatic spices contribute to a strong cultural and culinary heritage.",
+        "tourism_paragraph_2": "The island's stunning rugged coastline, islands, pristine waters and marine life make it a paradise for liveaboard cruising, sea kayaking, diving and snorkelling. Easy access to cultural immersion provides a deeper understanding of Flores' rich heritage and offers meaningful connections with its warm-hearted people."
+      }
+    }
+  },
+  "order": [
+    "origin_hero",
+    "origin_harvesting",
+    "origin_arabica",
+    "origin_flores",
+    "origin_snapshot",
+    "origin_regions",
+    "origin_tourism"
+  ]
+}

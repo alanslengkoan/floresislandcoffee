@@ -1,0 +1,158 @@
+<section class="bg-white py-16 md:py-20">
+  <div class="max-w-7xl mx-auto px-6 md:px-12">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      {%- comment -%} Maumere {%- endcomment -%}
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        {%- if section.settings.region_maumere_image != blank -%}
+          <div class="relative h-48 bg-cover bg-center text-center flex items-center justify-center" style="background-image: url({{ section.settings.region_maumere_image | img_url: '600x' }})">
+            <h3 class="text-2xl md:text-3xl font-bold text-white font-heading">{{ section.settings.region_maumere_title }}</h3>
+          </div>
+        {%- endif -%}
+        <div class="p-4">
+          <p class="text-sm md:text-base leading-relaxed text-[#476472] font-body">
+            {{ section.settings.region_maumere_description }}
+          </p>
+        </div>
+      </div>
+
+      {%- comment -%} Manggarai {%- endcomment -%}
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        {%- if section.settings.region_manggarai_image != blank -%}
+          <div class="relative h-48 bg-cover bg-center text-center flex items-center justify-center" style="background-image: url({{ section.settings.region_manggarai_image | img_url: '600x' }})">
+            <h3 class="text-2xl md:text-3xl font-bold text-white font-heading">{{ section.settings.region_manggarai_title }}</h3>
+          </div>
+        {%- endif -%}
+        <div class="p-4">
+          <p class="text-sm md:text-base leading-relaxed text-[#476472] font-body">
+            {{ section.settings.region_manggarai_description }}
+          </p>
+        </div>
+      </div>
+
+      {%- comment -%} Bajawa {%- endcomment -%}
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        {%- if section.settings.region_bajawa_image != blank -%}
+          <div class="relative h-48 bg-cover bg-center text-center flex items-center justify-center" style="background-image: url({{ section.settings.region_bajawa_image | img_url: '600x' }})">
+            <h3 class="text-2xl md:text-3xl font-bold text-white font-heading">{{ section.settings.region_bajawa_title }}</h3>
+          </div>
+        {%- endif -%}
+        <div class="p-4">
+          <p class="text-sm md:text-base leading-relaxed text-[#476472] font-body">
+            {{ section.settings.region_bajawa_description }}
+          </p>
+        </div>
+      </div>
+
+      {%- comment -%} Kelimutu {%- endcomment -%}
+      <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        {%- if section.settings.region_kelimutu_image != blank -%}
+          <div class="relative h-48 bg-cover bg-center text-center flex items-center justify-center" style="background-image: url({{ section.settings.region_kelimutu_image | img_url: '600x' }})">
+            <h3 class="text-2xl md:text-3xl font-bold text-white font-heading">{{ section.settings.region_kelimutu_title }}</h3>
+          </div>
+        {%- endif -%}
+        <div class="p-4">
+          <p class="text-sm md:text-base leading-relaxed text-[#476472] font-body">
+            {{ section.settings.region_kelimutu_description }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Origin Regions",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Region: Maumere"
+    },
+    {
+      "type": "text",
+      "id": "region_maumere_title",
+      "label": "Maumere Title",
+      "default": "Maumere"
+    },
+    {
+      "type": "textarea",
+      "id": "region_maumere_description",
+      "label": "Maumere Description",
+      "default": "Located in Sikka Regency, Maumere is a growing coffee producing region. This region is cultivated over flat hills and Mount Egon. Some smallholder farmers apply the semi-intensive vanilla in agroforestry systems."
+    },
+    {
+      "type": "image_picker",
+      "id": "region_maumere_image",
+      "label": "Maumere Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Region: Manggarai"
+    },
+    {
+      "type": "text",
+      "id": "region_manggarai_title",
+      "label": "Manggarai Title",
+      "default": "Manggarai"
+    },
+    {
+      "type": "textarea",
+      "id": "region_manggarai_description",
+      "label": "Manggarai Description",
+      "default": "East of volcano Reja, Manggarai has the most specialty coffee in Flores. Manggarai has been famous for the variety of arabica in Manggarai Raya, covering West, Central, and East Manggarai. Here, smallholder farmers work with a medium body and mild nutty flavour notes."
+    },
+    {
+      "type": "image_picker",
+      "id": "region_manggarai_image",
+      "label": "Manggarai Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Region: Bajawa"
+    },
+    {
+      "type": "text",
+      "id": "region_bajawa_title",
+      "label": "Bajawa Title",
+      "default": "Bajawa"
+    },
+    {
+      "type": "textarea",
+      "id": "region_bajawa_description",
+      "label": "Bajawa Description",
+      "default": "In Ngada Regency, Bajawa sits on a volcanic region surrounded by volcanoes like Inerie, Ebulobo, Laki-laki, Catimor and Timor Hybrids. With fruity Wamena Ageing across the region, Bajawa coffee has an earthly notes of wood, chocolate and tobacco."
+    },
+    {
+      "type": "image_picker",
+      "id": "region_bajawa_image",
+      "label": "Bajawa Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Region: Kelimutu"
+    },
+    {
+      "type": "text",
+      "id": "region_kelimutu_title",
+      "label": "Kelimutu Title",
+      "default": "Kelimutu"
+    },
+    {
+      "type": "textarea",
+      "id": "region_kelimutu_description",
+      "label": "Kelimutu Description",
+      "default": "Located in Ende Regency near the famous three-colored lakes known as the lakes of coffee origin, producing Arabica and Robusta. \"Nge Ende\", a local traditional drink made with ginger and ground ries powder."
+    },
+    {
+      "type": "image_picker",
+      "id": "region_kelimutu_image",
+      "label": "Kelimutu Background Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Origin Regions"
+    }
+  ]
+}
+{% endschema %}

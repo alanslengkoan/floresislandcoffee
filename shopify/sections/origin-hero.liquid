@@ -1,0 +1,60 @@
+<section class="relative h-[400px] md:h-[500px] flex items-center justify-start">
+  {%- if section.settings.hero_image != blank -%}
+    <img
+      src="{{ section.settings.hero_image | img_url: '1920x' }}"
+      alt="{{ section.settings.hero_image_alt }}"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+  {%- endif -%}
+  <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 text-white">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 font-heading">
+      {{ section.settings.hero_title }}
+    </h1>
+    <div class="max-w-2xl space-y-4 text-base md:text-lg leading-relaxed">
+      <p>{{ section.settings.hero_paragraph_1 }}</p>
+      <p>{{ section.settings.hero_paragraph_2 }}</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Origin Hero",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image"
+    },
+    {
+      "type": "text",
+      "id": "hero_image_alt",
+      "label": "Hero Image Alt Text",
+      "default": "Coffee Origin Header"
+    },
+    {
+      "type": "text",
+      "id": "hero_title",
+      "label": "Hero Title",
+      "default": "Our Coffee Origin"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_paragraph_1",
+      "label": "Hero Paragraph 1",
+      "default": "Indonesia has a unique place in coffee history. Dutch smugglers took coffee seeds from Mocha in Yemen in the 1600s and founded coffee cultivation at the island of Java, expanding to Sumatra, Bali, Sulawesi, and Flores Island. Collectively known as the Indonesian Arabica Peninsula."
+    },
+    {
+      "type": "textarea",
+      "id": "hero_paragraph_2",
+      "label": "Hero Paragraph 2",
+      "default": "Today, Indonesian coffee plantations cover approximately 1.24 million hectares, producing around 800,000 tonnes annually. 96% of this production is from smallholder farmers."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Origin Hero"
+    }
+  ]
+}
+{% endschema %}

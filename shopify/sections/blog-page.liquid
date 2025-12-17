@@ -1,6 +1,6 @@
 {% comment %}
-  Blog Page Section - Full blog listing with pagination
-  Based on coffee-news.liquid styling
+  Blog Page Section - Matching News.jsx structure exactly
+  Features: Featured section, Large cards, Latest articles
 {% endcomment %}
 
 {%- liquid
@@ -13,169 +13,202 @@
   endif
 -%}
 
-{%- paginate current_blog.articles by 9 -%}
-<div class="bg-white">
-  {%- comment -%} Hero Section - Only show on blog template pages {%- endcomment -%}
-  {%- if template == 'blog' or section.settings.show_hero -%}
-  <section class="relative bg-white px-4 sm:px-6 lg:px-8 py-12 md:py-20">
-    <div class="max-w-7xl mx-auto">
-      <div class="rounded-3xl overflow-hidden relative" style="background-image: url('{{ section.settings.hero_bg | img_url: '2048x' }}'); background-position: 10% 100%; background-size: 100%;">
-        <div class="absolute inset-0 bg-black/40"></div>
-        <div class="relative grid md:grid-cols-2 gap-8 items-center p-8 md:p-16">
-          {%- comment -%} Left Content {%- endcomment -%}
-          <div class="text-white">
-            <h1 class="text-4xl md:text-5xl font-bold mb-6 leading-tight font-heading">
-              {{ section.settings.hero_title | default: "Coffee News & Updates" }}
-            </h1>
-            <p class="text-base md:text-lg leading-relaxed text-white/90 font-body">
-              {{ section.settings.hero_description | default: "Stay updated with the latest coffee news, brewing techniques, roasting guides, and industry insights from Flores Island Coffee." }}
-            </p>
-          </div>
-
-          {%- comment -%} Right Image {%- endcomment -%}
-          <div class="flex justify-center items-center">
-            {%- if section.settings.hero_image -%}
-              <img
-                src="{{ section.settings.hero_image | img_url: '800x' }}"
-                alt="Coffee News"
-                class="w-full max-w-md h-auto object-contain drop-shadow-2xl"
-              >
-            {%- endif -%}
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  {%- endif -%}
-
-  {%- comment -%} Blog Articles Section {%- endcomment -%}
-  <section class="min-h-screen flex items-center justify-center bg-white px-4 sm:px-6 lg:px-8 pt-12 md:pt-16 lg:pt-20 pb-12 md:pb-16 lg:pb-20">
-    <div class="max-w-7xl mx-auto w-full">
-      <h2 class="leading-relaxed md:leading-[33px] md:text-4xl font-extrabold text-flores-primary mt-8 md:mt-12 mb-12 font-heading {% if template == 'index' %}text-center{% endif %}">
-        {{ section.settings.title | default: current_blog.title | default: 'Coffee News' }}
-      </h2>
-      
-      {%- if current_blog.articles_count > 0 -%}
-      {%- comment -%} Articles Grid {%- endcomment -%}
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8 md:mb-12">
-        {%- for article in current_blog.articles -%}
-          <article class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-            {%- comment -%} Article Image {%- endcomment -%}
-            {%- if article.image != blank -%}
-              <a href="{{ article.url }}" aria-label="Read {{ article.title }}">
-                <img 
-                  src="{{ article.image | img_url: '800x600', crop: 'center' }}" 
-                  srcset="{{ article.image | img_url: '800x600', crop: 'center' }} 1x, {{ article.image | img_url: '1600x1200', crop: 'center' }} 2x"
-                  alt="{{ article.image.alt | default: article.title | escape }}"
-                  width="800"
-                  height="600"
-                  class="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                  loading="lazy"
-                >
-              </a>
-            {%- else -%}
-              <div class="w-full h-64 bg-gradient-to-br from-flores-primary/20 to-flores-primary/10 flex items-center justify-center">
-                <svg class="w-16 h-16 text-flores-primary/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                </svg>
+{%- paginate current_blog.articles by 10 -%}
+<div class="min-h-screen bg-white">
+  {%- if current_blog.articles_count > 0 -%}
+    {%- assign articles_array = current_blog.articles -%}
+    
+    {%- comment -%} Featured Section {%- endcomment -%}
+    <section class="bg-cyan-50 py-16">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          {%- comment -%} Featured Main Article {%- endcomment -%}
+          {%- if articles_array[0] -%}
+            {%- assign featured_main = articles_array[0] -%}
+            <a href="{{ featured_main.url }}" class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow group">
+              <div class="p-6">
+                {%- comment -%} Author Badge {%- endcomment -%}
+                <div class="flex items-center gap-2">
+                  <div class="bg-teal-700 text-white rounded-full px-3 py-1 flex items-center gap-2">
+                    <div class="w-6 h-6 bg-teal-600 rounded-full flex items-center justify-center">
+                      <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                      </svg>
+                    </div>
+                    <span class="text-xs font-medium">{{ featured_main.author | default: "Admin" }}</span>
+                  </div>
+                </div>
+                
+                <h2 class="text-4xl font-serif font-bold text-teal-800 mt-6 mb-4 group-hover:text-teal-700 transition-colors">
+                  {{ featured_main.title }}
+                </h2>
+                <p class="text-sm text-gray-500 mb-6">{{ featured_main.published_at | date: '%B %d, %Y' }}</p>
+                
+                <div class="relative">
+                  {%- if featured_main.image -%}
+                    <img src="{{ featured_main.image | img_url: '800x' }}" alt="{{ featured_main.title }}" class="w-full h-80 object-cover rounded-xl group-hover:scale-[1.02] transition-transform duration-300" loading="lazy">
+                  {%- else -%}
+                    <div class="w-full h-80 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-xl"></div>
+                  {%- endif -%}
+                </div>
               </div>
-            {%- endif -%}
-            
-            {%- comment -%} Article Content {%- endcomment -%}
-            <div class="p-6">
-              {%- comment -%} Tags {%- endcomment -%}
-              {%- if article.tags.size > 0 -%}
-                <span class="inline-block bg-flores-light/30 text-flores-primary px-3 py-1 rounded-full text-sm font-medium mb-3 font-body">
-                  {{ article.tags | first }}
-                </span>
-              {%- endif -%}
-              
-              {%- comment -%} Title {%- endcomment -%}
-              <h2 class="text-xl font-bold text-gray-900 mb-3 font-heading line-clamp-2">
-                <a href="{{ article.url }}" class="hover:text-flores-primary transition-colors">
-                  {{ article.title }}
-                </a>
-              </h2>
-              
-              {%- comment -%} Meta Info {%- endcomment -%}
-              <div class="flex items-center gap-3 text-sm text-gray-500 mb-3 font-body">
-                <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">
-                  {{ article.published_at | date: '%B %d, %Y' }}
-                </time>
-                {%- if article.author != blank -%}
-                  <span>•</span>
-                  <span>{{ article.author }}</span>
-                {%- endif -%}
-              </div>
-              
-              {%- comment -%} Excerpt {%- endcomment -%}
-              <p class="text-gray-600 mb-4 font-body line-clamp-3">
-                {{ article.excerpt_or_content | strip_html | truncatewords: 20 }}
-              </p>
-              
-              {%- comment -%} Read More Link {%- endcomment -%}
-              <a 
-                href="{{ article.url }}"
-                class="inline-flex items-center text-flores-primary font-semibold hover:text-flores-primary/80 transition-colors font-body"
-                aria-label="Read more about {{ article.title }}"
-              >
-                Read More
-                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </a>
-            </div>
-          </article>
-        {%- endfor -%}
-      </div>
-
-      {%- comment -%} Pagination {%- endcomment -%}
-      {%- if paginate.pages > 1 -%}
-        <nav class="flex justify-center items-center gap-2 mt-12 mb-12 md:mb-16 lg:mb-20" aria-label="Pagination">
-          {%- if paginate.previous -%}
-            <a href="{{ paginate.previous.url }}" class="px-6 py-3 bg-white border-2 border-flores-primary text-flores-primary rounded-full font-semibold hover:bg-flores-primary hover:text-white transition-colors font-body">
-              ← Previous
             </a>
           {%- endif -%}
-
-          <div class="flex gap-2">
-            {%- for part in paginate.parts -%}
-              {%- if part.is_link -%}
-                <a href="{{ part.url }}" class="w-12 h-12 flex items-center justify-center bg-white border-2 border-gray-300 rounded-full hover:border-flores-primary transition-colors font-body">
-                  {{ part.title }}
+          
+          {%- comment -%} Featured Side Articles {%- endcomment -%}
+          <div class="space-y-6">
+            {%- for i in (1..3) -%}
+              {%- assign side_article = articles_array[i] -%}
+              {%- if side_article -%}
+                <a href="{{ side_article.url }}" class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow block group">
+                  <div class="grid grid-cols-3 gap-4 p-5">
+                    <div class="col-span-2">
+                      <h3 class="text-xl font-serif font-bold text-teal-800 mb-2 group-hover:text-teal-700 transition-colors">
+                        {{ side_article.title }}
+                      </h3>
+                      <p class="text-sm text-gray-600 mb-3 line-clamp-2">
+                        {{ side_article.excerpt_or_content | strip_html | truncatewords: 15 }}
+                      </p>
+                      <p class="text-xs text-gray-500">{{ side_article.published_at | date: '%B %d, %Y' }}</p>
+                    </div>
+                    <div>
+                      {%- if side_article.image -%}
+                        <img src="{{ side_article.image | img_url: '400x' }}" alt="{{ side_article.title }}" class="w-full h-32 object-cover rounded-lg group-hover:scale-[1.02] transition-transform duration-300" loading="lazy">
+                      {%- else -%}
+                        <div class="w-full h-32 bg-gradient-to-br from-teal-100 to-cyan-100 rounded-lg"></div>
+                      {%- endif -%}
+                    </div>
+                  </div>
                 </a>
-              {%- elsif part.title == paginate.current_page -%}
-                <span class="w-12 h-12 flex items-center justify-center bg-flores-primary text-white border-2 border-flores-primary rounded-full font-bold font-body">
-                  {{ part.title }}
-                </span>
-              {%- else -%}
-                <span class="w-12 h-12 flex items-center justify-center text-gray-400 font-body">{{ part.title }}</span>
               {%- endif -%}
             {%- endfor -%}
           </div>
-
-          {%- if paginate.next -%}
-            <a href="{{ paginate.next.url }}" class="px-6 py-3 bg-flores-primary text-white rounded-full font-semibold hover:bg-flores-primary/90 transition-colors font-body">
-              Next →
-            </a>
-          {%- endif -%}
-        </nav>
-      {%- endif -%}
-
-    {%- else -%}
-      {%- comment -%} Empty State {%- endcomment -%}
-      <div class="text-center py-16">
-        <svg class="w-20 h-20 mx-auto mb-6 text-flores-primary/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-        </svg>
-        <h2 class="text-2xl font-bold text-flores-primary mb-3 font-heading">No articles yet</h2>
-        <a href="/blogs/news" class="inline-flex items-center bg-flores-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-flores-primary/90 transition-colors font-body">
-          Browse All Articles
-        </a>
+        </div>
       </div>
+    </section>
+
+    {%- comment -%} Large Featured Cards Section {%- endcomment -%}
+    <section class="py-16 bg-cyan-50">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {%- for i in (4..5) -%}
+            {%- assign large_article = articles_array[i] -%}
+            {%- if large_article -%}
+              <a href="{{ large_article.url }}" class="relative h-96 rounded-2xl overflow-hidden shadow-lg group">
+                {%- if large_article.image -%}
+                  <img src="{{ large_article.image | img_url: '1200x' }}" alt="{{ large_article.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy">
+                {%- else -%}
+                  <div class="w-full h-full bg-gradient-to-br from-teal-600 to-cyan-600"></div>
+                {%- endif -%}
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-8">
+                  <h3 class="text-3xl font-serif font-bold text-white">
+                    {{ large_article.title }}
+                  </h3>
+                </div>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+
+    {%- comment -%} Latest Articles Section {%- endcomment -%}
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between items-center mb-12">
+          <h2 class="text-4xl font-serif font-bold text-teal-800">Latest Articles</h2>
+          <a href="{{ current_blog.url }}" class="text-teal-700 hover:text-teal-800 font-medium">
+            See All
+          </a>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {%- for i in (6..9) -%}
+            {%- assign latest_article = articles_array[i] -%}
+            {%- if latest_article -%}
+              <a href="{{ latest_article.url }}" class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow group">
+                {%- if latest_article.image -%}
+                  <img src="{{ latest_article.image | img_url: '600x' }}" alt="{{ latest_article.title }}" class="w-full h-48 object-cover group-hover:scale-[1.02] transition-transform duration-300" loading="lazy">
+                {%- else -%}
+                  <div class="w-full h-48 bg-gradient-to-br from-teal-100 to-cyan-100"></div>
+                {%- endif -%}
+                <div class="p-6">
+                  {%- comment -%} Author Badge {%- endcomment -%}
+                  <div class="flex items-center gap-2">
+                    <div class="bg-teal-700 text-white rounded-full px-3 py-1 flex items-center gap-2">
+                      <div class="w-6 h-6 bg-teal-600 rounded-full flex items-center justify-center">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                        </svg>
+                      </div>
+                      <span class="text-xs font-medium">{{ latest_article.author | default: "Admin" }}</span>
+                    </div>
+                  </div>
+                  <h3 class="text-xl font-serif font-bold text-teal-800 mt-4 mb-2 group-hover:text-teal-700 transition-colors">
+                    {{ latest_article.title }}
+                  </h3>
+                </div>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+
+    {%- comment -%} Pagination {%- endcomment -%}
+    {%- if paginate.pages > 1 -%}
+      <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+          <nav class="flex justify-center items-center gap-2" aria-label="Pagination">
+            {%- if paginate.previous -%}
+              <a href="{{ paginate.previous.url }}" class="px-6 py-3 bg-white border-2 border-teal-700 text-teal-700 rounded-full font-semibold hover:bg-teal-700 hover:text-white transition-colors">
+                ← Previous
+              </a>
+            {%- endif -%}
+
+            <div class="flex gap-2">
+              {%- for part in paginate.parts -%}
+                {%- if part.is_link -%}
+                  <a href="{{ part.url }}" class="w-12 h-12 flex items-center justify-center bg-white border-2 border-gray-300 rounded-full hover:border-teal-700 transition-colors">
+                    {{ part.title }}
+                  </a>
+                {%- elsif part.title == paginate.current_page -%}
+                  <span class="w-12 h-12 flex items-center justify-center bg-teal-700 text-white border-2 border-teal-700 rounded-full font-bold">
+                    {{ part.title }}
+                  </span>
+                {%- else -%}
+                  <span class="w-12 h-12 flex items-center justify-center text-gray-400">{{ part.title }}</span>
+                {%- endif -%}
+              {%- endfor -%}
+            </div>
+
+            {%- if paginate.next -%}
+              <a href="{{ paginate.next.url }}" class="px-6 py-3 bg-teal-700 text-white rounded-full font-semibold hover:bg-teal-800 transition-colors">
+                Next →
+              </a>
+            {%- endif -%}
+          </nav>
+        </div>
+      </section>
     {%- endif -%}
-    </div>
-  </section>
+
+  {%- else -%}
+    {%- comment -%} Empty State {%- endcomment -%}
+    <section class="py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center py-16">
+          <svg class="w-20 h-20 mx-auto mb-6 text-teal-700/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+          </svg>
+          <h2 class="text-2xl font-bold text-teal-800 mb-3 font-serif">No articles yet</h2>
+          <a href="{{ current_blog.url }}" class="inline-flex items-center bg-teal-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-teal-800 transition-colors">
+            Browse All Articles
+          </a>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
 </div>
 {%- endpaginate -%}
 
@@ -188,46 +221,6 @@
       "id": "blog",
       "label": "Blog",
       "info": "Select which blog to display. Leave empty to use 'news' blog."
-    },
-    {
-      "type": "text",
-      "id": "title",
-      "label": "Section Title",
-      "default": "Coffee News",
-      "info": "Leave empty to use blog name"
-    },
-    {
-      "type": "header",
-      "content": "Hero Section"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_hero",
-      "label": "Show Hero Section",
-      "default": false,
-      "info": "Enable to show hero section on homepage. Automatically shown on blog pages."
-    },
-    {
-      "type": "image_picker",
-      "id": "hero_bg",
-      "label": "Hero Background Image"
-    },
-    {
-      "type": "image_picker",
-      "id": "hero_image",
-      "label": "Hero Image"
-    },
-    {
-      "type": "text",
-      "id": "hero_title",
-      "label": "Hero Title",
-      "default": "Coffee News & Updates"
-    },
-    {
-      "type": "textarea",
-      "id": "hero_description",
-      "label": "Hero Description",
-      "default": "Stay updated with the latest coffee news, brewing techniques, roasting guides, and industry insights from Flores Island Coffee."
     }
   ]
 }
