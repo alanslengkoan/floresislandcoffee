@@ -14,16 +14,42 @@
     </div>
 
     {%- if section.blocks.size > 0 -%}
-      <div class="space-y-6">
+      <div class="space-y-4">
         {%- for block in section.blocks -%}
           {%- if block.type == 'faq_item' -%}
-            <div class="bg-white rounded-2xl p-6 shadow-lg" {{ block.shopify_attributes }}>
-              <h3 class="text-lg font-semibold text-gray-900 mb-3 font-heading">
-                {{ block.settings.question }}
-              </h3>
-              <p class="text-gray-600 font-body leading-relaxed">
-                {{ block.settings.answer }}
-              </p>
+            <div 
+              class="bg-white rounded-2xl shadow-lg overflow-hidden" 
+              x-data="{ open: false }"
+              {{ block.shopify_attributes }}
+            >
+              <button 
+                @click="open = !open"
+                class="w-full text-left p-6 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                :aria-expanded="open"
+              >
+                <h3 class="text-lg font-semibold text-gray-900 font-heading pr-4">
+                  {{ block.settings.question }}
+                </h3>
+                <svg 
+                  class="w-6 h-6 text-flores-primary flex-shrink-0 transition-transform duration-200"
+                  :class="{ 'rotate-180': open }"
+                  fill="none" 
+                  viewBox="0 0 24 24" 
+                  stroke="currentColor"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              
+              <div 
+                x-show="open"
+                x-collapse
+                class="px-6 pb-6"
+              >
+                <p class="text-gray-600 font-body leading-relaxed">
+                  {{ block.settings.answer }}
+                </p>
+              </div>
             </div>
           {%- endif -%}
         {%- endfor -%}

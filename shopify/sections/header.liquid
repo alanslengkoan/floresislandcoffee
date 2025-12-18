@@ -10,6 +10,7 @@
     isScrolled: false
   }"
   x-init="window.addEventListener('scroll', () => { isScrolled = window.scrollY > 50; })"
+  x-effect="document.body.style.overflow = mobileMenuOpen ? 'hidden' : ''"
   x-bind:class="isScrolled ? 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-lg' : 'fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-gray-200'"
   class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white border-b border-gray-200"
 >
@@ -135,101 +136,85 @@
     </div>
   </nav>
 
-  {%- comment -%} Mobile Navigation Menu {%- endcomment -%}
-  <div 
-    x-show="mobileMenuOpen"
-    @click.self="mobileMenuOpen = false"
-    class="lg:hidden fixed inset-0 z-50"
-    style="display: none;"
-  >
-    {%- comment -%} Backdrop Overlay {%- endcomment -%}
-    <div 
-      x-show="mobileMenuOpen"
-      x-transition:enter="transition-opacity ease-out duration-300"
-      x-transition:enter-start="opacity-0"
-      x-transition:enter-end="opacity-100"
-      x-transition:leave="transition-opacity ease-in duration-200"
-      x-transition:leave-start="opacity-100"
-      x-transition:leave-end="opacity-0"
-      class="fixed inset-0 z-40 bg-black/25"
-    ></div>
-    
-    {%- comment -%} Menu Panel {%- endcomment -%}
-    <div 
-      x-show="mobileMenuOpen"
-      x-transition:enter="transition ease-out duration-300 transform"
-      x-transition:enter-start="translate-x-full"
-      x-transition:enter-end="translate-x-0"
-      x-transition:leave="transition ease-in duration-200 transform"
-      x-transition:leave-start="translate-x-0"
-      x-transition:leave-end="translate-x-full"
-      class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-4 py-4 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10"
-    >
-      <div class="flex items-center justify-between">
-        <a href="/" class="-m-1.5 p-1.5" @click="mobileMenuOpen = false">
-          <span class="sr-only">{{ shop.name }}</span>
-          {%- if section.settings.logo != blank -%}
-            <img src="{{ section.settings.logo | img_url: 'small' }}" alt="{{ shop.name }}" class="h-12 w-auto" style="height: 52px;">
-          {%- else -%}
-            <span class="text-xl font-bold text-flores-primary font-heading">{{ shop.name }}</span>
-          {%- endif -%}
-        </a>
-        <button
-          type="button"
-          @click="mobileMenuOpen = false"
-          class="-m-2.5 rounded-md p-2.5 text-flores-primary"
-          aria-label="Close menu"
-        >
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
-      <div class="mt-6 flow-root">
-        <div class="-my-6 divide-y divide-gray-500/10">
-          <div class="space-y-2 py-4">
+  {%- comment -%} Mobile Menu Overlay & Panel {%- endcomment -%}
+  <template x-if="mobileMenuOpen">
+    <div class="lg:hidden">
+      {%- comment -%} Dark Backdrop {%- endcomment -%}
+      <div 
+        @click="mobileMenuOpen = false"
+        style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 9998; background-color: rgba(0, 0, 0, 0.5);"
+      ></div>
+      
+      {%- comment -%} White Menu Panel {%- endcomment -%}
+      <div style="position: fixed; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100vh; z-index: 9999; background: #ffffff; display: flex; flex-direction: column; overflow: hidden;">
+        
+        {%- comment -%} Menu Header {%- endcomment -%}
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem; border-bottom: 1px solid #e5e7eb; background-color: #ffffff; flex-shrink: 0;">
+          <a href="/" @click="mobileMenuOpen = false" style="text-decoration: none;">
+            {%- if section.settings.logo != blank -%}
+              <img src="{{ section.settings.logo | img_url: 'small' }}" alt="{{ shop.name }}" style="height: 52px; width: auto;">
+            {%- else -%}
+              <span style="font-size: 1.25rem; font-weight: bold; color: #005E75;">{{ shop.name }}</span>
+            {%- endif -%}
+          </a>
+          <button
+            type="button"
+            @click="mobileMenuOpen = false"
+            style="padding: 0.625rem; color: #005E75; background: none; border: none; cursor: pointer;"
+            aria-label="Close menu"
+          >
+            <svg style="width: 24px; height: 24px;" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+
+        {%- comment -%} Menu Links {%- endcomment -%}
+        <div style="flex: 1 1 auto; overflow-y: auto; overflow-x: hidden; padding: 1.5rem 1rem; background-color: #ffffff; min-height: 0;">
+          <nav>
             <a 
               href="/pages/about" 
               @click="mobileMenuOpen = false"
-              class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20 transform transition-all duration-500 ease-out"
-              x-bind:class="mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'"
-              x-bind:style="mobileMenuOpen ? 'transition-delay: 200ms' : 'transition-delay: 0ms'"
+              style="display: block; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 0.5rem; font-size: 1rem; font-weight: 600; color: #005E75; text-decoration: none; transition: background-color 0.2s;"
+              onmouseover="this.style.backgroundColor='rgba(0, 94, 117, 0.1)'"
+              onmouseout="this.style.backgroundColor='transparent'"
             >
               About Us
             </a>
             <a 
               href="/collections/all" 
               @click="mobileMenuOpen = false"
-              class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20 transform transition-all duration-500 ease-out"
-              x-bind:class="mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'"
-              x-bind:style="mobileMenuOpen ? 'transition-delay: 300ms' : 'transition-delay: 0ms'"
+              style="display: block; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 0.5rem; font-size: 1rem; font-weight: 600; color: #005E75; text-decoration: none; transition: background-color 0.2s;"
+              onmouseover="this.style.backgroundColor='rgba(0, 94, 117, 0.1)'"
+              onmouseout="this.style.backgroundColor='transparent'"
             >
               Shop
             </a>
             <a 
               href="/blogs/news" 
               @click="mobileMenuOpen = false"
-              class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20 transform transition-all duration-500 ease-out"
-              x-bind:class="mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'"
-              x-bind:style="mobileMenuOpen ? 'transition-delay: 400ms' : 'transition-delay: 0ms'"
+              style="display: block; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 0.5rem; font-size: 1rem; font-weight: 600; color: #005E75; text-decoration: none; transition: background-color 0.2s;"
+              onmouseover="this.style.backgroundColor='rgba(0, 94, 117, 0.1)'"
+              onmouseout="this.style.backgroundColor='transparent'"
             >
               News
             </a>
             <a 
               href="/pages/contact" 
               @click="mobileMenuOpen = false"
-              class="block rounded-lg py-2 px-3 text-base font-semibold leading-7 font-body text-flores-primary hover:bg-flores-light/20 transform transition-all duration-500 ease-out"
-              x-bind:class="mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'"
-              x-bind:style="mobileMenuOpen ? 'transition-delay: 500ms' : 'transition-delay: 0ms'"
+              style="display: block; padding: 0.75rem 1rem; margin-bottom: 0.5rem; border-radius: 0.5rem; font-size: 1rem; font-weight: 600; color: #005E75; text-decoration: none; transition: background-color 0.2s;"
+              onmouseover="this.style.backgroundColor='rgba(0, 94, 117, 0.1)'"
+              onmouseout="this.style.backgroundColor='transparent'"
             >
               Contact
             </a>
-          </div>
+          </nav>
         </div>
+
       </div>
     </div>
-    </div>
-  </div>
+  </template>
+
 </header>
 
 {% schema %}

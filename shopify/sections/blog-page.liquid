@@ -40,7 +40,7 @@
                   </div>
                 </div>
                 
-                <h2 class="text-4xl font-serif font-bold text-teal-800 mt-6 mb-4 group-hover:text-teal-700 transition-colors">
+                <h2 class="text-4xl font-bold text-teal-800 mt-6 mb-4 group-hover:text-teal-700 transition-colors">
                   {{ featured_main.title }}
                 </h2>
                 <p class="text-sm text-gray-500 mb-6">{{ featured_main.published_at | date: '%B %d, %Y' }}</p>
@@ -64,7 +64,7 @@
                 <a href="{{ side_article.url }}" class="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-lg transition-shadow block group">
                   <div class="grid grid-cols-3 gap-4 p-5">
                     <div class="col-span-2">
-                      <h3 class="text-xl font-serif font-bold text-teal-800 mb-2 group-hover:text-teal-700 transition-colors">
+                      <h3 class="text-xl font-bold text-teal-800 mb-2 group-hover:text-teal-700 transition-colors">
                         {{ side_article.title }}
                       </h3>
                       <p class="text-sm text-gray-600 mb-3 line-clamp-2">
@@ -103,7 +103,7 @@
                 {%- endif -%}
                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
                 <div class="absolute bottom-0 left-0 right-0 p-8">
-                  <h3 class="text-3xl font-serif font-bold text-white">
+                  <h3 class="text-3xl font-bold text-white">
                     {{ large_article.title }}
                   </h3>
                 </div>
@@ -118,7 +118,7 @@
     <section class="py-20 bg-white">
       <div class="max-w-7xl mx-auto px-6">
         <div class="flex justify-between items-center mb-12">
-          <h2 class="text-4xl font-serif font-bold text-teal-800">Latest Articles</h2>
+          <h2 class="text-4xl font-bold text-teal-800">Latest Articles</h2>
           <a href="{{ current_blog.url }}" class="text-teal-700 hover:text-teal-800 font-medium">
             See All
           </a>
@@ -145,7 +145,7 @@
                       <span class="text-xs font-medium">{{ latest_article.author | default: "Admin" }}</span>
                     </div>
                   </div>
-                  <h3 class="text-xl font-serif font-bold text-teal-800 mt-4 mb-2 group-hover:text-teal-700 transition-colors">
+                  <h3 class="text-xl font-bold text-teal-800 mt-4 mb-2 group-hover:text-teal-700 transition-colors">
                     {{ latest_article.title }}
                   </h3>
                 </div>
