@@ -5,7 +5,7 @@
 **Periode Pengembangan:** November - Desember 2025  
 **Status:** DELIVERED & DEPLOYED  
 **Tanggal Laporan:** 25 Februari 2026  
-**Developer:** Cascade AI
+**Developer:** alanlengkoan
 
 ---
 
@@ -1330,6 +1330,180 @@ cd shopify
 npm run watch:css
 shopify theme dev
 ```
+
+### Command Reference Guide
+
+#### **Authentication Commands**
+
+**1. Logout dari Shopify CLI:**
+```bash
+shopify auth logout
+```
+- Mengeluarkan user dari autentikasi Shopify CLI
+- Menghapus stored credentials dari local machine
+- Digunakan ketika ingin switch account atau clear session
+- Aman untuk digunakan sebelum login dengan account berbeda
+
+**2. Login ke Shopify CLI:**
+```bash
+shopify auth login
+```
+- Membuka browser untuk autentikasi ke Shopify account
+- Menyimpan credentials untuk operasi CLI selanjutnya
+- Required sebelum melakukan operasi theme (push, dev, list)
+- Session akan bertahan hingga logout atau expired
+
+#### **Theme Management Commands**
+
+**3. List semua themes di store:**
+```bash
+shopify theme list --store=https://flores.coffee
+```
+- Menampilkan daftar semua themes di store flores.coffee
+- Menunjukkan Theme ID, Name, Role (live/unpublished)
+- Output format: `[#ID] [Name] [Role]`
+- Berguna untuk mendapatkan Theme ID sebelum deployment
+
+**4. List theme yang sedang live:**
+```bash
+shopify theme list --live
+```
+- Menampilkan hanya theme yang currently active/live
+- Lebih cepat daripada list all themes
+- Berguna untuk konfirmasi theme mana yang sedang production
+- Output: Theme ID dan nama theme yang aktif
+
+#### **Deployment Commands**
+
+**5. Push ke specific theme by ID:**
+```bash
+shopify theme push --theme=183267721494
+```
+- Deploy ke theme dengan ID: 183267721494
+- Tidak mengubah live theme (deploy ke unpublished theme)
+- Aman untuk testing tanpa affect production
+- Theme ID bisa didapat dari `shopify theme list`
+
+**6. Development mode dengan live preview:**
+```bash
+shopify theme dev --store https://flores.coffee
+```
+- Menjalankan local development server
+- Hot reload - changes langsung terlihat di browser
+- Membuka preview URL (e.g., https://flores.coffee?preview_theme_id=xxx)
+- Tidak mengubah live theme, hanya preview
+- Press `Ctrl+C` untuk stop server
+
+**7. Push sebagai unpublished theme:**
+```bash
+shopify theme push --store=https://flores.coffee --unpublished
+```
+- Deploy theme ke store tapi TIDAK langsung live
+- Creates new unpublished theme atau update existing unpublished
+- Safe deployment - tidak affect production site
+- Bisa di-test dulu sebelum publish via Shopify Admin
+- Recommended untuk staging/testing
+
+**8. Push langsung ke live theme:**
+```bash
+shopify theme push --store=https://flores.coffee --live
+```
+- ⚠️ DANGER: Deploy langsung ke production theme
+- Mengganti live theme dengan kode local
+- Changes langsung visible ke public
+- Tidak ada rollback otomatis
+- **Recommended:** Backup theme dulu atau test dengan --unpublished
+
+#### **Build Commands**
+
+**9. Build CSS saja:**
+```bash
+npm run build:css
+```
+- Compile TailwindCSS dari source ke production CSS
+- Output: `assets/application.css` (minified 34.4KB)
+- Menjalankan: `tailwindcss -i ./assets/application.css -o ./assets/application.css --minify`
+- Run sebelum deployment jika ada perubahan styling
+- Faster daripada full build jika hanya ubah CSS
+
+**10. Full build (CSS + JS):**
+```bash
+npm run build
+```
+- Build semua assets (CSS + JavaScript)
+- Compile TailwindCSS
+- Bundle JavaScript files
+- Minify & optimize semua assets
+- **Always run sebelum deployment ke production**
+- Ensures semua changes ter-compile dengan benar
+
+#### **Recommended Workflow**
+
+**Development Workflow:**
+```bash
+# 1. Login dulu
+shopify auth login
+
+# 2. Jalankan dev mode
+shopify theme dev --store https://flores.coffee
+
+# 3. Edit files, auto-reload di browser
+# 4. Test perubahan di preview URL
+```
+
+**Deployment Workflow (Safe):**
+```bash
+# 1. Build assets
+npm run build
+
+# 2. Deploy ke unpublished theme dulu (testing)
+shopify theme push --store=https://flores.coffee --unpublished
+
+# 3. Test di unpublished theme URL
+# 4. Jika OK, publish via Shopify Admin
+# ATAU deploy langsung ke live (skip step 2-3):
+shopify theme push --store=https://flores.coffee --live
+```
+
+**Quick Deploy (Production):**
+```bash
+# All-in-one deploy
+npm run deploy
+```
+- Menjalankan `npm run build` + `shopify theme push`
+- Script otomatis build + deploy
+- Defined di `package.json`
+
+#### **Tips & Best Practices**
+
+✅ **Always build before deploy:**
+```bash
+npm run build && shopify theme push --store=https://flores.coffee --unpublished
+```
+
+✅ **Test dengan unpublished theme dulu:**
+- Deploy dengan `--unpublished`
+- Test di preview URL
+- Jika OK, baru publish
+
+✅ **Use theme ID untuk specific deployment:**
+```bash
+shopify theme list --store=https://flores.coffee
+shopify theme push --theme=<THEME_ID>
+```
+
+⚠️ **Hati-hati dengan --live flag:**
+- Langsung affect production
+- No rollback otomatis
+- Better use `--unpublished` untuk testing
+
+✅ **Development mode untuk quick testing:**
+```bash
+shopify theme dev --store https://flores.coffee
+```
+- Fast iteration
+- No deployment needed
+- Changes langsung visible
 
 ### Support Resources
 

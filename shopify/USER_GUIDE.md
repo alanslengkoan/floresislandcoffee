@@ -74,38 +74,8 @@ Setelah login, Anda akan melihat **Shopify Admin Dashboard** dengan menu utama:
 
 1. Klik **Online Store** di sidebar kiri
 2. Klik **Themes**
-3. Anda akan melihat theme aktif: **Horizon**
+3. Anda akan melihat theme aktif: **CoffeeFlores**
 4. Klik tombol **Customize** untuk membuka Theme Editor
-
-### 2.3 Theme Editor Interface
-
-**Area Kerja Theme Editor:**
-
-```
-┌─────────────────────────────────────────────────┐
-│  [← Back]  [Theme: Horizon ▼]     [Save] [...]  │
-├──────────────┬──────────────────────────────────┤
-│              │                                   │
-│  Sections    │      Website Preview              │
-│  (Left)      │      (Center/Right)               │
-│              │                                   │
-│  • Header    │   [Live preview of website]       │
-│  • Hero      │                                   │
-│  • Values    │   [Interactive preview]           │
-│  • Origin    │                                   │
-│  • Map       │   [Click to select sections]      │
-│  • ...       │                                   │
-│              │                                   │
-│  [+ Add      │                                   │
-│   section]   │                                   │
-│              │                                   │
-└──────────────┴───────────────────────────────────┘
-```
-
-**Key Areas:**
-- **Left Panel:** List of sections & settings
-- **Center/Right:** Live preview
-- **Top Bar:** Save, preview, theme selector
 
 ---
 
@@ -494,26 +464,26 @@ Useful untuk create similar products:
 
 **Step-by-step:**
 
-1. Dari Shopify Admin, klik **Online Store** → **Blog posts**
+1. Dari Shopify Admin, klik **Content** → **Blog posts**
 2. Klik **Add blog post**
-3. Isi form:
+3. Isi form dengan struktur sebagai berikut:
 
-#### **Title**
-```
-Example: "The Journey of Flores Coffee: From Farm to Cup"
-```
+#### **Main Content Area (Kiri)**
 
-#### **Content**
+**Title:**
+- Masukkan judul blog post
+- Contoh: `The Journey of Flores Coffee: From Farm to Cup`
 
-Gunakan rich text editor untuk:
-- Bold, italic, underline
-- Headings (H2, H3, H4)
-- Lists (bullet, numbered)
-- Links
-- Images
-- Videos (embed YouTube)
-
-**Example structure:**
+**Content:**
+- Gunakan rich text editor dengan toolbar options:
+  - Bold, Italic, Underline
+  - Paragraph styles
+  - Alignment
+  - Lists (bullet & numbered)
+  - Links, emoji, special characters
+  - Code view
+  
+**Example content structure:**
 ```markdown
 ## Introduction
 Brief intro about the topic...
@@ -529,47 +499,46 @@ More content...
 Wrap up thoughts...
 ```
 
-#### **Excerpt**
+**Excerpt:**
+- Tambahkan summary singkat untuk muncul di home page atau blog listing
+- Contoh: `Discover how our coffee travels from the volcanic slopes of Flores to your morning cup.`
 
-Short summary (150-200 characters):
-```
-Example: "Discover how our coffee travels from the volcanic 
-slopes of Flores to your morning cup."
-```
+**Search engine listing:**
+- Section ini untuk optimize SEO
+- Klik edit untuk customize page title dan meta description
 
-#### **Featured Image**
+#### **Sidebar Settings (Kanan)**
 
-1. Klik **Upload file**
-2. Select featured image (1200x630px recommended)
-3. Add alt text untuk SEO
+**Visibility:**
+- Pilih status:
+  - ⚪ **Visible** - Published dan dapat dilihat publik
+  - ⚫ **Hidden** - Draft, tidak visible di website
 
-#### **Organization**
+**Image:**
+- Klik **Add image** atau drag & drop image
+- Recommended: 1200x630px
+- Image ini menjadi featured image untuk blog post
 
-**Author:**
-- Select author dari dropdown
+**Organization:**
 
-**Blog:**
-- Select blog (default: "News")
+1. **Author:**
+   - Select author dari dropdown
+   - Default: Admin account yang sedang login
 
-**Tags:**
-```
-Example: coffee-origin, sustainability, farming, flores
-```
+2. **Blog:**
+   - Select blog category
+   - Default: **News**
+   - Bisa create blog baru jika diperlukan
 
-#### **SEO Settings**
+3. **Tags:**
+   - Tambahkan tags untuk categorization
+   - Separate dengan comma
+   - Contoh: `coffee-origin, sustainability, farming, flores`
 
-1. Expand **Search engine listing preview**
-2. Klik **Edit website SEO**
-3. **Page title:**
-   ```
-   The Journey of Flores Coffee | Flores Island Coffee Blog
-   ```
-4. **Meta description:**
-   ```
-   Discover how our premium coffee travels from the volcanic 
-   slopes of Flores Island to your morning cup. Learn about 
-   our sustainable farming practices.
-   ```
+**Theme template:**
+- Select template layout
+- Default: **Default blog post**
+- Bisa pilih custom template jika tersedia
 
 ### 6.2 Cara Save & Publish Blog Post
 
@@ -956,8 +925,8 @@ Use consistent tagging:
 - Community: https://community.shopify.com
 
 **Theme Support:**
-- Developer: Cascade AI
-- Email: [developer-email]
+- Developer: alanlengkoan
+- Email: alanlengkoan15@gmail.com
 - Documentation: This guide
 
 **Resources:**
@@ -989,18 +958,6 @@ Use consistent tagging:
 | Undo | Ctrl+Z | Cmd+Z |
 | Redo | Ctrl+Y | Cmd+Shift+Z |
 | Search | Ctrl+F | Cmd+F |
-
-### Support Contacts
-
-**Technical Support:**
-- Shopify Support: 24/7 via chat/email
-- Theme Developer: [contact-info]
-
-**Store Owner:**
-- Email: [owner-email]
-- Phone: [phone-number]
-
----
 
 ---
 
